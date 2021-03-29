@@ -38,7 +38,7 @@ public class Join extends JFrame {
 	 * Create the frame.
 	 */
 	public Join() {
-		setTitle("회원가입 화면");
+		setTitle("회원가입 화면 텟");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
