@@ -74,10 +74,23 @@ public class Main extends JFrame {
 			}
 		});
 		
+		JoinButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Join();
+			}
+		});
+		
 		
 	}
 	public void Batting() {
 		setVisible(false);
 		new Batting(); 
+}
+	public void Join() {
+		setVisible(false);
+		new Join(); 
 }
 }

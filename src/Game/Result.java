@@ -12,6 +12,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JProgressBar;
 import javax.swing.JButton;
 
@@ -65,6 +68,32 @@ public class Result extends JFrame {
 		BackMain_Button.setBounds(335, 300, 150, 35);
 		contentPane.add(BackMain_Button);
 		
+		Replay_Button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Batting();
+				
+			}
+		});
 		
+		BackMain_Button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main();
+			}
+		});
 	}
+	
+	public void Batting() {
+		setVisible(false);
+		new Batting(); 
+	}
+	public void Main() {
+		setVisible(false);
+		new Main(); 
+	}
+	
+	
 }
