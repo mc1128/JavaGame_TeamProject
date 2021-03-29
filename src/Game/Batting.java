@@ -85,5 +85,5 @@ public class Batting extends JFrame{
 		gold=1500;
 		setVisible(false);
 		new Game_Screen();
-	}
+	}//
 }
