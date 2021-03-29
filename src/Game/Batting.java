@@ -86,4 +86,7 @@ public class Batting extends JFrame{
 		setVisible(false);
 		new Game_Screen();
 	}
+	public static void main(String[] args) {
+		new Batting();
+	}
 }
