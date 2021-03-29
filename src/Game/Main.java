@@ -24,16 +24,7 @@ public class Main extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Main frame = new Main();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		new Main();
 	}
 
 	/**
@@ -71,6 +62,8 @@ public class Main extends JFrame {
 		JButton JoinButton = new JButton("회원가입");
 		JoinButton.setBounds(257, 314, 89, 31);
 		contentPane.add(JoinButton);
+		
+		setVisible(true);
 		
 		LoginButton.addActionListener(new ActionListener() {
 			
