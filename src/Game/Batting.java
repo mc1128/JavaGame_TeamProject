@@ -6,7 +6,7 @@ import java.awt.Font;
 
 public class Batting extends JFrame{
 	int gold = 0;
-	
+	//
 	public Batting() {
 		getContentPane().setLayout(null);
 		
