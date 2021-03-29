@@ -1,3 +1,4 @@
+
 package Game;
 
 import javax.swing.*;
@@ -6,7 +7,7 @@ import java.awt.Font;
 
 public class Batting extends JFrame{
 	int gold = 0;
-	//
+	
 	public Batting() {
 		getContentPane().setLayout(null);
 		
@@ -85,10 +86,8 @@ public class Batting extends JFrame{
 		gold=1500;
 		setVisible(false);
 		new Game_Screen();
-
 	}
 	public static void main(String[] args) {
 		new Batting();
-//
 	}
 }

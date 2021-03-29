@@ -24,16 +24,7 @@ public class Main extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Main frame = new Main();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		new Main();
 	}
 
 	/**
@@ -72,14 +63,34 @@ public class Main extends JFrame {
 		JoinButton.setBounds(257, 314, 89, 31);
 		contentPane.add(JoinButton);
 		
+		setVisible(true);
+		
 		LoginButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoginButton.setEnabled(false);
-				
-				
+				//LoginButton.setEnabled(false);
+				Batting();
 			}
 		});
+		
+		JoinButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Join();
+			}
+		});
+		
+		
 	}
+	public void Batting() {
+		setVisible(false);
+		new Batting(); 
+}
+	public void Join() {
+		setVisible(false);
+		new Join(); 
+}
 }
