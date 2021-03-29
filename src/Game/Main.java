@@ -2,6 +2,8 @@ package Game;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,7 +40,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		setTitle("메인화면");
+		setTitle("메인화면 테스트용 수정");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -69,5 +71,15 @@ public class Main extends JFrame {
 		JButton JoinButton = new JButton("회원가입");
 		JoinButton.setBounds(257, 314, 89, 31);
 		contentPane.add(JoinButton);
+		
+		LoginButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LoginButton.setEnabled(false);
+				
+				
+			}
+		});
 	}
 }
