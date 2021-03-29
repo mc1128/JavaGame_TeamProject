@@ -76,10 +76,15 @@ public class Main extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoginButton.setEnabled(false);
-				
-				
+				//LoginButton.setEnabled(false);
+				Batting();
 			}
 		});
+		
+		
 	}
+	public void Batting() {
+		setVisible(false);
+		new Batting(); 
+}
 }

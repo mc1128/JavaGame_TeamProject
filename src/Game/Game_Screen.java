@@ -210,7 +210,8 @@ public class Game_Screen extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				setVisible(false);
+				Result();
 			}
 		});
 		
@@ -222,5 +223,9 @@ public class Game_Screen extends JFrame {
 	public static void main(String[] args) {
 		new Game_Screen();
 
+	}
+	
+	public void Result() {
+		new Result();
 	}
 }

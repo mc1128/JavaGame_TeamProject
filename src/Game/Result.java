@@ -1,7 +1,10 @@
 package Game;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
+
+import javax.swing.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,7 +17,7 @@ import javax.swing.JButton;
 
 public class Result extends JFrame {
 
-	private JPanel contentPane;
+	public JPanel contentPane;
 
 	/**
 	 * Launch the application.
