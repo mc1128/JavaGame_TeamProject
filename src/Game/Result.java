@@ -23,10 +23,7 @@ public class Result extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-
-					Result frame = new Result();
-					frame.setVisible(true);
-
+			new Result();
 	}
 
 	/**
@@ -36,6 +33,7 @@ public class Result extends JFrame {
 		
 		setTitle("결과창");
 		
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
