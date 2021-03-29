@@ -210,6 +210,7 @@ public class Game_Screen extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Result();
 			}
 		});
 		
