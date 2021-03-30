@@ -20,8 +20,8 @@ import javax.swing.JButton;
 
 public class Result extends JFrame {
 
-	public JPanel contentPane;
-
+	private JPanel contentPane;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -34,7 +34,7 @@ public class Result extends JFrame {
 	 */
 	public Result() {
 		
-		setTitle("결과창");
+		setTitle("결과창 수정");
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -12,7 +12,9 @@ import javax.swing.*;
 
 public class Game_Screen extends JFrame {
 	
-	public Game_Screen() {
+	public Game_Screen() { 
+		
+		setTitle("게임 화면");
 		
 		getContentPane().setLayout(null);
 		
