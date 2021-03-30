@@ -9,9 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -25,7 +22,16 @@ public class Join extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		new Join();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Join frame = new Join();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
@@ -34,7 +40,6 @@ public class Join extends JFrame {
 	public Join() {
 		setTitle("회원가입 화면 텟");
 		
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
 		contentPane = new JPanel();
@@ -71,18 +76,5 @@ public class Join extends JFrame {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(135, 200, 115, 15);
 		contentPane.add(lblNewLabel_2);
-		
-		btnNewButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Main();
-			}
-		});
 	}
-	public void Main() {
-		setVisible(false);
-		new Main();
-	}
-	
 }

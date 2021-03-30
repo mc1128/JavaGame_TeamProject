@@ -1,4 +1,3 @@
-
 package Game;
 
 import javax.swing.*;
@@ -75,19 +74,16 @@ public class Batting extends JFrame{
 	public void batting_one() {
 		gold=350;
 		setVisible(false);
-		new Game_Screen(); //게임화면으로 넘어감
+//		new Start(); //게임화면으로 넘어감
 	}
 	public void batting_two() {
 		gold=700;
 		setVisible(false);
-		new Game_Screen();
+//		new Start();
 	}
 	public void batting_three() {
 		gold=1500;
 		setVisible(false);
-		new Game_Screen();
-	}
-	public static void main(String[] args) {
-		new Batting();
+//		new Start();
 	}
 }

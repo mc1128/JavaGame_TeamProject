@@ -212,7 +212,8 @@ public class Game_Screen extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Result();
+				new Result();
+				dispose();
 			}
 		});
 		
@@ -223,11 +224,6 @@ public class Game_Screen extends JFrame {
 
 	public static void main(String[] args) {
 		new Game_Screen();
-		
-	}
-	
-	public void Result() {
-		setVisible(false);
-		new Result();
+
 	}
 }
