@@ -1,6 +1,10 @@
 package Game;
 
 import java.awt.BorderLayout;
+
+import java.util.*;
+import java.util.Timer;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -209,12 +213,17 @@ public class Game_Screen2 extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Dice();
-				try {
-					TimeUnit.SECONDS.sleep(1);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				Timer timer_delay = new Timer();
+				TimerTask task_delay = new TimerTask() {
+
+					@Override
+						public void run() {
+							Dice();
+							System.out.println(2);
+							timer_delay.cancel();
+								}
+							};
+							timer_delay.schedule(task_delay, 2500);
 				computerDice();
 			}
 		});
