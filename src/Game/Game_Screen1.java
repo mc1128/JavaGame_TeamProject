@@ -205,28 +205,20 @@ public class Game_Screen1 extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				roll();	// 주사위 굴려서 값 저장
-				
+
+				roll(); // 주사위 굴려서 값 저장
+
 				// 유저,컴퓨터의 HP=0 또는 유저,컴퓨터의 주사위값=0 이면 게임 종료
 				continueGame();
-														
-				
-				if (0 < userDiceData && userDiceData <= 4) {
-					userRoll4();
-				} else if (4 < userDiceData && userDiceData <= 15) {
-					userRoll();
-				}
-							
 				
 				// roll()의 저장된 값 출력
-				// 1. 유저 주사위 결과 값 출력			
+				// 1. 유저 주사위 결과 값 출력
 				userResult1.setText(userDiceName[0]);
 				userResult2.setText(userDiceName[1]);
 				userResult3.setText(userDiceName[2]);
 				userResult4.setText(userDiceName[3]);
 				userResult5.setText(userDiceName[4]);
-				
+
 				// 2. 유저 주사위 값, status(HP, 방어) 출력
 				userDice.setText(String.valueOf(userDiceData));
 				userHP.setText(String.valueOf(userHPData));
@@ -243,11 +235,69 @@ public class Game_Screen1 extends JFrame {
 				comDice.setText(String.valueOf(comDiceData));
 				comHP.setText(String.valueOf(comHPData));
 				comDefense.setText(String.valueOf(comDefenseData));	
-			
 				
-//				time();
-			
+					
 				
+
+//				Timer timer_delay = new Timer();
+//				TimerTask task_delay = new TimerTask() {
+//
+//					
+//					
+//					
+//					@Override
+//					public void run() {
+//						
+//						
+//						userRoll();
+//
+//						// roll()의 저장된 값 출력
+//						// 1. 유저 주사위 결과 값 출력
+//						userResult1.setText(userDiceName[0]);
+//						userResult2.setText(userDiceName[1]);
+//						userResult3.setText(userDiceName[2]);
+//						userResult4.setText(userDiceName[3]);
+//						userResult5.setText(userDiceName[4]);
+//
+//						// 2. 유저 주사위 값, status(HP, 방어) 출력
+//						userDice.setText(String.valueOf(userDiceData));
+//						userHP.setText(String.valueOf(userHPData));
+//						userDefense.setText(String.valueOf(userDefenseData));
+//
+//						// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
+//						comDice.setText(String.valueOf(comDiceData));
+//						comHP.setText(String.valueOf(comHPData));
+//						comDefense.setText(String.valueOf(comDefenseData));
+//
+//						System.out.println(2);
+//						timer_delay.cancel();
+//					}
+//				};
+//				timer_delay.schedule(task_delay, 2500);
+//				comRoll();
+//							
+//				
+//				// roll()의 저장된 값 출력
+//							
+//				// 2. 유저 주사위 값, status(HP, 방어) 출력
+//				userDice.setText(String.valueOf(userDiceData));
+//				userHP.setText(String.valueOf(userHPData));
+//				userDefense.setText(String.valueOf(userDefenseData));
+//				
+//				// 3. 컴퓨터 주사위 결과 값 출력
+//				comResult1.setText(comDiceName[0]);
+//				comResult2.setText(comDiceName[1]);
+//				comResult3.setText(comDiceName[2]);
+//				comResult4.setText(comDiceName[3]);
+//				comResult5.setText(comDiceName[4]);
+//				
+//				// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
+//				comDice.setText(String.valueOf(comDiceData));
+//				comHP.setText(String.valueOf(comHPData));
+//				comDefense.setText(String.valueOf(comDefenseData));	
+//			
+//			
+//				
 				
 			}
 		});
@@ -314,6 +364,12 @@ public class Game_Screen1 extends JFrame {
 		}
 	}
 	
+	void clearResult() {
+		for(int i=0; i<comDiceName.length; i++) {
+			comDiceName[i] = "";
+			userDiceName[i] = "";
+		}
+	}
 	
 	void roll() {
 
@@ -363,17 +419,15 @@ public class Game_Screen1 extends JFrame {
 		diceValue = new int[5];
 
 		for (int i = 0; i < diceValue.length; i++) {
-			diceValue[i] = (int) (Math.random() * 4 + 1);
+			diceValue[i] = (int) (Math.random() * 4);
 
 			// 랜덤값 오름차순 정렬
 			Arrays.sort(diceValue);
 
 			switch (diceValue[i]) {
 			case 0: // 주사위
-				userDiceName[i] = "주사위 추가";
-				if (userDiceData < 15) {
+				userDiceName[i] = "주사위 추가";				
 					userDiceData++;
-				}
 				break;
 			case 1: // 디펜스
 				userDiceName[i] = "디펜스";
@@ -409,7 +463,7 @@ public class Game_Screen1 extends JFrame {
 		diceValue = new int[userDiceData];
 
 		for (int i = 0; i < diceValue.length; i++) {
-			diceValue[i] = (int) (Math.random() * userDiceData + 1);
+			diceValue[i] = (int) (Math.random() * 4);
 
 			// 랜덤값 오름차순 정렬
 			Arrays.sort(diceValue);
@@ -417,9 +471,7 @@ public class Game_Screen1 extends JFrame {
 			switch (diceValue[i]) {
 			case 0: // 주사위
 				userDiceName[i] = "주사위 추가";
-				if (userDiceData < 15) {
 					userDiceData++;
-				}
 				break;
 			case 1: // 디펜스
 				userDiceName[i] = "디펜스";
@@ -461,7 +513,7 @@ public class Game_Screen1 extends JFrame {
 		diceValue = new int[5];
 
 		for (int i = 0; i < diceValue.length; i++) {
-			diceValue[i] = (int) (Math.random() * 4 + 1);
+			diceValue[i] = (int) (Math.random() * 4);
 
 			// 랜덤값 오름차순 정렬
 			Arrays.sort(diceValue);
@@ -469,9 +521,7 @@ public class Game_Screen1 extends JFrame {
 			switch (diceValue[i]) {
 			case 0: // 주사위
 				comDiceName[i] = "주사위 추가";
-				if (comDiceData < 15) {
 					comDiceData++;
-				}
 				break;
 			case 1: // 디펜스
 				comDiceName[i] = "디펜스";
@@ -508,7 +558,7 @@ public class Game_Screen1 extends JFrame {
 		diceValue = new int[comDiceData];
 
 		for (int i = 0; i < diceValue.length; i++) {
-			diceValue[i] = (int) (Math.random() * comDiceData + 1);
+			diceValue[i] = (int) (Math.random() * 4);
 
 			// 랜덤값 오름차순 정렬
 			Arrays.sort(diceValue);
@@ -516,9 +566,7 @@ public class Game_Screen1 extends JFrame {
 			switch (diceValue[i]) {
 			case 0: // 주사위
 				comDiceName[i] = "주사위 추가";
-				if (comDiceData < 15) {
 					comDiceData++;
-				}
 				break;
 			case 1: // 디펜스
 				comDiceName[i] = "디펜스";
