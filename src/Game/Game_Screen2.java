@@ -372,4 +372,3 @@ public class Game_Screen2 extends JFrame {
 		//new Result();
 	}
 }
->>>>>>> branch 'master' of https://github.com/mc1128/JavaGame_TeamProject.git
