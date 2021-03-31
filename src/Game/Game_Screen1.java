@@ -582,7 +582,7 @@ public class Game_Screen1 extends JFrame {
 			System.out.println("실행확인2");
 			// 랜덤값 오름차순 정렬
 			// Arrays.sort(diceValue);
-
+			
 			switch (diceValue[i]) {
 			case 0: // 주사위
 				comDiceName[i] = "주사위 추가";
