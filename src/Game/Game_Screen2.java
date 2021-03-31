@@ -1,7 +1,9 @@
 package Game;
 
-import java.awt.BorderLayout;
+import java.util.*;
+import java.util.Timer;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -11,11 +13,6 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
-
-import java.util.*;
-import java.util.Timer;
-
-
 
 public class Game_Screen2 extends JFrame {
 	
@@ -27,7 +24,6 @@ public class Game_Screen2 extends JFrame {
 
 	JTextArea userT = new JTextArea();
 	JTextArea computerT = new JTextArea();
-	
 	
 	public Game_Screen2() {
 		
@@ -218,27 +214,19 @@ public class Game_Screen2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Timer timer_delay = new Timer();
 				TimerTask task_delay = new TimerTask() {
-					
-					@Override
-					public void run() {
-						Dice();
-						System.out.println(2);
-						timer_delay.cancel();
-					}
-				};
-				timer_delay.schedule(task_delay, 2500);
-				//Dice();
-				/*try {
-					for(int i = 0; i < 2; i++) {
-					TimeUnit.SECONDS.sleep(2);
-					System.out.println("Sleep");
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}*/
+
+								@Override
+								public void run() {
+									Dice();
+									System.out.println(2);
+									timer_delay.cancel();
+								}
+							};
+							timer_delay.schedule(task_delay, 2500);
 				computerDice();
 			}
 		});
+		
 		
 		
 		stopGame.addActionListener(new ActionListener() {
@@ -278,7 +266,7 @@ public class Game_Screen2 extends JFrame {
 					this.userDice += 1;
 					break;
 				case 1 : //방패가나온경우 
-					if(this.userDefense<6) {gn
+					if(this.userDefense<6) {
 						userT.append("방패 \n");
 						this.userDefense += 1;
 					}
@@ -298,25 +286,17 @@ public class Game_Screen2 extends JFrame {
 					}else if(this.computerDefense>=1){
 						this.computerDefense -= 1;
 					}
+				
 					break;
 				}
 				
 			}
-
-				Timer timer1 = new Timer();
-				TimerTask task1 = new TimerTask() {
-					
-					@Override
-					public void run() {
-						System.out.println(2);
-						timer1.cancel();
-					}
-				};
-				timer1.schedule(task1, 3000);
-	
 		if(this.userDice==0) {
 			this.user = false; // 유저 죽음 
 		}
+	
+		
+		
 		
 	}
 		void computerDice() {
@@ -369,7 +349,11 @@ public class Game_Screen2 extends JFrame {
 					break;
 					
 				}
-				
+				/*try {
+					TimeUnit.SECONDS.sleep(1);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}*/
 			}
 		if(computerHP ==0 || computerDice==0) {
 			computer = false; // 유저 죽음 
@@ -378,11 +362,8 @@ public class Game_Screen2 extends JFrame {
 		//	result();
 		}
 	}
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		new Game_Screen2();
-		
-
-		
 		
 	}
 	
@@ -391,3 +372,4 @@ public class Game_Screen2 extends JFrame {
 		//new Result();
 	}
 }
+>>>>>>> branch 'master' of https://github.com/mc1128/JavaGame_TeamProject.git

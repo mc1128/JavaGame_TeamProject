@@ -12,7 +12,9 @@ import javax.swing.*;
 
 public class Game_Screen extends JFrame {
 	
-	public Game_Screen() {
+	public Game_Screen() { 
+		
+		setTitle("게임 화면");
 		
 		getContentPane().setLayout(null);
 		
@@ -208,7 +210,8 @@ public class Game_Screen extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Result();
+				new Result();
+				dispose();
 			}
 		});
 		
@@ -216,11 +219,6 @@ public class Game_Screen extends JFrame {
 
 	public static void main(String[] args) {
 		new Game_Screen();
-		
-	}
-	
-	public void Result() {
-		setVisible(false);
-		new Result();
+
 	}
 }

@@ -1,10 +1,7 @@
 package Game;
 
 import java.awt.BorderLayout;
-
 import java.awt.EventQueue;
-
-import javax.swing.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,21 +9,27 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JProgressBar;
 import javax.swing.JButton;
 
 public class Result extends JFrame {
 
-	public JPanel contentPane;
-
+	private JPanel contentPane;
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-			new Result();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Result frame = new Result();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
@@ -34,9 +37,8 @@ public class Result extends JFrame {
 	 */
 	public Result() {
 		
-		setTitle("결과창");
+		setTitle("결과창 수정");
 		
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
@@ -68,32 +70,6 @@ public class Result extends JFrame {
 		BackMain_Button.setBounds(335, 300, 150, 35);
 		contentPane.add(BackMain_Button);
 		
-		Replay_Button.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Batting();
-				
-			}
-		});
 		
-		BackMain_Button.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Main();
-			}
-		});
 	}
-	
-	public void Batting() {
-		setVisible(false);
-		new Batting(); 
-	}
-	public void Main() {
-		setVisible(false);
-		new Main(); 
-	}
-	
-	
 }
