@@ -2,8 +2,6 @@ package Game;
 
 // 수정 15:36
 
-import javax.swing.Timer;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -13,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Arrays;
-//import java.util.Timer;
+import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
@@ -22,7 +20,7 @@ import java.util.*;
 
 import javax.swing.*;
 
-public class Game_Screen1 extends JFrame {
+public class Thread_Test extends JFrame {
 
 	int comHPData = 10;
 	int userHPData = 10;
@@ -33,6 +31,8 @@ public class Game_Screen1 extends JFrame {
 
 	int[] diceValue;
 
+	static JPanel comResult;
+
 	String[] comDiceName = new String[5];
 	String[] userDiceName = new String[5];
 
@@ -40,8 +40,10 @@ public class Game_Screen1 extends JFrame {
 	String comDefenseG = "○○○○○○";
 
 	Boolean turn;
+	
+	Boolean start_game;
 
-	public Game_Screen1() {
+	public Thread_Test() {
 
 		setTitle("게임 화면");
 
@@ -230,7 +232,16 @@ public class Game_Screen1 extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
+				
+				int turn_num = (int) (Math.random() * 2);
+				
+				System.out.println(turn_num);
+				
+				System.out.println(start_game);
+				
+				comDefenseG = "○○○○○○";
+				
 				roll(); // 주사위 굴려서 값 저장
 
 				// 유저,컴퓨터의 HP=0 또는 유저,컴퓨터의 주사위값=0 이면 게임 종료
@@ -243,24 +254,45 @@ public class Game_Screen1 extends JFrame {
 				userResult3.setText(userDiceName[2]);
 				userResult4.setText(userDiceName[3]);
 				userResult5.setText(userDiceName[4]);
-
+				
 				// 2. 유저 주사위 값, status(HP, 방어) 출력
 				userDice.setText(String.valueOf(userDiceData));
 				userHP.setText(String.valueOf(userHPData));
 				userDefense.setText(String.valueOf(userDefenseData));
-
+				
 				// 3. 컴퓨터 주사위 결과 값 출력
 
-				comResult1.setText(comDiceName[0]);
-				comResult2.setText(comDiceName[1]);
-				comResult3.setText(comDiceName[2]);
-				comResult4.setText(comDiceName[3]);
-				comResult5.setText(comDiceName[4]);
+				Timer timer_delay = new Timer();
+				TimerTask task_delay = new TimerTask() {
+
+					@Override
+					public void run() {
+						comResult1.setText(comDiceName[0]);
+						comResult2.setText(comDiceName[1]);
+						comResult3.setText(comDiceName[2]);
+						comResult4.setText(comDiceName[3]);
+						comResult5.setText(comDiceName[4]);
+						comDice.setText(String.valueOf(comDiceData));
+						comHP.setText(String.valueOf(comHPData));
+						comDefense.setText(String.valueOf(comDefenseData));
+
+						comDefenseG = "";
+
+						for (int i = 0; i < comDefenseData; i++) {
+							comDefenseG += "●";
+						}
+						for (int i = 0; i < 6 - comDefenseData; i++) {
+							comDefenseG += "○";
+						}
+
+						comDefense.setText(comDefenseG);
+
+						timer_delay.cancel();
+					}
+				};
+				timer_delay.schedule(task_delay, 2000);
 
 				// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-				comDice.setText(String.valueOf(comDiceData));
-				comHP.setText(String.valueOf(comHPData));
-				comDefense.setText(String.valueOf(comDefenseData));
 
 //				Timer timer_delay = new Timer();
 //				TimerTask task_delay = new TimerTask() {
@@ -397,17 +429,8 @@ public class Game_Screen1 extends JFrame {
 //			
 //				
 
-				comDefenseG = "";
-
-				for (int i = 0; i < comDefenseData; i++) {
-					comDefenseG += "●";
-				}
-				for (int i = 0; i < 6 - comDefenseData; i++) {
-					comDefenseG += "○";
-				}
-
-				comDefense.setText(comDefenseG);
-
+				//comResult.revalidate();
+				//comResult.repaint();
 			}
 		});
 
@@ -463,7 +486,7 @@ public class Game_Screen1 extends JFrame {
 
 	}
 
-	void continueGame() {
+	public void continueGame() {
 		if (userHPData <= 0 || comHPData <= 0 || comDiceData <= 0 || userDiceData <= 0) {
 			JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 //			new Result();
@@ -472,14 +495,14 @@ public class Game_Screen1 extends JFrame {
 		}
 	}
 
-	void clearResult() {
+	public void clearResult() {
 		for (int i = 0; i < comDiceName.length; i++) {
 			comDiceName[i] = "";
 			userDiceName[i] = "";
 		}
 	}
 
-	void roll() {
+	public void roll() {
 
 		// 유저의 남은 주사위 값이 4개 이하면 userRoll4()
 		// 5개 이상이면 userRoll()
@@ -495,12 +518,13 @@ public class Game_Screen1 extends JFrame {
 
 		// 컴퓨터의 남은 주사위 값이 4개 이하면 userRoll4()
 		// 5개 이상이면 userRoll()
+
 		if (0 < comDiceData && comDiceData <= 4) {
 
 			comRoll4();
 
 		} else if (4 < comDiceData && comDiceData <= 15) {
-			time();
+			comRoll();
 
 		}
 
@@ -508,35 +532,26 @@ public class Game_Screen1 extends JFrame {
 
 	}
 
-	void printResult() {
+	public void printResult() {
 
 	}
 
 	// 딜레이
-	void time() {
+	/*void time() {
+		Timer timer_delay = new Timer();
+		TimerTask task_delay = new TimerTask() {
 
-		/*
-		 * Timer timer_delay = new Timer(); TimerTask task_delay = new TimerTask() {
-		 * 
-		 * @Override public void run() { comRoll(); System.out.println(2);
-		 * timer_delay.cancel(); } }; timer_delay.schedule(task_delay, 2500);
-		 * 
-		 * SwingUtilities.invokeLater(new Runnable() { public void run() { comRoll(); }
-		 * });
-		 */
-
-		ActionListener taskPerformer = new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent ae) {
+			public void run() {
 				comRoll();
+				System.out.println(2);
+				timer_delay.cancel();
 			}
 		};
-		Timer timer = new Timer(3000, taskPerformer);
-		timer.setRepeats(false);
-		timer.start();
-	}
+		timer_delay.schedule(task_delay, 2000);
+	}*/
 
-	void userRoll() { // 유저 주사위 굴리기
+	public void userRoll() { // 유저 주사위 굴리기
 
 		diceValue = new int[5];
 
@@ -582,7 +597,7 @@ public class Game_Screen1 extends JFrame {
 	}
 
 	// 유저의 남은 주사위 값이 4 이하일 경우
-	void userRoll4() {
+	public void userRoll4() {
 		diceValue = new int[userDiceData];
 
 		for (int i = 0; i < diceValue.length; i++) {
@@ -637,7 +652,7 @@ public class Game_Screen1 extends JFrame {
 
 	}
 
-	void comRoll() { // 컴퓨터 주사위 굴리기
+	public void comRoll() { // 컴퓨터 주사위 굴리기
 
 		System.out.println("실행확인");
 		diceValue = new int[5];
@@ -692,7 +707,7 @@ public class Game_Screen1 extends JFrame {
 	}
 
 	// 컴퓨터의 남은 주사위 값이 4이하일 경우
-	void comRoll4() {
+	public void comRoll4() {
 
 		diceValue = new int[comDiceData];
 
@@ -745,11 +760,8 @@ public class Game_Screen1 extends JFrame {
 
 	}
 
-	
-	
-	
 	public static void main(String[] args) {
-		new Game_Screen1();
+		new Thread_Test();
 
 	}
 }
