@@ -11,11 +11,15 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.Arrays;
 //import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
+
+import java.util.*;
+
 
 import javax.swing.*;
 
@@ -27,12 +31,15 @@ public class Game_Screen1 extends JFrame {
 	int userDefenseData = 0;
 	int comDiceData = 15;
 	int userDiceData = 15;
-
+	
 	int[] diceValue;
 
 	String[] comDiceName = new String[5];
 	String[] userDiceName = new String[5];
-
+	
+	String userDefenseG = "○○○○○○";
+	String comDefenseG = "○○○○○○";
+	
 	Boolean turn;
 
 	public Game_Screen1() {
@@ -72,10 +79,10 @@ public class Game_Screen1 extends JFrame {
 		// comStatus - comDefense, comHP
 		// 컴퓨터 방어 값 출력 컴포넌트 : comDefense
 		// 컴퓨터 체력 값 출력 컴포넌트 : comHP
-		JLabel comDefense = new JLabel("●●●●○○");
+		JLabel comDefense = new JLabel(comDefenseG);
 		JLabel comHP = new JLabel("10");
 		JLabel comMaxHP = new JLabel("HP      /10");
-
+		
 		comHP.setBounds(35, 5, 35, 15);
 		comHP.setHorizontalAlignment(SwingConstants.CENTER);
 		comMaxHP.setBounds(22, 5, 58, 15);
@@ -124,7 +131,7 @@ public class Game_Screen1 extends JFrame {
 		// userStatus - userDefense, userHP
 		// 유저 방어 값 출력 컴포넌트 : userDefense
 		// 유저 체력 값 출력 컴포넌트 : userHP
-		JLabel userDefense = new JLabel("●●○○○○");
+		JLabel userDefense = new JLabel(userDefenseG);
 		JLabel userHP = new JLabel("10");
 		JLabel userMaxHP = new JLabel("HP      /10");
 
@@ -219,6 +226,8 @@ public class Game_Screen1 extends JFrame {
 
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
+		
+		
 
 		throwDice.addActionListener(new ActionListener() {
 
@@ -255,6 +264,7 @@ public class Game_Screen1 extends JFrame {
 				comDice.setText(String.valueOf(comDiceData));
 				comHP.setText(String.valueOf(comHPData));
 				comDefense.setText(String.valueOf(comDefenseData));
+
 
 //				Timer timer_delay = new Timer();
 //				TimerTask task_delay = new TimerTask() {
@@ -315,6 +325,30 @@ public class Game_Screen1 extends JFrame {
 //			
 //			
 //				
+//				time();
+				userDefenseG = "";
+
+				for (int i = 0; i < userDefenseData; i++) {
+					userDefenseG += "●";
+				}
+				for (int i = 0; i < 6 - userDefenseData; i++) {
+					userDefenseG += "○";
+				}
+
+				userDefense.setText(userDefenseG);
+				
+				comDefenseG = "";
+				
+				for(int i = 0; i<comDefenseData; i++) {
+					comDefenseG += "●";
+				}
+				for(int i = 0; i<6-comDefenseData; i++) {
+						comDefenseG += "○";
+				}
+				
+				comDefense.setText(comDefenseG);
+				
+
 
 			}
 		});
