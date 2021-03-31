@@ -31,20 +31,32 @@ public class Thread_Test extends JFrame {
 
 	int[] diceValue;
 
-	static JPanel comResult;
-
 	String[] comDiceName = new String[5];
 	String[] userDiceName = new String[5];
 
 	String userDefenseG = "○○○○○○";
 	String comDefenseG = "○○○○○○";
 
+	
+	static JLabel comHP;
+	static JLabel comDiceTitle;
+	
 	Boolean turn;
 	
-	Boolean start_game;
+	//게임이 진행중인지 확인.
+	Boolean game_start;
+	
 
 	public Thread_Test() {
 
+		turn = true;
+		
+		if(turn = true) {
+			JOptionPane.showMessageDialog(null, "선공입니다!");
+		}else{
+			JOptionPane.showMessageDialog(null, "후공입니다!");
+		}
+		
 		setTitle("게임 화면");
 
 		// 기본 화면 틀
@@ -56,7 +68,7 @@ public class Thread_Test extends JFrame {
 
 		// 컴퓨터 남은 주사위 - comDiceTitle / comDiceX / comDice
 		// 컴퓨터 남은 주사위 값 출력 컴포넌트 : comDice
-		JLabel comDiceTitle = new JLabel("남은 주사위");
+		comDiceTitle = new JLabel("남은 주사위");
 		JLabel comDiceX = new JLabel("x");
 		JLabel comDice = new JLabel("15");
 
@@ -81,7 +93,7 @@ public class Thread_Test extends JFrame {
 		// 컴퓨터 방어 값 출력 컴포넌트 : comDefense
 		// 컴퓨터 체력 값 출력 컴포넌트 : comHP
 		JLabel comDefense = new JLabel(comDefenseG);
-		JLabel comHP = new JLabel("10");
+		comHP = new JLabel("");
 		JLabel comMaxHP = new JLabel("HP      /10");
 
 		comHP.setBounds(35, 5, 35, 15);
@@ -89,6 +101,8 @@ public class Thread_Test extends JFrame {
 		comMaxHP.setBounds(22, 5, 58, 15);
 		comMaxHP.setHorizontalAlignment(SwingConstants.CENTER);
 
+		
+		
 		JPanel jp3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel jp4 = new JPanel();
 		jp4.setLayout(null);
@@ -227,25 +241,13 @@ public class Thread_Test extends JFrame {
 
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
-
+		testtest(); 
 		throwDice.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				
-				int turn_num = (int) (Math.random() * 2);
-				
-				System.out.println(turn_num);
-				
-				System.out.println(start_game);
-				
-				comDefenseG = "○○○○○○";
-				
-				roll(); // 주사위 굴려서 값 저장
-
-				// 유저,컴퓨터의 HP=0 또는 유저,컴퓨터의 주사위값=0 이면 게임 종료
-				continueGame();
+				userRoll(); // 주사위 굴려서 값 저장
 
 				// roll()의 저장된 값 출력
 				// 1. 유저 주사위 결과 값 출력
@@ -254,106 +256,13 @@ public class Thread_Test extends JFrame {
 				userResult3.setText(userDiceName[2]);
 				userResult4.setText(userDiceName[3]);
 				userResult5.setText(userDiceName[4]);
-				
+
 				// 2. 유저 주사위 값, status(HP, 방어) 출력
 				userDice.setText(String.valueOf(userDiceData));
 				userHP.setText(String.valueOf(userHPData));
 				userDefense.setText(String.valueOf(userDefenseData));
-				
-				// 3. 컴퓨터 주사위 결과 값 출력
 
-				Timer timer_delay = new Timer();
-				TimerTask task_delay = new TimerTask() {
-
-					@Override
-					public void run() {
-						comResult1.setText(comDiceName[0]);
-						comResult2.setText(comDiceName[1]);
-						comResult3.setText(comDiceName[2]);
-						comResult4.setText(comDiceName[3]);
-						comResult5.setText(comDiceName[4]);
-						comDice.setText(String.valueOf(comDiceData));
-						comHP.setText(String.valueOf(comHPData));
-						comDefense.setText(String.valueOf(comDefenseData));
-
-						comDefenseG = "";
-
-						for (int i = 0; i < comDefenseData; i++) {
-							comDefenseG += "●";
-						}
-						for (int i = 0; i < 6 - comDefenseData; i++) {
-							comDefenseG += "○";
-						}
-
-						comDefense.setText(comDefenseG);
-
-						timer_delay.cancel();
-					}
-				};
-				timer_delay.schedule(task_delay, 2000);
-
-				// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-
-//				Timer timer_delay = new Timer();
-//				TimerTask task_delay = new TimerTask() {
-//
-//					
-//					
-//					
-//					@Override
-//					public void run() {
-//						
-//						
-//						userRoll();
-//
-//						// roll()의 저장된 값 출력
-//						// 1. 유저 주사위 결과 값 출력
-//						userResult1.setText(userDiceName[0]);
-//						userResult2.setText(userDiceName[1]);
-//						userResult3.setText(userDiceName[2]);
-//						userResult4.setText(userDiceName[3]);
-//						userResult5.setText(userDiceName[4]);
-//
-//						// 2. 유저 주사위 값, status(HP, 방어) 출력
-//						userDice.setText(String.valueOf(userDiceData));
-//						userHP.setText(String.valueOf(userHPData));
-//						userDefense.setText(String.valueOf(userDefenseData));
-//
-//						// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-//						comDice.setText(String.valueOf(comDiceData));
-//						comHP.setText(String.valueOf(comHPData));
-//						comDefense.setText(String.valueOf(comDefenseData));
-//
-//						System.out.println(2);
-//						timer_delay.cancel();
-//					}
-//				};
-//				timer_delay.schedule(task_delay, 2500);
-//				comRoll();
-//							
-//				
-//				// roll()의 저장된 값 출력
-//							
-//				// 2. 유저 주사위 값, status(HP, 방어) 출력
-//				userDice.setText(String.valueOf(userDiceData));
-//				userHP.setText(String.valueOf(userHPData));
-//				userDefense.setText(String.valueOf(userDefenseData));
-//				
-//				// 3. 컴퓨터 주사위 결과 값 출력
-//				comResult1.setText(comDiceName[0]);
-//				comResult2.setText(comDiceName[1]);
-//				comResult3.setText(comDiceName[2]);
-//				comResult4.setText(comDiceName[3]);
-//				comResult5.setText(comDiceName[4]);
-//				
-//				// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-//				comDice.setText(String.valueOf(comDiceData));
-//				comHP.setText(String.valueOf(comHPData));
-//				comDefense.setText(String.valueOf(comDefenseData));	
-//			
-//			
-//				
-//				time();
+				// 3. 유저 디펜스 그래픽
 				userDefenseG = "";
 
 				for (int i = 0; i < userDefenseData; i++) {
@@ -365,72 +274,82 @@ public class Thread_Test extends JFrame {
 
 				userDefense.setText(userDefenseG);
 
+				// 3. 컴퓨터 주사위 결과 값 출력
+				comResult1.setText(comDiceName[0]);
+				comResult2.setText(comDiceName[1]);
+				comResult3.setText(comDiceName[2]);
+				comResult4.setText(comDiceName[3]);
+				comResult5.setText(comDiceName[4]);
+
+				// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
+				comDice.setText(String.valueOf(comDiceData));
+				//comHP.setText(String.valueOf(comHPData));
+				comDefense.setText(String.valueOf(comDefenseData));
+
 				comDefense.setText(String.valueOf(comDefenseData));
 
 				comDefenseG = "";
 
-//				Timer timer_delay = new Timer();
-//				TimerTask task_delay = new TimerTask() {
-//
-//					
-//					
-//					
-//					@Override
-//					public void run() {
-//						
-//						
-//						userRoll();
-//
-//						// roll()의 저장된 값 출력
-//						// 1. 유저 주사위 결과 값 출력
-//						userResult1.setText(userDiceName[0]);
-//						userResult2.setText(userDiceName[1]);
-//						userResult3.setText(userDiceName[2]);
-//						userResult4.setText(userDiceName[3]);
-//						userResult5.setText(userDiceName[4]);
-//
-//						// 2. 유저 주사위 값, status(HP, 방어) 출력
-//						userDice.setText(String.valueOf(userDiceData));
-//						userHP.setText(String.valueOf(userHPData));
-//						userDefense.setText(String.valueOf(userDefenseData));
-//
-//						// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-//						comDice.setText(String.valueOf(comDiceData));
-//						comHP.setText(String.valueOf(comHPData));
-//						comDefense.setText(String.valueOf(comDefenseData));
-//
-//						System.out.println(2);
-//						timer_delay.cancel();
-//					}
-//				};
-//				timer_delay.schedule(task_delay, 2500);
-//				comRoll();
-//							
-//				
-//				// roll()의 저장된 값 출력
-//							
-//				// 2. 유저 주사위 값, status(HP, 방어) 출력
-//				userDice.setText(String.valueOf(userDiceData));
-//				userHP.setText(String.valueOf(userHPData));
-//				userDefense.setText(String.valueOf(userDefenseData));
-//				
-//				// 3. 컴퓨터 주사위 결과 값 출력
-//				comResult1.setText(comDiceName[0]);
-//				comResult2.setText(comDiceName[1]);
-//				comResult3.setText(comDiceName[2]);
-//				comResult4.setText(comDiceName[3]);
-//				comResult5.setText(comDiceName[4]);
-//				
-//				// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-//				comDice.setText(String.valueOf(comDiceData));
-//				comHP.setText(String.valueOf(comHPData));
-//				comDefense.setText(String.valueOf(comDefenseData));	
-//			
-//			
-//				
+				comDefenseG = "";
 
-				//comResult.revalidate();
-				//comResult.repaint();
+				for (int i = 0; i < comDefenseData; i++) {
+					comDefenseG += "●";
+				}
+				for (int i = 0; i < 6 - comDefenseData; i++) {
+					comDefenseG += "○";
+				}
+
+				comDefense.setText(comDefenseG);
+
+				Timer timer_delay = new Timer();
+				TimerTask task_delay = new TimerTask() {
+
+					@Override
+					public void run() {
+						comRoll();
+						
+						//컴퓨터 글자 바꾸고
+						comResult1.setText(comDiceName[0]);
+						comResult2.setText(comDiceName[1]);
+						comResult3.setText(comDiceName[2]);
+						comResult4.setText(comDiceName[3]);
+						comResult5.setText(comDiceName[4]);
+						
+						
+						//컴퓨터 주사위 값을 받아서 유저 데이터 처리
+						userDice.setText(String.valueOf(userDiceData));
+						userHP.setText(String.valueOf(userHPData));
+						userDefense.setText(String.valueOf(userDefenseData));
+						
+						userDefenseG = "";
+
+						for (int i = 0; i < userDefenseData; i++) {
+							userDefenseG += "●";
+						}
+						for (int i = 0; i < 6 - userDefenseData; i++) {
+							userDefenseG += "○";
+						}
+						userDefense.setText(userDefenseG);
+						
+						comDice.setText(String.valueOf(comDiceData));
+						comHP.setText(String.valueOf(comHPData));
+						comDefense.setText(String.valueOf(comDefenseData));
+						comDefenseG = "";
+
+						for (int i = 0; i < comDefenseData; i++) {
+							comDefenseG += "●";
+						}
+						for (int i = 0; i < 6 - comDefenseData; i++) {
+							comDefenseG += "○";
+						}
+						comDefense.setText(comDefenseG);
+					}
+				};
+				(timer_delay).schedule(task_delay, 2500);
+				
+				// 유저,컴퓨터의 HP=0 또는 유저,컴퓨터의 주사위값=0 이면 게임 종료
+				continueGame();
+
 			}
 		});
 
@@ -444,7 +363,7 @@ public class Thread_Test extends JFrame {
 				// 컴퓨터의 남은 주사위가 0이 될 때까지 컴퓨터만 롤
 				while (comDiceData > 0) {
 
-					roll();
+					comRoll();
 
 					// roll()의 저장된 값 출력
 					// 1. 유저 주사위 결과 값 출력
@@ -478,15 +397,19 @@ public class Thread_Test extends JFrame {
 				JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 //				new Result(userHPData, comHPData);
 
-				new Result();
+				// new Result();
 				dispose();
 
 			}
 		});
-
 	}
 
-	public void continueGame() {
+	public void testtest() {
+		comHP.setText("test");
+		comDiceTitle.setText("test");
+	}
+	
+	void continueGame() {
 		if (userHPData <= 0 || comHPData <= 0 || comDiceData <= 0 || userDiceData <= 0) {
 			JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 //			new Result();
@@ -495,65 +418,32 @@ public class Thread_Test extends JFrame {
 		}
 	}
 
-	public void clearResult() {
+	void clearResult() {
 		for (int i = 0; i < comDiceName.length; i++) {
 			comDiceName[i] = "";
 			userDiceName[i] = "";
 		}
 	}
 
-	public void roll() {
-
-		// 유저의 남은 주사위 값이 4개 이하면 userRoll4()
-		// 5개 이상이면 userRoll()
-		if (0 < userDiceData && userDiceData <= 4) {
-			userRoll4();
-		} else if (4 < userDiceData && userDiceData <= 15) {
-			userRoll();
-		}
-
 //		printResult();
 
 //		time();	
 
-		// 컴퓨터의 남은 주사위 값이 4개 이하면 userRoll4()
-		// 5개 이상이면 userRoll()
-
-		if (0 < comDiceData && comDiceData <= 4) {
-
-			comRoll4();
-
-		} else if (4 < comDiceData && comDiceData <= 15) {
-			comRoll();
-
-		}
-
 //		printResult();
 
-	}
-
-	public void printResult() {
+	void printResult() {
 
 	}
 
-	// 딜레이
-	/*void time() {
-		Timer timer_delay = new Timer();
-		TimerTask task_delay = new TimerTask() {
+	void userRoll() { // 유저 주사위 굴리기
 
-			@Override
-			public void run() {
-				comRoll();
-				System.out.println(2);
-				timer_delay.cancel();
-			}
-		};
-		timer_delay.schedule(task_delay, 2000);
-	}*/
-
-	public void userRoll() { // 유저 주사위 굴리기
-
-		diceValue = new int[5];
+		int a = 0;
+		if (userDiceData >= 5) {
+			a = 5;
+		} else if (userDiceData < 5) {
+			a = userDiceData;
+		}
+		diceValue = new int[a];
 
 		for (int i = 0; i < diceValue.length; i++) {
 			diceValue[i] = (int) (Math.random() * 4);
@@ -562,7 +452,7 @@ public class Thread_Test extends JFrame {
 		Arrays.sort(diceValue);
 
 		for (int i = 0; i < diceValue.length; i++) {
-
+			
 			switch (diceValue[i]) {
 
 			case 0: // 주사위
@@ -593,79 +483,35 @@ public class Thread_Test extends JFrame {
 				break;
 			}
 			userDiceData--;
+			continueGame();
+		}
+		
+		//주사위 텍스트 처리
+		if (diceValue.length < 5) {
+			for (int i = 4; i >= diceValue.length; i--) {
+				userDiceName[i] = "";
+			}
 		}
 	}
 
-	// 유저의 남은 주사위 값이 4 이하일 경우
-	public void userRoll4() {
-		diceValue = new int[userDiceData];
+	void comRoll() { // 컴퓨터 주사위 굴리기
 
-		for (int i = 0; i < diceValue.length; i++) {
-			diceValue[i] = (int) (Math.random() * 4);
+		int a = 0;
+		if (comDiceData >= 5) {
+			a = 5;
+		} else if (comDiceData < 5) {
+			a = comDiceData;
 		}
-
-		// 랜덤값 오름차순 정렬
-		Arrays.sort(diceValue);
-
-		// 랜덤값 오름차순 정렬
-		// Arrays.sort(diceValue);
-
-		for (int i = 0; i < diceValue.length; i++) {
-			switch (diceValue[i]) {
-			case 0: // 주사위
-				userDiceName[i] = "주사위 추가";
-				userDiceData++;
-				break;
-			case 1: // 디펜스
-				userDiceName[i] = "디펜스";
-				if (userDefenseData < 6) {
-					userDefenseData++;
-				}
-				break;
-			case 2: // 데스
-				userDiceName[i] = "데스";
-				if (userDefenseData > 0) {
-					userDefenseData--;
-				} else {
-					userHPData--;
-				}
-				break;
-			case 3: // 어택
-				userDiceName[i] = "어택";
-				if (comDefenseData > 0) {
-					comDefenseData--;
-				} else {
-					comHPData--;
-				}
-				break;
-
-			} // switch문 end
-			userDiceData--;
-		} // for문 end
-
-		// 남은 주사위 개수 이상의 출력문 제거
-		for (
-
-				int i = 4; i >= diceValue.length; i--) {
-			userDiceName[i] = "";
-		}
-
-	}
-
-	public void comRoll() { // 컴퓨터 주사위 굴리기
+		diceValue = new int[a];
+		
 
 		System.out.println("실행확인");
-		diceValue = new int[5];
+		
 
 		for (int i = 0; i < diceValue.length; i++) {
 			diceValue[i] = (int) (Math.random() * 4);
-		}
-
-		// 랜덤값 오름차순 정렬
+		} // 랜덤값 오름차순 정렬
 		Arrays.sort(diceValue);
-
-		System.out.println("실행확인2");
-		// 랜덤값 오름차순 정렬
 
 		for (int i = 0; i < diceValue.length; i++) {
 			switch (diceValue[i]) {
@@ -673,7 +519,6 @@ public class Thread_Test extends JFrame {
 				comDiceName[i] = "주사위 추가";
 				System.out.println("주사위");
 				comDiceData++;
-
 				break;
 			case 1: // 디펜스
 				comDiceName[i] = "디펜스";
@@ -702,66 +547,49 @@ public class Thread_Test extends JFrame {
 				break;
 
 			}
+			continueGame();
 			comDiceData--;
 		}
+
+		if (diceValue.length < 5) {
+			for (int i = 4; i >= diceValue.length; i--) {
+				comDiceName[i] = "";
+			}
+		}
+
+
 	}
 
 	// 컴퓨터의 남은 주사위 값이 4이하일 경우
-	public void comRoll4() {
 
-		diceValue = new int[comDiceData];
+	/*
+	 * void comRoll4() {
+	 * 
+	 * diceValue = new int[comDiceData];
+	 * 
+	 * for (int i = 0; i < diceValue.length; i++) { diceValue[i] = (int)
+	 * (Math.random() * 4); } // 랜덤값 오름차순 정렬 // Arrays.sort(diceValue); for (int i =
+	 * 0; i < diceValue.length; i++) { switch (diceValue[i]) { case 0: // 주사위
+	 * comDiceName[i] = "주사위 추가"; comDiceData++; break; case 1: // 디펜스
+	 * comDiceName[i] = "디펜스"; if (comDefenseData < 6) { comDefenseData++; } break;
+	 * case 2: // 데스 comDiceName[i] = "데스"; if (comDefenseData > 0) {
+	 * comDefenseData--; } else { userHPData--; } break; case 3: // 어택
+	 * comDiceName[i] = "어택"; if (userDefenseData > 0) { userDefenseData--; } else {
+	 * userHPData--; } break;
+	 * 
+	 * } // switch문 end
+	 * 
+	 * comDiceData--; } // for문 end
+	 * 
+	 * // 남은 주사위 개수 이상의 출력문 제거 for (int i = 4; i >= diceValue.length; i--) {
+	 * comDiceName[i] = ""; }
+	 * 
+	 * }
+	 */
 
-		for (int i = 0; i < diceValue.length; i++) {
-			diceValue[i] = (int) (Math.random() * 4);
-		}
-		// 랜덤값 오름차순 정렬
-
-		Arrays.sort(diceValue);
-
-		for (int i = 0; i < diceValue.length; i++) {
-			switch (diceValue[i]) {
-			case 0: // 주사위
-				comDiceName[i] = "주사위 추가";
-
-				comDiceData++;
-				break;
-			case 1: // 디펜스
-				comDiceName[i] = "디펜스";
-				if (comDefenseData < 6) {
-					comDefenseData++;
-				}
-				break;
-			case 2: // 데스
-				comDiceName[i] = "데스";
-				if (comDefenseData > 0) {
-					comDefenseData--;
-				} else {
-					userHPData--;
-				}
-				break;
-			case 3: // 어택
-				comDiceName[i] = "어택";
-				if (userDefenseData > 0) {
-					userDefenseData--;
-				} else {
-					userHPData--;
-				}
-				break;
-
-			} // switch문 end
-
-			comDiceData--;
-		} // for문 end
-
-		// 남은 주사위 개수 이상의 출력문 제거
-		for (int i = 4; i >= diceValue.length; i--) {
-			comDiceName[i] = "";
-		}
-
-	}
-
+	
+	
 	public static void main(String[] args) {
 		new Thread_Test();
-
 	}
 }
