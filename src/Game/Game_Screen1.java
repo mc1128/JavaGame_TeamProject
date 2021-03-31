@@ -19,7 +19,7 @@ public class Game_Screen1 extends JFrame {
 	int userDefenseData = 0;
 	int comDiceData = 15;
 	int userDiceData = 15;
-
+	
 	int[] diceValue;
 
 	String[] comDiceName = new String[5];
@@ -70,7 +70,7 @@ public class Game_Screen1 extends JFrame {
 		JLabel comDefense = new JLabel(comDefenseG);
 		JLabel comHP = new JLabel("10");
 		JLabel comMaxHP = new JLabel("HP      /10");
-
+		
 		comHP.setBounds(35, 5, 35, 15);
 		comHP.setHorizontalAlignment(SwingConstants.CENTER);
 		comMaxHP.setBounds(22, 5, 58, 15);
@@ -214,6 +214,8 @@ public class Game_Screen1 extends JFrame {
 
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
+		
+		
 
 		throwDice.addActionListener(new ActionListener() {
 
@@ -267,7 +269,6 @@ public class Game_Screen1 extends JFrame {
 				}
 
 				userDefense.setText(userDefenseG);
-
 				comDefense.setText(String.valueOf(comDefenseData));
 
 				comDefenseG = "";
@@ -331,13 +332,16 @@ public class Game_Screen1 extends JFrame {
 //			
 //			
 //				
-				for (int i = 0; i < comDefenseData; i++) {
+			
+				comDefenseG = "";
+				
+				for(int i = 0; i<comDefenseData; i++) {
 					comDefenseG += "●";
 				}
-				for (int i = 0; i < 6 - comDefenseData; i++) {
-					comDefenseG += "○";
+				for(int i = 0; i<6-comDefenseData; i++) {
+						comDefenseG += "○";
 				}
-
+				
 				comDefense.setText(comDefenseG);
 
 			}
