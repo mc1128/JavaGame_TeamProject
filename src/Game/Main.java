@@ -31,7 +31,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		setTitle("메인화면 테스트용 수정2");
+		setTitle("메인화면");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -69,10 +69,32 @@ public class Main extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				new Batting(); // 수정
+				
+				setVisible(false);
 				LoginButton.setEnabled(false);
 				
 				
 			}
 		});
+		
+		JoinButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Join();
+			}
+		});
+		
+		
 	}
+	public void Batting() {
+		setVisible(false);
+		new Batting(); 
+}
+	public void Join() {
+		setVisible(false);
+		new Join(); 
+}
 }

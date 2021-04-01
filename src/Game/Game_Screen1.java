@@ -3,7 +3,6 @@ package Game;
 // 수정 15:36
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -270,9 +269,6 @@ public class Game_Screen1 extends JFrame {
 				comHP.setText(String.valueOf(comHPData));
 				comDefense.setText(String.valueOf(comDefenseData));
 
-				
-
-
 //				Timer timer_delay = new Timer();
 //				TimerTask task_delay = new TimerTask() {
 //
@@ -333,10 +329,10 @@ public class Game_Screen1 extends JFrame {
 //			
 //				
 //				time();
+
 				userDefenseG = "";
 
 				comDefense.setText(String.valueOf(comDefenseData));
-
 
 				comDefenseG = "";
 
@@ -395,10 +391,8 @@ public class Game_Screen1 extends JFrame {
 				};
 				(timer_delay).schedule(task_delay, 2500);
 				
-
 				// 유저,컴퓨터의 HP=0 또는 유저,컴퓨터의 주사위값=0 이면 게임 종료
 				continueGame();
-
 
 			}
 		});
@@ -500,7 +494,6 @@ public class Game_Screen1 extends JFrame {
 			
 			switch (diceValue[i]) {
 
-			
 			case 0: // 주사위
 				userDiceName[i] = "주사위 추가";
 				userDiceData++;
@@ -530,10 +523,7 @@ public class Game_Screen1 extends JFrame {
 			}
 			userDiceData--;
 			continueGame();
-			
 		}
-		
-		
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
 				userDiceName[i] = "";
@@ -582,17 +572,10 @@ public class Game_Screen1 extends JFrame {
 
 		for (int i = 0; i < diceValue.length; i++) {
 			diceValue[i] = (int) (Math.random() * 4);
-
-			System.out.println("실행확인2");
-			// 랜덤값 오름차순 정렬
-			// Arrays.sort(diceValue);
-			
-
 		} // 랜덤값 오름차순 정렬
 		Arrays.sort(diceValue);
 
 		for (int i = 0; i < diceValue.length; i++) {
-
 			switch (diceValue[i]) {
 			case 0: // 주사위
 				comDiceName[i] = "주사위 추가";
