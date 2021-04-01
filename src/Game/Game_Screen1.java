@@ -456,7 +456,7 @@ public class Game_Screen1 extends JFrame {
 			
 			switch (diceValue[i]) {
 
-			
+			//
 			case 0: // 주사위
 				userDiceName[i] = "주사위 추가";
 				userDiceData++;
