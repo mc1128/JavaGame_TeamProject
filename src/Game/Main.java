@@ -69,6 +69,9 @@ public class Main extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				new Batting(); // 수정
+				
+				setVisible(false);
 				LoginButton.setEnabled(false);
 				
 				
