@@ -206,8 +206,6 @@ public class Game_Screen extends JFrame {
 			}
 		});
 		
-		
-		
 		stopGame.addActionListener(new ActionListener() {
 			
 			@Override
@@ -216,9 +214,6 @@ public class Game_Screen extends JFrame {
 				dispose();
 			}
 		});
-		
-		
-		
 		
 	}
 
