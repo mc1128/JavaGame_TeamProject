@@ -37,7 +37,24 @@ public class Game_Screen1 extends JFrame {
 
 	String userDefenseG = "○○○○○○";
 	String comDefenseG = "○○○○○○";
-
+	
+	static JLabel comDice; 		// 컴퓨터 주사위 변수
+	static JLabel comDefense; 	// 컴퓨터 디펜스 변수
+	static JLabel comHP;		// 컴퓨터 HP 변수
+	static JLabel userDice; 	// 유저 주사위 변수
+	static JLabel userDefense;  // 유저 디펜스 변수
+	static JLabel userHP;		// 유저 HP 변수
+	static JLabel comResult1;	// 컴퓨터 결과 1
+	static JLabel comResult2;	// 컴퓨터 결과 2
+	static JLabel comResult3;	// 컴퓨터 결과 3
+	static JLabel comResult4;	// 컴퓨터 결과 4
+	static JLabel comResult5;	// 컴퓨터 결과 5
+	static JLabel userResult1;	// 유저 결과 1
+	static JLabel userResult2;	// 유저 결과 2
+	static JLabel userResult3;	// 유저 결과 3
+	static JLabel userResult4;	// 유저 결과 4
+	static JLabel userResult5;	// 유저 결과 5
+	
 	Boolean turn;
 
 	public Game_Screen1() {
@@ -55,7 +72,7 @@ public class Game_Screen1 extends JFrame {
 		// 컴퓨터 남은 주사위 값 출력 컴포넌트 : comDice
 		JLabel comDiceTitle = new JLabel("남은 주사위");
 		JLabel comDiceX = new JLabel("x");
-		JLabel comDice = new JLabel("15");
+		comDice = new JLabel("15");
 
 		comDiceX.setBounds(5, 5, 19, 15);
 		comDice.setBounds(12, 5, 57, 15);
@@ -77,8 +94,8 @@ public class Game_Screen1 extends JFrame {
 		// comStatus - comDefense, comHP
 		// 컴퓨터 방어 값 출력 컴포넌트 : comDefense
 		// 컴퓨터 체력 값 출력 컴포넌트 : comHP
-		JLabel comDefense = new JLabel(comDefenseG);
-		JLabel comHP = new JLabel("10");
+		comDefense = new JLabel(comDefenseG);
+		comHP = new JLabel("10");
 		JLabel comMaxHP = new JLabel("HP      /10");
 
 		comHP.setBounds(35, 5, 35, 15);
@@ -105,7 +122,7 @@ public class Game_Screen1 extends JFrame {
 		// 유저 남은 주사위 값 출력 컴포넌트 : userDice
 		JLabel userDiceTitle = new JLabel("남은 주사위");
 		JLabel userDiceX = new JLabel("x");
-		JLabel userDice = new JLabel("15");
+		userDice = new JLabel("15");
 
 		userDice.setBounds(75, 5, 19, 15);
 		userDiceX.setBounds(68, 5, 19, 15);
@@ -129,8 +146,8 @@ public class Game_Screen1 extends JFrame {
 		// userStatus - userDefense, userHP
 		// 유저 방어 값 출력 컴포넌트 : userDefense
 		// 유저 체력 값 출력 컴포넌트 : userHP
-		JLabel userDefense = new JLabel(userDefenseG);
-		JLabel userHP = new JLabel("10");
+		userDefense = new JLabel(userDefenseG);
+		userHP = new JLabel("10");
 		JLabel userMaxHP = new JLabel("HP      /10");
 
 		userHP.setBounds(34, 5, 35, 15);
@@ -162,18 +179,18 @@ public class Game_Screen1 extends JFrame {
 		stopGame.setBounds(344, 280, 100, 50);
 
 		// 주사위 결과 출력 comResult1~5
-		JLabel comResult1 = new JLabel("주사위1");
-		JLabel comResult2 = new JLabel("주사위2");
-		JLabel comResult3 = new JLabel("주사위3");
-		JLabel comResult4 = new JLabel("주사위4");
-		JLabel comResult5 = new JLabel("주사위5");
+		comResult1 = new JLabel("주사위1");
+		comResult2 = new JLabel("주사위2");
+		comResult3 = new JLabel("주사위3");
+		comResult4 = new JLabel("주사위4");
+		comResult5 = new JLabel("주사위5");
 
 		// 주사위 결과 출력 userResult1~5
-		JLabel userResult1 = new JLabel("주사위1");
-		JLabel userResult2 = new JLabel("주사위2");
-		JLabel userResult3 = new JLabel("주사위3");
-		JLabel userResult4 = new JLabel("주사위4");
-		JLabel userResult5 = new JLabel("주사위5");
+		userResult1 = new JLabel("주사위1");
+		userResult2 = new JLabel("주사위2");
+		userResult3 = new JLabel("주사위3");
+		userResult4 = new JLabel("주사위4");
+		userResult5 = new JLabel("주사위5");
 
 		comResult1.setBounds(30, 10, 140, 15);
 		comResult2.setBounds(30, 35, 140, 15);
@@ -269,6 +286,9 @@ public class Game_Screen1 extends JFrame {
 				comHP.setText(String.valueOf(comHPData));
 				comDefense.setText(String.valueOf(comDefenseData));
 
+				
+				// roll()의 저장된 값 출력
+
 //				Timer timer_delay = new Timer();
 //				TimerTask task_delay = new TimerTask() {
 //
@@ -330,6 +350,7 @@ public class Game_Screen1 extends JFrame {
 //				
 //				time();
 
+
 				userDefenseG = "";
 
 				comDefense.setText(String.valueOf(comDefenseData));
@@ -347,46 +368,14 @@ public class Game_Screen1 extends JFrame {
 
 				comDefense.setText(comDefenseG);
 
+
 				Timer timer_delay = new Timer();
 				TimerTask task_delay = new TimerTask() {
 
 					@Override
 					public void run() {
 						comRoll();
-						userResult1.setText(userDiceName[0]);
-						userResult2.setText(userDiceName[1]);
-						userResult3.setText(userDiceName[2]);
-						userResult4.setText(userDiceName[3]);
-						userResult5.setText(userDiceName[4]);
-						userDice.setText(String.valueOf(userDiceData));
-						userHP.setText(String.valueOf(userHPData));
-						userDefense.setText(String.valueOf(userDefenseData));
-						userDefenseG = "";
-
-						for (int i = 0; i < userDefenseData; i++) {
-							userDefenseG += "●";
-						}
-						for (int i = 0; i < 6 - userDefenseData; i++) {
-							userDefenseG += "○";
-						}
-						userDefense.setText(userDefenseG);
-						comResult1.setText(comDiceName[0]);
-						comResult2.setText(comDiceName[1]);
-						comResult3.setText(comDiceName[2]);
-						comResult4.setText(comDiceName[3]);
-						comResult5.setText(comDiceName[4]);
-						comDice.setText(String.valueOf(comDiceData));
-						comHP.setText(String.valueOf(comHPData));
-						comDefense.setText(String.valueOf(comDefenseData));
-						comDefenseG = "";
-
-						for (int i = 0; i < comDefenseData; i++) {
-							comDefenseG += "●";
-						}
-						for (int i = 0; i < 6 - comDefenseData; i++) {
-							comDefenseG += "○";
-						}
-						comDefense.setText(comDefenseG);
+						
 					}
 				};
 				(timer_delay).schedule(task_delay, 2500);
@@ -408,34 +397,8 @@ public class Game_Screen1 extends JFrame {
 				while (comDiceData > 0) {
 
 					comRoll();
-
-					// roll()의 저장된 값 출력
-					// 1. 유저 주사위 결과 값 출력
-					userResult1.setText(userDiceName[0]);
-					userResult2.setText(userDiceName[1]);
-					userResult3.setText(userDiceName[2]);
-					userResult4.setText(userDiceName[3]);
-					userResult5.setText(userDiceName[4]);
-
-					// 2. 유저 주사위 값, status(HP, 방어) 출력
-					userDice.setText(String.valueOf(userDiceData));
-					userHP.setText(String.valueOf(userHPData));
-					userDefense.setText(String.valueOf(userDefenseData));
-
-					// 3. 컴퓨터 주사위 결과 값 출력
-					comResult1.setText(comDiceName[0]);
-					comResult2.setText(comDiceName[1]);
-					comResult3.setText(comDiceName[2]);
-					comResult4.setText(comDiceName[3]);
-					comResult5.setText(comDiceName[4]);
-
-					// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-					comDice.setText(String.valueOf(comDiceData));
-					comHP.setText(String.valueOf(comHPData));
-					comDefense.setText(String.valueOf(comDefenseData));
-
-//					time();
-
+					changeText();
+					
 				}
 
 				JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
@@ -447,7 +410,59 @@ public class Game_Screen1 extends JFrame {
 			}
 		});
 	}
+	
+	// Text값을 바꾸는 메서드.
+	void changeText() {	
+		// 1. 유저 주사위 결과 값 출력
+		userResult1.setText(userDiceName[0]);
+		userResult2.setText(userDiceName[1]);
+		userResult3.setText(userDiceName[2]);
+		userResult4.setText(userDiceName[3]);
+		userResult5.setText(userDiceName[4]);
 
+		// 2. 유저 주사위 값, status(HP, 방어) 출력
+		userDice.setText(String.valueOf(userDiceData));
+		userHP.setText(String.valueOf(userHPData));
+		userDefense.setText(String.valueOf(userDefenseData));
+
+		// 3. 유저 디펜스 그래픽
+		userDefenseG = "";
+
+		for (int i = 0; i < userDefenseData; i++) {
+			userDefenseG += "●";
+		}
+		for (int i = 0; i < 6 - userDefenseData; i++) {
+			userDefenseG += "○";
+		}
+
+		userDefense.setText(userDefenseG);
+
+		// 3. 컴퓨터 주사위 결과 값 출력
+		comResult1.setText(comDiceName[0]);
+		comResult2.setText(comDiceName[1]);
+		comResult3.setText(comDiceName[2]);
+		comResult4.setText(comDiceName[3]);
+		comResult5.setText(comDiceName[4]);
+
+		// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
+		comDice.setText(String.valueOf(comDiceData));
+		comHP.setText(String.valueOf(comHPData));
+		comDefense.setText(String.valueOf(comDefenseData));
+		
+		comDefenseG = "";
+
+		for (int i = 0; i < comDefenseData; i++) {
+			comDefenseG += "●";
+		}
+		for (int i = 0; i < 6 - comDefenseData; i++) {
+			comDefenseG += "○";
+		}
+
+		comDefense.setText(comDefenseG);
+		
+	}
+	
+	
 	void continueGame() {
 		if (userHPData <= 0 || comHPData <= 0 || comDiceData <= 0 || userDiceData <= 0) {
 			JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
@@ -493,7 +508,6 @@ public class Game_Screen1 extends JFrame {
 		for (int i = 0; i < diceValue.length; i++) {
 			
 			switch (diceValue[i]) {
-
 			case 0: // 주사위
 				userDiceName[i] = "주사위 추가";
 				userDiceData++;
@@ -523,6 +537,8 @@ public class Game_Screen1 extends JFrame {
 			}
 			userDiceData--;
 			continueGame();
+			changeText();
+
 		}
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
@@ -612,6 +628,7 @@ public class Game_Screen1 extends JFrame {
 			}
 			continueGame();
 			comDiceData--;
+			changeText();
 		}
 
 		if (diceValue.length < 5) {
