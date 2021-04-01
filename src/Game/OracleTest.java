@@ -16,10 +16,10 @@ public class OracleTest {
         try {
             // SQL 문장을 만들고 만약 문장이 질의어(SELECT문)라면
             // 그 결과를 담을 ResulSet 객체를 준비한 후 실행시킨다.
-            String quary = "SELECT * FROM PRODUCTS";
+            String test = "SELECT output_price FROM PRODUCTS";
             
             conn = DBConnection.getConnection();
-            pstm = conn.prepareStatement(quary);
+            pstm = conn.prepareStatement(test);
             rs = pstm.executeQuery();
             
             /*  EMP 테이블의 데이터 타입
@@ -37,7 +37,10 @@ public class OracleTest {
             System.out.println("============================================");
             
             while(rs.next()){
-                int PNUM = rs.getInt(1);
+            	
+            	
+            	int output_price = rs.getInt(1);
+                /*int PNUM = rs.getInt(1);
                 //int empno = rs.getInt("empno"); 숫자 대신 컬럼 이름을 적어도 된다.
                 String CATECPRU_FK = rs.getString(2);
                 String PRODUCTS_NAME = rs.getString(3);
@@ -47,9 +50,10 @@ public class OracleTest {
                 int trans_cost = rs.getInt(7);
                 int mileage = rs.getInt(8);
                 String company = rs.getString(9);
-                String status = rs.getString(10);
+                String status = rs.getString(10);*/
                 
-                String result = PNUM+" "+CATECPRU_FK+" "+PRODUCTS_NAME+" "+ep_code_fk+" "+input_price+" "+output_price+" "+trans_cost+" "+mileage;
+                //String result = PNUM+" "+CATECPRU_FK+" "+PRODUCTS_NAME+" "+ep_code_fk+" "+input_price+" "+output_price+" "+trans_cost+" "+mileage;
+            	String result = output_price+ "";
                 System.out.println(result);
             }
             

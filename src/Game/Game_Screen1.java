@@ -22,7 +22,7 @@ import java.util.*;
 import javax.swing.*;
 
 public class Game_Screen1 extends JFrame {
-
+	
 	int comHPData = 10;
 	int userHPData = 10;
 	int comDefenseData = 0;
@@ -54,6 +54,9 @@ public class Game_Screen1 extends JFrame {
 	static JLabel userResult3;	// 유저 결과 3
 	static JLabel userResult4;	// 유저 결과 4
 	static JLabel userResult5;	// 유저 결과 5
+	
+	static JButton throwDice;
+	
 	
 	Boolean turn;
 
@@ -170,7 +173,7 @@ public class Game_Screen1 extends JFrame {
 		userStatus.setBounds(245, 280, 100, 50);
 
 		// 던지기 버튼 : throwDice / 그만 버튼 : stopGame
-		JButton throwDice = new JButton("던지기");
+		throwDice = new JButton("던지기");
 		JButton stopGame = new JButton("그만");
 
 		getContentPane().add(throwDice);
@@ -238,6 +241,22 @@ public class Game_Screen1 extends JFrame {
 		getContentPane().add(userResult);
 		comResult.setBounds(50, 102, 193, 147);
 		userResult.setBounds(344, 102, 193, 147);
+		
+		
+		// 컴퓨터 동작 및 실행 시간 테스트
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setBounds(17, 291, 117, 14);
+		getContentPane().add(progressBar);
+		
+	
+		
+		/*try {
+			Thread.sleep(4000);
+		} catch (Exception e) {
+			
+		}*/
+		
+		System.out.println("타이머 진행 되는지 확인");
 
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
@@ -395,13 +414,12 @@ public class Game_Screen1 extends JFrame {
 
 				// 컴퓨터의 남은 주사위가 0이 될 때까지 컴퓨터만 롤
 				while (comDiceData > 0) {
-
 					comRoll();
 					changeText();
 					
 				}
 
-				JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
+				//JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 //				new Result(userHPData, comHPData);
 
 				// new Result();
@@ -460,12 +478,13 @@ public class Game_Screen1 extends JFrame {
 
 		comDefense.setText(comDefenseG);
 		
+		
 	}
 	
 	
 	void continueGame() {
 		if (userHPData <= 0 || comHPData <= 0 || comDiceData <= 0 || userDiceData <= 0) {
-			JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
+			//JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 //			new Result();
 		} else {
 			return;
@@ -490,7 +509,7 @@ public class Game_Screen1 extends JFrame {
 	}
 
 	void userRoll() { // 유저 주사위 굴리기
-
+		
 		int a = 0;
 		if (userDiceData >= 5) {
 			a = 5;
@@ -630,7 +649,6 @@ public class Game_Screen1 extends JFrame {
 			comDiceData--;
 			changeText();
 		}
-
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
 				comDiceName[i] = "";
