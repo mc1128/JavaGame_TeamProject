@@ -30,7 +30,6 @@ public class Result extends JFrame {
 	static JLabel Gold_Label;
 	String resultText;	// 결과값 메시지
 	int goldResult;		// 골드값 메시지
-	int result;		// 결과(승리/패배/무승부) 
 	
 	
 	public Result() {
@@ -73,13 +72,6 @@ public class Result extends JFrame {
 		// 결과 처리
 		result();
 		
-		// 결과값 출력
-		printResult();
-		
-		
-		// 얻은 골드 값 출력
-		printGold();
-		
 		
 		// 이벤트 처리
 		// 다시 플레이 버튼
@@ -107,46 +99,22 @@ public class Result extends JFrame {
 	
 	void result() {
 		
-		if(Values.userHPData > Values.comHPDate) {
-			result = 0;
+		if((Values.userHPData > Values.comHPData) && Values.comHPData == 0) {	// 대승리
 			resultText = "이겼습니다!";
-		}else if(Values.userHPData > Values.comHPDate) {
-			result = 1;
-			resultText = "졌습니다!";
-		}else {
-			result = 2;
-			resultText = "비겼습니다!";
-		}
-	}
-	
-	void printResult() {	// 결과값 출력 메서드
-		if(Values.userHPData > Values.comHPDate) {
+			Values.gold *= 2.5;
+		}else if(Values.userHPData > Values.comHPData) {	// 승리
 			resultText = "이겼습니다!";
-		}else if(Values.userHPData > Values.comHPDate) {
-			resultText = "졌습니다!";
-		}else {
+			Values.gold *= 2;
+		}else if(Values.userHPData == Values.comHPData) {	// 무승부
 			resultText = "비겼습니다!";
+			Values.gold *= 1;
+		}else if(Values.userHPData < Values.comHPData) {	// 패배
+			resultText = "졌습니다!";
+			Values.gold *= 0;
 		}
 		
 		Result_Label.setText(resultText);
-		
-	}
-	
-	void printGold() {	// 골드값 출력 메서드
-		
-		goldMath();
 		Gold_Label.setText(String.valueOf(Values.gold));
+		
 	}
-	
-	void goldMath() {
-		switch(result) {
-			case 0 :
-				break;
-			case 1 :
-				break;
-			case 2 :
-				break;
-		}
-	}
-	
 }// 클래스 end
