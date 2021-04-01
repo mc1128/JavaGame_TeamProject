@@ -5,9 +5,11 @@ import java.awt.event.*;
 import java.awt.Font;
 
 public class Batting extends JFrame{
-	int gold = 0;
+	
+	
 	
 	public Batting() {
+				
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("배팅을 하세요");
@@ -72,18 +74,18 @@ public class Batting extends JFrame{
 	
 	
 	public void batting_one() {
-		gold=350;
+		Values.gold=350;
 		setVisible(false);
-//		new Start(); //게임화면으로 넘어감
+		new Game_Screen1(); //게임화면으로 넘어감
 	}
 	public void batting_two() {
-		gold=700;
+		Values.gold=700;
 		setVisible(false);
-//		new Start();
+		new Game_Screen1(); //게임화면으로 넘어감
 	}
 	public void batting_three() {
-		gold=1500;
+		Values.gold=1500;
 		setVisible(false);
-//		new Start();
+		new Game_Screen1(); //게임화면으로 넘어감
 	}
 }
