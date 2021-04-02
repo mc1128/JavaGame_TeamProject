@@ -54,7 +54,7 @@ public class Test_Game_Screen1 extends JFrame {
 	static JLabel userResult3;	// 유저 결과 3
 	static JLabel userResult4;	// 유저 결과 4
 	static JLabel userResult5;	// 유저 결과 5
-	static JButton throwDice;
+	static JButton throwDice;	
 	
 	public Test_Game_Screen1() {
 
@@ -546,7 +546,6 @@ public class Test_Game_Screen1 extends JFrame {
 				comDiceName[i] = "주사위 추가";
 				System.out.println("주사위");
 				comDiceData++;
-
 				break;
 			case 2: // 디펜스
 				comDiceName[i] = "디펜스";
