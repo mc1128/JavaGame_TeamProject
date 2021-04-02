@@ -1,16 +1,16 @@
 package Game;
 
-// 수정 0401
+// 수정 15:36
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.File;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
 
 import java.util.*;
-
 
 import javax.swing.*;
 
@@ -38,25 +37,28 @@ public class Game_Screen1 extends JFrame {
 
 	String userDefenseG = "○○○○○○";
 	String comDefenseG = "○○○○○○";
-	
-	static JLabel comDice; 		// 컴퓨터 주사위 변수
-	static JLabel comDefense; 	// 컴퓨터 디펜스 변수
-	static JLabel comHP;		// 컴퓨터 HP 변수
-	static JLabel userDice; 	// 유저 주사위 변수
-	static JLabel userDefense;  // 유저 디펜스 변수
-	static JLabel userHP;		// 유저 HP 변수
-	static JLabel comResult1;	// 컴퓨터 결과 1
-	static JLabel comResult2;	// 컴퓨터 결과 2
-	static JLabel comResult3;	// 컴퓨터 결과 3
-	static JLabel comResult4;	// 컴퓨터 결과 4
-	static JLabel comResult5;	// 컴퓨터 결과 5
-	static JLabel userResult1;	// 유저 결과 1
-	static JLabel userResult2;	// 유저 결과 2
-	static JLabel userResult3;	// 유저 결과 3
-	static JLabel userResult4;	// 유저 결과 4
-	static JLabel userResult5;	// 유저 결과 5
-	
-	Boolean turn;
+
+	static JLabel comDice; // 컴퓨터 주사위 변수
+	static JLabel comDefense; // 컴퓨터 디펜스 변수
+	static JLabel comHP; // 컴퓨터 HP 변수
+	static JLabel userDice; // 유저 주사위 변수
+	static JLabel userDefense; // 유저 디펜스 변수
+	static JLabel userHP; // 유저 HP 변수
+	static JLabel comResult1; // 컴퓨터 결과 1
+	static JLabel comResult2; // 컴퓨터 결과 2
+	static JLabel comResult3; // 컴퓨터 결과 3
+	static JLabel comResult4; // 컴퓨터 결과 4
+	static JLabel comResult5; // 컴퓨터 결과 5
+	static JLabel userResult1; // 유저 결과 1
+	static JLabel userResult2; // 유저 결과 2
+	static JLabel userResult3; // 유저 결과 3
+	static JLabel userResult4; // 유저 결과 4
+	static JLabel userResult5; // 유저 결과 5
+	static JLabel userDiceGif; // 유저 주사위 이미지
+	static JLabel comDiceGif; // 컴퓨터 주사위 이미지
+
+	static JButton throwDice;
+	private final JPanel jp9 = new JPanel();
 
 	public Game_Screen1() {
 
@@ -64,11 +66,14 @@ public class Game_Screen1 extends JFrame {
 
 		// 기본 화면 틀
 		getContentPane().setLayout(null);
+		
+	
 		setBounds(100, 100, 600, 400);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 
+		
 		// 컴퓨터 남은 주사위 - comDiceTitle / comDiceX / comDice
 		// 컴퓨터 남은 주사위 값 출력 컴포넌트 : comDice
 		JLabel comDiceTitle = new JLabel("남은 주사위");
@@ -166,18 +171,21 @@ public class Game_Screen1 extends JFrame {
 		JPanel userStatus = new JPanel(new BorderLayout());
 		userStatus.add(jp7, BorderLayout.NORTH);
 		userStatus.add(jp8, BorderLayout.CENTER);
+		
 
 		getContentPane().add(userStatus);
 		userStatus.setBounds(245, 280, 100, 50);
 
 		// 던지기 버튼 : throwDice / 그만 버튼 : stopGame
-		JButton throwDice = new JButton("던지기");
+		throwDice = new JButton("던지기");
 		JButton stopGame = new JButton("그만");
+		
 
 		getContentPane().add(throwDice);
 		getContentPane().add(stopGame);
 		throwDice.setBounds(146, 280, 100, 50);
 		stopGame.setBounds(344, 280, 100, 50);
+		
 
 		// 주사위 결과 출력 comResult1~5
 		comResult1 = new JLabel("주사위1");
@@ -186,12 +194,13 @@ public class Game_Screen1 extends JFrame {
 		comResult4 = new JLabel("주사위4");
 		comResult5 = new JLabel("주사위5");
 
+
 		// 주사위 결과 출력 userResult1~5
-		userResult1 = new JLabel("주사위1");
+		userResult1 = new JLabel("주사위1");				
 		userResult2 = new JLabel("주사위2");
-		userResult3 = new JLabel("주사위3");
-		userResult4 = new JLabel("주사위4");
-		userResult5 = new JLabel("주사위5");
+		userResult3 = new JLabel("주사위3");		
+		userResult4 = new JLabel("주사위4");		
+		userResult5 = new JLabel("주사위5");	
 
 		comResult1.setBounds(30, 10, 140, 15);
 		comResult2.setBounds(30, 35, 140, 15);
@@ -219,7 +228,16 @@ public class Game_Screen1 extends JFrame {
 
 		JPanel comResult = new JPanel();
 		comResult.setLayout(null);
-		comResult.setBackground(Color.LIGHT_GRAY);
+
+
+		// 컴퓨터 주사위 이미지
+		ImageIcon ii2 = new ImageIcon("C:\\NCS\\workspace(java)\\JavaGame2\\src\\image\\sample04.gif");		
+		comDiceGif = new JLabel(ii2);
+		comDiceGif.setBounds(0, 0, 193, 147);
+		comResult.add(comDiceGif);
+		comDiceGif.setVisible(false);
+		
+		
 		comResult.add(comResult1);
 		comResult.add(comResult2);
 		comResult.add(comResult3);
@@ -228,7 +246,16 @@ public class Game_Screen1 extends JFrame {
 
 		JPanel userResult = new JPanel();
 		userResult.setLayout(null);
-		userResult.setBackground(Color.WHITE);
+
+		
+		// 유저 주사위 이미지 
+		ImageIcon ii = new ImageIcon("C:\\NCS\\workspace(java)\\JavaGame2\\src\\image\\sample03.gif");
+		userDiceGif = new JLabel(ii);
+		userDiceGif.setBounds(0, 0, 193, 147);
+		userResult.add(userDiceGif);
+		userDiceGif.setVisible(false);
+		
+		
 		userResult.add(userResult1);
 		userResult.add(userResult2);
 		userResult.add(userResult3);
@@ -239,6 +266,67 @@ public class Game_Screen1 extends JFrame {
 		getContentPane().add(userResult);
 		comResult.setBounds(50, 102, 193, 147);
 		userResult.setBounds(344, 102, 193, 147);
+		
+		jp9.setBounds(0, 0, 594, 20);
+		getContentPane().add(jp9);
+		
+		JPanel jp10 = new JPanel();
+		jp10.setBounds(0, 330, 594, 41);
+		getContentPane().add(jp10);
+		
+	
+		// 색상 지정
+		
+		Color backColor = new Color(210, 180, 145);
+		Color lineColor = new Color(252, 247, 222);
+		Color buttonColor = new Color(121, 117, 117);
+		
+		getContentPane().setBackground(backColor);
+		jp1.setBackground(backColor); jp2.setBackground(backColor);
+		jp5.setBackground(backColor); jp6.setBackground(backColor);
+		
+		jp3.setBackground(lineColor); jp4.setBackground(lineColor);
+		jp7.setBackground(lineColor); jp8.setBackground(lineColor);
+		jp9.setBackground(lineColor); jp10.setBackground(lineColor);
+		
+		throwDice.setBackground(buttonColor);
+		stopGame.setBackground(buttonColor);
+		
+		comResult.setBackground(new Color(79, 79, 79));		
+		userResult.setBackground(new Color(140, 117, 90));	
+		
+		comResult1.setForeground(Color.LIGHT_GRAY);		
+		comResult2.setForeground(Color.LIGHT_GRAY);		
+		comResult3.setForeground(Color.LIGHT_GRAY);		
+		comResult4.setForeground(Color.LIGHT_GRAY);		
+		comResult5.setForeground(Color.LIGHT_GRAY);
+		
+		userResult1.setForeground(Color.WHITE);
+		userResult2.setForeground(Color.WHITE);
+		userResult3.setForeground(Color.WHITE);
+		userResult4.setForeground(Color.WHITE);
+		userResult5.setForeground(Color.WHITE);
+
+		
+		int turn;
+		turn = (int) (Math.random() * 2);
+
+		if (turn == 0) {
+			throwDice.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "후공입니다.");
+			Timer timer_delay = new Timer();
+			TimerTask task_delay = new TimerTask() {
+
+				@Override
+				public void run() {
+					comRoll();
+					throwDice.setEnabled(true);
+				}
+			};
+			(timer_delay).schedule(task_delay, 2500);
+		} else if (turn == 1) {
+			JOptionPane.showMessageDialog(null, "선공입니다.");
+		}
 
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
@@ -248,91 +336,44 @@ public class Game_Screen1 extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				throwDice.setEnabled(false);
+
 				userRoll(); // 주사위 굴려서 값 저장
+				
+				
+				
+				Timer timer_delay = new Timer();
+				TimerTask task_delay = new TimerTask() {
 
-				
-				
-				comRoll();
-				
-				// roll()의 저장된 값 출력
-				
-//				Timer timer_delay = new Timer();
-//				TimerTask task_delay = new TimerTask() {
-//
-//					
-//					
-//					
-//					@Override
-//					public void run() {
-//						
-//						
-//						userRoll();
-//
-//						// roll()의 저장된 값 출력
-//						// 1. 유저 주사위 결과 값 출력
-//						userResult1.setText(userDiceName[0]);
-//						userResult2.setText(userDiceName[1]);
-//						userResult3.setText(userDiceName[2]);
-//						userResult4.setText(userDiceName[3]);
-//						userResult5.setText(userDiceName[4]);
-//
-//						// 2. 유저 주사위 값, status(HP, 방어) 출력
-//						userDice.setText(String.valueOf(userDiceData));
-//						userHP.setText(String.valueOf(userHPData));
-//						userDefense.setText(String.valueOf(userDefenseData));
-//
-//						// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-//						comDice.setText(String.valueOf(comDiceData));
-//						comHP.setText(String.valueOf(comHPData));
-//						comDefense.setText(String.valueOf(comDefenseData));
-//
-//						System.out.println(2);
-//						timer_delay.cancel();
-//					}
-//				};
-//				timer_delay.schedule(task_delay, 2500);
-//				comRoll();
-//							
-//				
-//				// roll()의 저장된 값 출력
-//							
-//				// 2. 유저 주사위 값, status(HP, 방어) 출력
-//				userDice.setText(String.valueOf(userDiceData));
-//				userHP.setText(String.valueOf(userHPData));
-//				userDefense.setText(String.valueOf(userDefenseData));
-//				
-//				// 3. 컴퓨터 주사위 결과 값 출력
-//				comResult1.setText(comDiceName[0]);
-//				comResult2.setText(comDiceName[1]);
-//				comResult3.setText(comDiceName[2]);
-//				comResult4.setText(comDiceName[3]);
-//				comResult5.setText(comDiceName[4]);
-//				
-//				// 4. 컴퓨터 주사위 값, status(HP, 방어) 출력
-//				comDice.setText(String.valueOf(comDiceData));
-//				comHP.setText(String.valueOf(comHPData));
-//				comDefense.setText(String.valueOf(comDefenseData));	
-//			
-//			
-//				
-//				time();
-				
+					@Override
+					public void run() {
+						
+						comDiceImage();
+						comRoll();
 
-//				Timer timer_delay = new Timer();
-//				TimerTask task_delay = new TimerTask() {
-//
-//					@Override
-//					public void run() {
-//						comRoll();
-//						
-//					}
-//				};
-//				(timer_delay).schedule(task_delay, 2500);
-				
+					}
+				};
+				(timer_delay).schedule(task_delay, 2500);
 
-				// 유저,컴퓨터의 HP=0 또는 유저,컴퓨터의 주사위값=0 이면 게임 종료
-				continueGame();
+				if (userDiceData <= 0) {
+					throwDice.setEnabled(false);
 
+					while (comDiceData <= 0) {
+
+						Timer timer_delay1 = new Timer();
+						TimerTask task_delay1 = new TimerTask() {
+
+							@Override
+							public void run() {
+								
+								comRoll();
+
+							}
+						};
+						(timer_delay1).schedule(task_delay1, 2500);
+
+					}
+				}
 
 			}
 		});
@@ -347,9 +388,10 @@ public class Game_Screen1 extends JFrame {
 				// 컴퓨터의 남은 주사위가 0이 될 때까지 컴퓨터만 롤
 				while (comDiceData > 0) {
 
+					
 					comRoll();
 					changeText();
-					
+
 				}
 
 				JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
@@ -362,9 +404,47 @@ public class Game_Screen1 extends JFrame {
 		});
 	}
 
+	// 주사위 굴리는 gif
+	void userDiceImage() {
+
+		userDiceGif.setVisible(true);
+		
+		Timer timer_delay1 = new Timer();
+		TimerTask task_delay1 = new TimerTask() {
+
+			@Override
+			public void run() {
+				userDiceGif.setVisible(false);
+				System.out.println("다이스이미지");
+				timer_delay1.cancel();
+			}
+		};
+		(timer_delay1).schedule(task_delay1, 1000);
+		
+		
+	}
 	
+	void comDiceImage() {
+
+		comDiceGif.setVisible(true);
+		
+		Timer timer_delay1 = new Timer();
+		TimerTask task_delay1 = new TimerTask() {
+
+			@Override
+			public void run() {
+				comDiceGif.setVisible(false);
+				System.out.println("다이스이미지");
+				timer_delay1.cancel();
+			}
+		};
+		(timer_delay1).schedule(task_delay1, 1000);
+		
+		
+	}
+
 	// Text값을 바꾸는 메서드.
-	void changeText() {	
+	void changeText() {
 		// 1. 유저 주사위 결과 값 출력
 		userResult1.setText(userDiceName[0]);
 		userResult2.setText(userDiceName[1]);
@@ -400,7 +480,7 @@ public class Game_Screen1 extends JFrame {
 		comDice.setText(String.valueOf(comDiceData));
 		comHP.setText(String.valueOf(comHPData));
 		comDefense.setText(String.valueOf(comDefenseData));
-		
+
 		comDefenseG = "";
 
 		for (int i = 0; i < comDefenseData; i++) {
@@ -411,128 +491,20 @@ public class Game_Screen1 extends JFrame {
 		}
 
 		comDefense.setText(comDefenseG);
-		
-		
-	}
-	
-	// Text 색상을 변경하는 메서드
-	void changeColor1(){
-		
-		userResult1.setForeground(Color.red);
-		userResult2.setForeground(Color.red);
-		userResult3.setForeground(Color.red);
-		userResult4.setForeground(Color.red);
-		userResult5.setForeground(Color.red);
-		
-//		userDice.setForeground(Color.red);
-//		userHP.setForeground(Color.red);
-//		userDefense.setForeground(Color.red);
-//		comDefense.setForeground(Color.red);
-//		
-//		comResult1.setForeground(Color.red);
-//		
-//		comDice.setForeground(Color.red);
-//		comHP.setForeground(Color.red);
-//		comDefense.setForeground(Color.red);
-//		comDefense.setForeground(Color.red);
-		
-		Timer timer_delay = new Timer();
-		TimerTask task_delay = new TimerTask() {
 
-						@Override
-						public void run() {
-							userResult1.setForeground(Color.black);
-							userResult2.setForeground(Color.black);
-							userResult3.setForeground(Color.black);
-							userResult4.setForeground(Color.black);
-							userResult5.setForeground(Color.black);
-							
-//							userDice.setForeground(Color.black);
-//							userHP.setForeground(Color.black);
-//							userDefense.setForeground(Color.black);
-//							comDefense.setForeground(Color.black);
-//							
-//							comResult1.setForeground(Color.black);
-//							
-//							comDice.setForeground(Color.black);
-//							comHP.setForeground(Color.black);
-//							comDefense.setForeground(Color.black);
-//							comDefense.setForeground(Color.black);
-//							System.out.println("유저결과1 색상변경");
-						}
-					};
-					timer_delay.schedule(task_delay, 500);
-		
-		
 	}
-	
-	
-	// Text 색상을 변경하는 메서드
-	void changeColor2(){
-		
-//		userDice.setForeground(Color.red);
-//		userHP.setForeground(Color.red);
-//		userDefense.setForeground(Color.red);
-//		comDefense.setForeground(Color.red);
-		
-		comResult1.setForeground(Color.red);
-		comResult2.setForeground(Color.red);
-		comResult3.setForeground(Color.red);
-		comResult4.setForeground(Color.red);
-		comResult5.setForeground(Color.red);
-//		
-//		comDice.setForeground(Color.red);
-//		comHP.setForeground(Color.red);
-//		comDefense.setForeground(Color.red);
-//		comDefense.setForeground(Color.red);
-		
-		Timer timer_delay = new Timer();
-		TimerTask task_delay = new TimerTask() {
 
-						@Override
-						public void run() {
-							comResult1.setForeground(Color.black);
-							comResult2.setForeground(Color.black);
-							comResult3.setForeground(Color.black);
-							comResult4.setForeground(Color.black);
-							comResult5.setForeground(Color.black);
-							
-//							userDice.setForeground(Color.black);
-//							userHP.setForeground(Color.black);
-//							userDefense.setForeground(Color.black);
-//							comDefense.setForeground(Color.black);
-//							
-//							comResult1.setForeground(Color.black);
-//							
-//							comDice.setForeground(Color.black);
-//							comHP.setForeground(Color.black);
-//							comDefense.setForeground(Color.black);
-//							comDefense.setForeground(Color.black);
-							System.out.println("유저결과1 색상변경");
-						}
-					};
-					timer_delay.schedule(task_delay, 500);
-		
-		
-	}
-	
-	
+	// 유저,컴퓨터의 HP=0 이면 게임 종료
 	void continueGame() {
-		if (userHPData <= 0 || comHPData <= 0 || comDiceData <= 0 || userDiceData <= 0) {
+		if (userHPData <= 0 || comHPData <= 0 || (userDiceData <= 0 && comDiceData <= 0)) {
 			JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
+			dispose();
 			new Result();
+
 		} else {
 			return;
 		}
 	}
-
-//	void clearResult() {
-//		for (int i = 0; i < comDiceName.length; i++) {
-//			comDiceName[i] = "";
-//			userDiceName[i] = "";
-//		}
-//	}
-
 
 	void userRoll() { // 유저 주사위 굴리기
 
@@ -545,30 +517,26 @@ public class Game_Screen1 extends JFrame {
 		diceValue = new int[a];
 
 		for (int i = 0; i < diceValue.length; i++) {
-			diceValue[i] = (int) (Math.random() * 4);
+			diceValue[i] = (int) (Math.random() * 6);
 		}
 		// 랜덤값 오름차순 정렬
 		Arrays.sort(diceValue);
 
 		for (int i = 0; i < diceValue.length; i++) {
-			
-			switch (diceValue[i]) {
 
-			//
+			switch (diceValue[i]) {
 			case 0: // 주사위
+			case 1: // 주사위
 				userDiceName[i] = "주사위 추가";
 				userDiceData++;
-				
-				userResult1.setText(userDiceName[0]);
-				
 				break;
-			case 1: // 디펜스
+			case 2: // 디펜스
 				userDiceName[i] = "디펜스";
 				if (userDefenseData < 6) {
 					userDefenseData++;
 				}
 				break;
-			case 2: // 데스
+			case 3: // 데스
 				userDiceName[i] = "데스";
 				if (userDefenseData > 0) {
 					userDefenseData--;
@@ -576,7 +544,8 @@ public class Game_Screen1 extends JFrame {
 					userHPData--;
 				}
 				break;
-			case 3: // 어택
+			case 4: // 어택
+			case 5: // 어택
 				userDiceName[i] = "어택";
 				if (comDefenseData > 0) {
 					comDefenseData--;
@@ -584,14 +553,18 @@ public class Game_Screen1 extends JFrame {
 					comHPData--;
 				}
 				break;
-			}
+			} // 스위치문 end
 			userDiceData--;
 			continueGame();
+			
+			userDiceImage();
+			
 			changeText();
-			changeColor1();
+
+		} // for문 end
+		if (comDiceData == 0) {
+			throwDice.setEnabled(true);
 		}
-		
-		
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
 				userDiceName[i] = "";
@@ -633,39 +606,31 @@ public class Game_Screen1 extends JFrame {
 			a = comDiceData;
 		}
 		diceValue = new int[a];
-		
 
 		System.out.println("실행확인");
-		
 
 		for (int i = 0; i < diceValue.length; i++) {
-			diceValue[i] = (int) (Math.random() * 4);
-
-			System.out.println("실행확인2");
-			// 랜덤값 오름차순 정렬
-			// Arrays.sort(diceValue);
-			
-
+			diceValue[i] = (int) (Math.random() * 6);
 		} // 랜덤값 오름차순 정렬
 		Arrays.sort(diceValue);
 
 		for (int i = 0; i < diceValue.length; i++) {
-
 			switch (diceValue[i]) {
 			case 0: // 주사위
+			case 1: // 주사위
 				comDiceName[i] = "주사위 추가";
 				System.out.println("주사위");
 				comDiceData++;
 
 				break;
-			case 1: // 디펜스
+			case 2: // 디펜스
 				comDiceName[i] = "디펜스";
 				System.out.println("디펜스");
 				if (comDefenseData < 6) {
 					comDefenseData++;
 				}
 				break;
-			case 2: // 데스
+			case 3: // 데스
 				comDiceName[i] = "데스";
 				System.out.println("데스");
 				if (comDefenseData > 0) {
@@ -674,7 +639,8 @@ public class Game_Screen1 extends JFrame {
 					comHPData--;
 				}
 				break;
-			case 3: // 어택
+			case 4: // 어택
+			case 5: // 어택
 				comDiceName[i] = "어택";
 				System.out.println("어택");
 				if (userDefenseData > 0) {
@@ -684,12 +650,15 @@ public class Game_Screen1 extends JFrame {
 				}
 				break;
 
-			}
+			}// 스위치문 end
+			
 			continueGame();
 			comDiceData--;
+			
+			comDiceImage();
+			
 			changeText();
-			changeColor2();
-		}
+		} // for문 end
 
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
@@ -697,6 +666,7 @@ public class Game_Screen1 extends JFrame {
 			}
 		}
 
+		throwDice.setEnabled(true);
 
 	}
 
@@ -727,7 +697,6 @@ public class Game_Screen1 extends JFrame {
 	 * }
 	 */
 
-	
 	public static void main(String[] args) {
 		new Game_Screen1();
 
