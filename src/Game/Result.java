@@ -35,11 +35,14 @@ public class Result extends JFrame {
 	static JLabel Gold_Label;
 	String resultText;	// 결과값 메시지
 	int goldResult;		// 골드값 메시지
+	
 	int result;		// 결과(승리/패배/무승부) 
+
 	
 	
 	public Result() {
 		
+
 		setTitle("결과창");
 
 		setVisible(true);
@@ -123,10 +126,10 @@ public class Result extends JFrame {
 	
 	void result() {
 		
-		if(Values.userHPData > Values.comHPDate) {
+		if(Values.userHPData > Values.comHPData) {
 			result = 0;
 			resultText = "이겼습니다!";
-		}else if(Values.userHPData > Values.comHPDate) {
+		}else if(Values.userHPData > Values.comHPData) {
 			result = 1;
 			resultText = "졌습니다!";
 		}else {
@@ -149,15 +152,40 @@ public class Result extends JFrame {
 	
 
 	void printResult() {	// 결과값 출력 메서드
-		if(Values.userHPData > Values.comHPDate) {
+		if(Values.userHPData > Values.comHPData) {
 			resultText = "이겼습니다!";
-		}else if(Values.userHPData > Values.comHPDate) {
+		}else if(Values.userHPData > Values.comHPData) {
 			resultText = "졌습니다!";
 		}else {
 			resultText = "비겼습니다!";
 		}
 		
 		Result_Label.setText(resultText);
+		
+		// 결과 처리
+		result();
+
+				
+	}// 생성자 end
+	
+	void Result() {
+		
+		if((Values.userHPData > Values.comHPData) && Values.comHPData == 0) {	// 대승리
+			resultText = "이겼습니다!";
+			Values.gold *= 2.5;
+		}else if(Values.userHPData > Values.comHPData) {	// 승리
+			resultText = "이겼습니다!";
+			Values.gold *= 2;
+		}else if(Values.userHPData == Values.comHPData) {	// 무승부
+			resultText = "비겼습니다!";
+			Values.gold *= 1;
+		}else if(Values.userHPData < Values.comHPData) {	// 패배
+			resultText = "졌습니다!";
+			Values.gold *= 0;
+		}
+		
+		Result_Label.setText(resultText);
+		Gold_Label.setText(String.valueOf(Values.gold));
 		
 	}
 	

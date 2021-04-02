@@ -72,7 +72,6 @@ public class Join extends JFrame {
 		lblNewLabel_2.setBounds(135, 200, 115, 15);
 		contentPane.add(lblNewLabel_2);
 		
-
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			
