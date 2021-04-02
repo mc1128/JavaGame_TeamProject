@@ -1,18 +1,16 @@
 package Game;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class Main extends JFrame {
 
@@ -69,7 +67,7 @@ public class Main extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Batting(); // 수정
+				new Loading(); // 수정
 				
 				setVisible(false);
 				LoginButton.setEnabled(false);
@@ -89,9 +87,9 @@ public class Main extends JFrame {
 		
 		
 	}
-	public void Batting() {
+	public void Loading() {
 		setVisible(false);
-		new Batting(); 
+		new Loading(); 
 }
 	public void Join() {
 		setVisible(false);
