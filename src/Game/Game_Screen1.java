@@ -256,9 +256,29 @@ public class Game_Screen1 extends JFrame {
 		getContentPane().add(progressBar);
 		
 
+		int turn ;
+		turn = (int)(Math.random() * 2);
+		
+		if(turn == 0) {
+			throwDice.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "후공입니다.");
+			Timer timer_delay = new Timer();
+			TimerTask task_delay = new TimerTask() {
+
+				@Override
+				public void run() {
+					comRoll();
+					throwDice.setEnabled(true);
+				}
+			};
+			(timer_delay).schedule(task_delay, 2500);
+		}else if(turn == 1){
+			JOptionPane.showMessageDialog(null, "선공입니다.");
+		}
+		
+		
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
-
 		throwDice.addActionListener(new ActionListener() {
 
 			@Override
