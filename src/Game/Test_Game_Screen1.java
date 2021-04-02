@@ -18,7 +18,6 @@ import java.util.logging.Handler;
 
 import java.util.*;
 
-
 import javax.swing.*;
 
 public class Test_Game_Screen1 extends JFrame {
@@ -37,29 +36,29 @@ public class Test_Game_Screen1 extends JFrame {
 
 	String userDefenseG = "○○○○○○";
 	String comDefenseG = "○○○○○○";
-	
-	static JLabel comDice; 		// 컴퓨터 주사위 변수
-	static JLabel comDefense; 	// 컴퓨터 디펜스 변수
-	static JLabel comHP;		// 컴퓨터 HP 변수
-	static JLabel userDice; 	// 유저 주사위 변수
-	static JLabel userDefense;  // 유저 디펜스 변수
-	static JLabel userHP;		// 유저 HP 변수
-	static JLabel comResult1;	// 컴퓨터 결과 1
-	static JLabel comResult2;	// 컴퓨터 결과 2
-	static JLabel comResult3;	// 컴퓨터 결과 3
-	static JLabel comResult4;	// 컴퓨터 결과 4
-	static JLabel comResult5;	// 컴퓨터 결과 5
-	static JLabel userResult1;	// 유저 결과 1
-	static JLabel userResult2;	// 유저 결과 2
-	static JLabel userResult3;	// 유저 결과 3
-	static JLabel userResult4;	// 유저 결과 4
-	static JLabel userResult5;	// 유저 결과 5
-	static JButton throwDice;	
-	
+
+	static JLabel comDice; // 컴퓨터 주사위 변수
+	static JLabel comDefense; // 컴퓨터 디펜스 변수
+	static JLabel comHP; // 컴퓨터 HP 변수
+	static JLabel userDice; // 유저 주사위 변수
+	static JLabel userDefense; // 유저 디펜스 변수
+	static JLabel userHP; // 유저 HP 변수
+	static JLabel comResult1; // 컴퓨터 결과 1
+	static JLabel comResult2; // 컴퓨터 결과 2
+	static JLabel comResult3; // 컴퓨터 결과 3
+	static JLabel comResult4; // 컴퓨터 결과 4
+	static JLabel comResult5; // 컴퓨터 결과 5
+	static JLabel userResult1; // 유저 결과 1
+	static JLabel userResult2; // 유저 결과 2
+	static JLabel userResult3; // 유저 결과 3
+	static JLabel userResult4; // 유저 결과 4
+	static JLabel userResult5; // 유저 결과 5
+	static JButton throwDice;
+
 	public Test_Game_Screen1() {
 
 		setTitle("게임 화면");
-	
+
 		// 기본 화면 틀
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 600, 400);
@@ -240,13 +239,11 @@ public class Test_Game_Screen1 extends JFrame {
 
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
-		
-		
-		
-		int turn ;
-		turn = (int)(Math.random() * 2);
-		
-		if(turn == 0) {
+
+		int turn;
+		turn = (int) (Math.random() * 2);
+
+		if (turn == 0) {
 			throwDice.setEnabled(false);
 			JOptionPane.showMessageDialog(null, "후공입니다.");
 			Timer timer_delay = new Timer();
@@ -259,55 +256,55 @@ public class Test_Game_Screen1 extends JFrame {
 				}
 			};
 			(timer_delay).schedule(task_delay, 2500);
-		}else if(turn == 1){
+		} else if (turn == 1) {
 			JOptionPane.showMessageDialog(null, "선공입니다.");
 		}
-		
-		
-		
-		
-		
-		
-		
+
 		throwDice.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				throwDice.setEnabled(false);
-				
-				userRoll(); // 주사위 굴려서 값 저장
-				
+
+				Timer timer_delay1 = new Timer();
+				TimerTask task_delay1 = new TimerTask() {
+
+					@Override
+					public void run() {
+						userRoll();
+
+					}
+				};
+				(timer_delay1).schedule(task_delay1, 2000);
+
+				// 주사위 굴려서 값 저장
+
 				Timer timer_delay = new Timer();
 				TimerTask task_delay = new TimerTask() {
 
 					@Override
 					public void run() {
 						comRoll();
-						
+
 					}
 				};
-				(timer_delay).schedule(task_delay, 2500);
-				
-				if(userDiceData<=0) {
-					throwDice.setEnabled(false);
-					
-					while (comDiceData<=0) {
-						
-						Timer timer_delay1 = new Timer();
-						TimerTask task_delay1 = new TimerTask() {
+				(timer_delay).schedule(task_delay, 11000);
 
-							@Override
-							public void run() {
-								comRoll();
-								
-							}
-						};
-						(timer_delay1).schedule(task_delay1, 2500);
-						
-						
-					}
-				}
+				/*
+				 * if(userDiceData<=0) { throwDice.setEnabled(false);
+				 * 
+				 * while (comDiceData<=0) {
+				 * 
+				 * Timer timer_delay2 = new Timer(); TimerTask task_delay2 = new TimerTask() {
+				 * 
+				 * @Override public void run() { comRoll();
+				 * 
+				 * } }; (timer_delay1).schedule(task_delay1, 2500);
+				 * 
+				 * 
+				 * } }
+				 */
 
 			}
 		});
@@ -323,36 +320,32 @@ public class Test_Game_Screen1 extends JFrame {
 //				new Result(userHPData, comHPData);
 
 				// new Result();
-				if(userDiceData<=0) {
+				if (userDiceData <= 0) {
 					throwDice.setEnabled(false);
-					
-					while (comDiceData<=0) {
-						
+
+					while (comDiceData <= 0) {
+
 						Timer timer_delay1 = new Timer();
 						TimerTask task_delay1 = new TimerTask() {
 
 							@Override
 							public void run() {
 								comRoll();
-								
+
 							}
 						};
 						(timer_delay1).schedule(task_delay1, 2500);
-						
-						
+
 					}
 				}
-				
 
 			}
 		});
-		
-		
-		
-		
+
 	}
+
 	// Text값을 바꾸는 메서드.
-	void changeText() {	
+	void changeText() {
 		// 1. 유저 주사위 결과 값 출력
 		userResult1.setText(userDiceName[0]);
 		userResult2.setText(userDiceName[1]);
@@ -388,7 +381,7 @@ public class Test_Game_Screen1 extends JFrame {
 		comDice.setText(String.valueOf(comDiceData));
 		comHP.setText(String.valueOf(comHPData));
 		comDefense.setText(String.valueOf(comDefenseData));
-		
+
 		comDefenseG = "";
 
 		for (int i = 0; i < comDefenseData; i++) {
@@ -399,13 +392,12 @@ public class Test_Game_Screen1 extends JFrame {
 		}
 
 		comDefense.setText(comDefenseG);
-		
+
 	}
-	
-	
+
 	// 유저,컴퓨터의 HP=0 이면 게임 종료
 	void continueGame() {
-		if (userHPData <= 0 || comHPData <= 0 || (userDiceData<=0 && comDiceData<=0)) {
+		if (userHPData <= 0 || comHPData <= 0 || (userDiceData <= 0 && comDiceData <= 0)) {
 			JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 			dispose();
 			new Result();
@@ -433,16 +425,69 @@ public class Test_Game_Screen1 extends JFrame {
 
 	}
 
-	void userRoll() { // 유저 주사위 굴리기
+	void changeColorR(JLabel label) { // -되는 값을 빨간색으로 변경
 		
-		int a = 0;
-		if (userDiceData >= 5) {
-			a = 5;
-		} else if (userDiceData < 5) {
-			a = userDiceData;
-		}
-		diceValue = new int[a];
+		// 1초 후 -되는 값을 빨간색으로 변경
+		Timer timer_delay1 = new Timer();
+		TimerTask task_delay1 = new TimerTask() {
 
+			@Override
+			public void run() {
+				label.setForeground(Color.red);
+			}
+		};
+		(timer_delay1).schedule(task_delay1, 1000);
+		
+		// 1.3초 후 검정색으로 변경
+		Timer timer_delay2 = new Timer();
+		
+		TimerTask task_delay2 = new TimerTask() {
+
+			@Override
+			public void run() {
+				label.setForeground(Color.black);
+			}
+		};
+		(timer_delay2).schedule(task_delay2, 1300);
+	}
+
+	void changeColorB(JLabel label) { // +되는 값을 파란색으로 변경
+		
+		// 1초 후 +되는 값을 파란색으로 변경
+		Timer timer_delay1 = new Timer();
+		TimerTask task_delay1 = new TimerTask() {
+
+			@Override
+			public void run() {
+				label.setForeground(Color.blue);
+			}
+		};
+		(timer_delay1).schedule(task_delay1, 1000);
+		
+		// 1.3초 후 -되는 값을 검정색으로 변경
+		Timer timer_delay2 = new Timer();
+		TimerTask task_delay2 = new TimerTask() {
+
+			@Override
+			public void run() {
+				label.setForeground(Color.black);
+			}
+		};
+		(timer_delay2).schedule(task_delay2, 1300);
+	}
+
+	void userRoll() { // 유저 주사위 굴리기
+		int DiceData = 0;
+		
+		if (userDiceData >= 5) {
+			DiceData = 5;
+		} else if (userDiceData < 5) {
+			DiceData = userDiceData;
+		}
+		diceValue = new int[DiceData];
+
+		userDiceData -= DiceData; // 주사위 갯수 판별 후 바로 차감
+		
 		for (int i = 0; i < diceValue.length; i++) {
 			diceValue[i] = (int) (Math.random() * 6);
 		}
@@ -450,44 +495,79 @@ public class Test_Game_Screen1 extends JFrame {
 		Arrays.sort(diceValue);
 
 		for (int i = 0; i < diceValue.length; i++) {
-			
+
 			switch (diceValue[i]) {
 			case 0:// 주사위
 			case 1:// 주사위
 				userDiceName[i] = "주사위 추가";
-				userDiceData++;
 				break;
 			case 2: // 디펜스
 				userDiceName[i] = "디펜스";
+				break;
+			case 3: // 데스
+				userDiceName[i] = "데스";
+				break;
+			case 4:// 어택
+			case 5:// 어택
+				userDiceName[i] = "어택";
+				break;
+			}// 스위치 end
+			changeText();
+
+		} // for문 end
+
+		for (int i = 0; i < diceValue.length; i++) {
+
+			userDiceName[i] = "";
+
+			switch (diceValue[i]) {
+			case 0:// 주사위
+			case 1:// 주사위
+				userDiceData++;
+				changeColorB(userDice);
+				break;
+
+			case 2: // 디펜스
 				if (userDefenseData < 6) {
+					changeColorB(userDefense);
 					userDefenseData++;
 				}
 				break;
 			case 3: // 데스
-				userDiceName[i] = "데스";
 				if (userDefenseData > 0) {
+					changeColorR(userDefense);
 					userDefenseData--;
 				} else {
+					changeColorR(userHP);
 					userHPData--;
 				}
 				break;
 			case 4:// 어택
 			case 5:// 어택
-				userDiceName[i] = "어택";
 				if (comDefenseData > 0) {
+					changeColorR(comDefense);
 					comDefenseData--;
 				} else {
+					changeColorR(comHP);
 					comHPData--;
 				}
 				break;
-			}// 스위치 end
+			}	// 스위치 end
+
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			changeText();
-			userDiceData--;
-			continueGame();	
+			continueGame();
 		} // for문 end
-		if(comDiceData==0) {
+
+		if (comDiceData == 0) {
 			throwDice.setEnabled(true);
 		}
+
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
 				userDiceName[i] = "";
@@ -495,44 +575,20 @@ public class Test_Game_Screen1 extends JFrame {
 		}
 	}
 
-	// 유저의 남은 주사위 값이 4 이하일 경우
-
-	/*
-	 * void userRoll4() {
-	 * 
-	 * diceValue = new int[userDiceData];
-	 * 
-	 * for (int i = 0; i < diceValue.length; i++) { diceValue[i] = (int)
-	 * (Math.random() * 4); } // 랜덤값 오름차순 정렬 // Arrays.sort(diceValue); for (int i =
-	 * 0; i < diceValue.length; i++) { switch (diceValue[i]) { case 0: // 주사위
-	 * userDiceName[i] = "주사위 추가"; userDiceData++; break; case 1: // 디펜스
-	 * userDiceName[i] = "디펜스"; if (userDefenseData < 6) { userDefenseData++; }
-	 * break; case 2: // 데스 userDiceName[i] = "데스"; if (userDefenseData > 0) {
-	 * userDefenseData--; } else { userHPData--; } break; case 3: // 어택
-	 * userDiceName[i] = "어택"; if (comDefenseData > 0) { comDefenseData--; } else {
-	 * comHPData--; } break;
-	 * 
-	 * } // switch문 end userDiceData--; } // for문 end
-	 * 
-	 * // 남은 주사위 개수 이상의 출력문 제거 for (int i = 4; i >= diceValue.length; i--) {
-	 * userDiceName[i] = ""; }
-	 * 
-	 * }
-	 */
-
 	void comRoll() { // 컴퓨터 주사위 굴리기
 
-		int a = 0;
+		int DiceData = 0;
 		if (comDiceData >= 5) {
-			a = 5;
+			DiceData = 5;
 		} else if (comDiceData < 5) {
-			a = comDiceData;
+			DiceData = comDiceData;
 		}
-		diceValue = new int[a];
 		
+		diceValue = new int[DiceData];
+
+		comDiceData -= DiceData;
 
 		System.out.println("실행확인");
-		
 
 		for (int i = 0; i < diceValue.length; i++) {
 			diceValue[i] = (int) (Math.random() * 6);
@@ -544,41 +600,69 @@ public class Test_Game_Screen1 extends JFrame {
 			case 0: // 주사위
 			case 1:
 				comDiceName[i] = "주사위 추가";
-				System.out.println("주사위");
-				comDiceData++;
 				break;
 			case 2: // 디펜스
 				comDiceName[i] = "디펜스";
-				System.out.println("디펜스");
+				break;
+			case 3: // 데스
+				comDiceName[i] = "데스";
+				break;
+			case 4:
+			case 5:// 어택
+				comDiceName[i] = "어택";
+				break;
+			}// 스위치문 end
+			changeText();
+
+		} // for문 end
+
+		for (int i = 0; i < diceValue.length; i++) {
+			comDiceName[i] = "";
+			switch (diceValue[i]) {
+			case 0: // 주사위
+			case 1:
+				changeColorB(comDice);
+				comDiceData++;
+				break;
+			case 2: // 디펜스
 				if (comDefenseData < 6) {
+					changeColorB(comDefense);
 					comDefenseData++;
 				}
 				break;
 			case 3: // 데스
-				comDiceName[i] = "데스";
-				System.out.println("데스");
 				if (comDefenseData > 0) {
 					comDefenseData--;
+					changeColorR(comDefense);
 				} else {
+					changeColorR(comHP);
 					comHPData--;
 				}
 				break;
 			case 4:
 			case 5:// 어택
-				comDiceName[i] = "어택";
-				System.out.println("어택");
 				if (userDefenseData > 0) {
+					changeColorR(userDefense);
 					userDefenseData--;
 				} else {
+					changeColorR(userHP);
 					userHPData--;
 				}
 				break;
 
-			}//스위치문 end
+			}// 스위치문 end
+
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			changeText();
 			continueGame();
-			comDiceData--;
-		}//for문 end
+
+		}// for문 end
 
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
@@ -589,34 +673,6 @@ public class Test_Game_Screen1 extends JFrame {
 		throwDice.setEnabled(true);
 	}
 
-	// 컴퓨터의 남은 주사위 값이 4이하일 경우
-
-	/*
-	 * void comRoll4() {
-	 * 
-	 * diceValue = new int[comDiceData];
-	 * 
-	 * for (int i = 0; i < diceValue.length; i++) { diceValue[i] = (int)
-	 * (Math.random() * 4); } // 랜덤값 오름차순 정렬 // Arrays.sort(diceValue); for (int i =
-	 * 0; i < diceValue.length; i++) { switch (diceValue[i]) { case 0: // 주사위
-	 * comDiceName[i] = "주사위 추가"; comDiceData++; break; case 1: // 디펜스
-	 * comDiceName[i] = "디펜스"; if (comDefenseData < 6) { comDefenseData++; } break;
-	 * case 2: // 데스 comDiceName[i] = "데스"; if (comDefenseData > 0) {
-	 * comDefenseData--; } else { userHPData--; } break; case 3: // 어택
-	 * comDiceName[i] = "어택"; if (userDefenseData > 0) { userDefenseData--; } else {
-	 * userHPData--; } break;
-	 * 
-	 * } // switch문 end
-	 * 
-	 * comDiceData--; } // for문 end
-	 * 
-	 * // 남은 주사위 개수 이상의 출력문 제거 for (int i = 4; i >= diceValue.length; i--) {
-	 * comDiceName[i] = ""; }
-	 * 
-	 * }
-	 */
-
-	
 	public static void main(String[] args) {
 		new Test_Game_Screen1();
 
