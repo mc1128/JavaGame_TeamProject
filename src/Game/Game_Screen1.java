@@ -24,21 +24,27 @@ import javax.swing.*;
 
 public class Game_Screen1 extends JFrame {
 	
+	
+	// 초기 게임 진행시 유저, 컴퓨터 체력과 주사위 갯수 세팅
 	int comHPData = 10;
 	int userHPData = 10;
 	int comDefenseData = 0;
 	int userDefenseData = 0;
 	int comDiceData = 15;
 	int userDiceData = 15;
-
+	
+	// 랜덤으로 돌릴 주사위의 값 저장
 	int[] diceValue;
-
+	
+	// 랜덤으로 돌린 값을 텍스트로 변환하여 저장
 	String[] comDiceName = new String[5];
 	String[] userDiceName = new String[5];
-
+	
+	// 기본 디펜스 값 변수
 	String userDefenseG = "○○○○○○";
 	String comDefenseG = "○○○○○○";
 	
+	// Label을 변수로 쓰기위한 전역변수 지정
 	static JLabel comDice; 		// 컴퓨터 주사위 변수
 	static JLabel comDefense; 	// 컴퓨터 디펜스 변수
 	static JLabel comHP;		// 컴퓨터 HP 변수
@@ -58,11 +64,11 @@ public class Game_Screen1 extends JFrame {
 	
 	static JButton throwDice;
 	
-	
 	Boolean turn;
 
 	public Game_Screen1() {
-
+		
+		
 		setTitle("게임 화면");
 
 		// 기본 화면 틀
@@ -244,20 +250,11 @@ public class Game_Screen1 extends JFrame {
 		userResult.setBounds(344, 102, 193, 147);
 		
 		
-		// 컴퓨터 동작 및 실행 시간 테스트
+		// ProgressBar 설정
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(17, 291, 117, 14);
 		getContentPane().add(progressBar);
 		
-	
-		
-		/*try {
-			Thread.sleep(4000);
-		} catch (Exception e) {
-			
-		}*/
-		
-		System.out.println("타이머 진행 되는지 확인");
 
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
@@ -267,13 +264,8 @@ public class Game_Screen1 extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				userRoll(); // 주사위 굴려서 값 저장
-
-				
-				
-				//comRoll();
-				
-				// roll()의 저장된 값 출력
+				//주사위 굴리기
+				userRoll(); 
 
 				// 1. 유저 주사위 결과 값 출력
 				userResult1.setText(userDiceName[0]);

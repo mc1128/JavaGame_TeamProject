@@ -47,8 +47,6 @@ public class Result extends JFrame {
 
 		setVisible(true);
 
-		
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
