@@ -5,20 +5,18 @@ package Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
 
-import java.util.*;
-
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class Test_Game_Screen1 extends JFrame {
 
@@ -567,14 +565,67 @@ public class Test_Game_Screen1 extends JFrame {
 		if (comDiceData == 0) {
 			throwDice.setEnabled(true);
 		}
-
+		
+		changeColor1();
+		
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
 				userDiceName[i] = "";
 			}
 		}
 	}
+	
+	// Text 색상을 변경하는 메서드
+		void changeColor1() {
 
+			userResult1.setForeground(Color.red);
+			userResult2.setForeground(Color.red);
+			userResult3.setForeground(Color.red);
+			userResult4.setForeground(Color.red);
+			userResult5.setForeground(Color.red);
+
+			Timer timer_delay = new Timer();
+			TimerTask task_delay = new TimerTask() {
+
+				@Override
+				public void run() {
+					userResult1.setForeground(Color.black);
+					userResult2.setForeground(Color.black);
+					userResult3.setForeground(Color.black);
+					userResult4.setForeground(Color.black);
+					userResult5.setForeground(Color.black);
+				}
+			};
+			timer_delay.schedule(task_delay, 500);
+
+		}
+
+		// Text 색상을 변경하는 메서드
+		void changeColor2() {
+
+			comResult1.setForeground(Color.red);
+			comResult2.setForeground(Color.red);
+			comResult3.setForeground(Color.red);
+			comResult4.setForeground(Color.red);
+			comResult5.setForeground(Color.red);
+
+			Timer timer_delay = new Timer();
+			TimerTask task_delay = new TimerTask() {
+
+				@Override
+				public void run() {
+					comResult1.setForeground(Color.black);
+					comResult2.setForeground(Color.black);
+					comResult3.setForeground(Color.black);
+					comResult4.setForeground(Color.black);
+					comResult5.setForeground(Color.black);
+
+					System.out.println("유저결과1 색상변경");
+				}
+			};
+			timer_delay.schedule(task_delay, 500);
+
+		}
 	void comRoll() { // 컴퓨터 주사위 굴리기
 
 		int DiceData = 0;

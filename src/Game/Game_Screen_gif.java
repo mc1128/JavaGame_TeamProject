@@ -5,20 +5,19 @@ package Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
 
-import java.util.*;
-
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class Game_Screen_gif extends JFrame {
 
@@ -230,7 +229,7 @@ public class Game_Screen_gif extends JFrame {
 		
 
 		// 컴퓨터 주사위 이미지
-		ImageIcon ii2 = new ImageIcon("C:\\NCS\\workspace(java)\\JavaGame2\\src\\Game\\image\\sample04.gif");		
+		ImageIcon ii2 = new ImageIcon("D:\\JAVA 국비\\JavaGame_TeamProject\\src\\Game\\image\\sample04.gif");		
 		comDiceGif = new JLabel(ii2);
 		comDiceGif.setBounds(0, 0, 193, 147);
 		comResult.add(comDiceGif);
