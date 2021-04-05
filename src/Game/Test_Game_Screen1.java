@@ -196,18 +196,18 @@ public class Test_Game_Screen1 extends JFrame {
 		stopGame.setBounds(344, 280, 100, 50);
 
 		// 주사위 결과 출력 comResult1~5
-		comResult1 = new JLabel("주사위1");
-		comResult2 = new JLabel("주사위2");
-		comResult3 = new JLabel("주사위3");
-		comResult4 = new JLabel("주사위4");
-		comResult5 = new JLabel("주사위5");
+		comResult1 = new JLabel("");
+		comResult2 = new JLabel("");
+		comResult3 = new JLabel("");
+		comResult4 = new JLabel("");
+		comResult5 = new JLabel("");
 
 		// 주사위 결과 출력 userResult1~5
-		userResult1 = new JLabel("주사위1");
-		userResult2 = new JLabel("주사위2");
-		userResult3 = new JLabel("주사위3");
-		userResult4 = new JLabel("주사위4");
-		userResult5 = new JLabel("주사위5");
+		userResult1 = new JLabel("");
+		userResult2 = new JLabel("");
+		userResult3 = new JLabel("");
+		userResult4 = new JLabel("");
+		userResult5 = new JLabel("");
 
 		comResult1.setBounds(30, 10, 140, 15);
 		comResult2.setBounds(30, 35, 140, 15);
@@ -275,7 +275,44 @@ public class Test_Game_Screen1 extends JFrame {
 		getContentPane().add(userResult);
 		comResult.setBounds(50, 102, 193, 147);
 		userResult.setBounds(344, 102, 193, 147);
-
+		
+		Color backColor = new Color(210, 180, 145);
+		Color lineColor = new Color(252, 247, 222);
+		Color buttonColor = new Color(121, 117, 117);
+		
+		JPanel jp9 = new JPanel();
+		jp9.setBounds(0, 0, 594, 20);
+		getContentPane().add(jp9);
+		
+		JPanel jp10 = new JPanel();
+		jp10.setBounds(0, 330, 594, 41);
+		getContentPane().add(jp10);
+		
+		getContentPane().setBackground(backColor);
+		jp1.setBackground(backColor); jp2.setBackground(backColor);
+		jp5.setBackground(backColor); jp6.setBackground(backColor);
+		
+		jp3.setBackground(lineColor); jp4.setBackground(lineColor);
+		jp7.setBackground(lineColor); jp8.setBackground(lineColor);
+		jp9.setBackground(lineColor); jp10.setBackground(lineColor);
+		
+		throwDice.setBackground(buttonColor);
+		stopGame.setBackground(buttonColor);
+		
+		comResult.setBackground(new Color(79, 79, 79));		
+		userResult.setBackground(new Color(140, 117, 90));	
+		
+		comResult1.setForeground(Color.LIGHT_GRAY);		
+		comResult2.setForeground(Color.LIGHT_GRAY);		
+		comResult3.setForeground(Color.LIGHT_GRAY);		
+		comResult4.setForeground(Color.LIGHT_GRAY);		
+		comResult5.setForeground(Color.LIGHT_GRAY);
+		
+		userResult1.setForeground(Color.WHITE);
+		userResult2.setForeground(Color.WHITE);
+		userResult3.setForeground(Color.WHITE);
+		userResult4.setForeground(Color.WHITE);
+		userResult5.setForeground(Color.WHITE);
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
 		clearResult();
@@ -283,19 +320,20 @@ public class Test_Game_Screen1 extends JFrame {
 		turn = (int) (Math.random() * 2);
 
 		if (turn == 0) {
-			throwDice.setEnabled(false);
 			JOptionPane.showMessageDialog(null, "후공입니다.");
 			DiceImage(comDiceGif);
+			
 			Timer timer_delay = new Timer();
 			TimerTask task_delay = new TimerTask() {
 
 				@Override
 				public void run() {
+					throwDice.setEnabled(false);
 					comRoll();
 					throwDice.setEnabled(true);
 				}
 			};
-			(timer_delay).schedule(task_delay, 2500);
+			(timer_delay).schedule(task_delay, 2000);
 		} else if (turn == 1) {
 			JOptionPane.showMessageDialog(null, "선공입니다.");
 		}
@@ -307,12 +345,13 @@ public class Test_Game_Screen1 extends JFrame {
 
 				throwDice.setEnabled(false);
 
+				DiceImage(userDiceGif);
+				
 				Timer timer_delay1 = new Timer();
 				TimerTask task_delay1 = new TimerTask() {
 
 					@Override
 					public void run() {
-						DiceImage(userDiceGif);
 						userRoll();
 						DiceImage(comDiceGif);
 
@@ -327,6 +366,7 @@ public class Test_Game_Screen1 extends JFrame {
 
 					@Override
 					public void run() {
+		
 						comRoll();
 
 					}
@@ -363,17 +403,12 @@ public class Test_Game_Screen1 extends JFrame {
 
 				// new Result();
 				if (userDiceData <= 0) {
-					throwDice.setEnabled(false);
-
-					
-
+					throwDice.setEnabled(false);		
 						timer_delay1 = new Timer();
 						task_delay1 = new TimerTask() {
-
 							@Override
 							public void run() {
 								comRoll();
-
 							}
 						};
 						(timer_delay1).schedule(task_delay1, 2500, 500);
