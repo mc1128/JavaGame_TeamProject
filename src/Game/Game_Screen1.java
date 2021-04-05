@@ -11,6 +11,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,6 +22,7 @@ import java.util.logging.Handler;
 
 import java.util.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Game_Screen1 extends JFrame {
@@ -58,22 +62,57 @@ public class Game_Screen1 extends JFrame {
 	static JLabel comDiceGif; // 컴퓨터 주사위 이미지
 
 	static JButton throwDice;
-	private final JPanel jp9 = new JPanel();
+
+	String path;
 
 	public Game_Screen1() {
 
+		// 이미지 path 설정
+		try {
+			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			System.out.println("경로설정 오류");
+		}
+		;
+
+		String com_path = path + "image/sample04.gif";
+		String user_path = path + "image/sample03.gif";
+
+		
 		setTitle("게임 화면");
 
 		// 기본 화면 틀
 		getContentPane().setLayout(null);
-		
-	
 		setBounds(100, 100, 600, 400);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-
 		
+
+		// comStatus - comDefense, comHP
+		// 컴퓨터 방어 값 출력 컴포넌트 : comDefense
+		// 컴퓨터 체력 값 출력 컴포넌트 : comHP
+		comDefense = new JLabel(comDefenseG);
+		comHP = new JLabel("10");
+		JLabel comMaxHP = new JLabel("HP      /10");
+
+		comHP.setBounds(35, 5, 35, 15);
+		comHP.setHorizontalAlignment(SwingConstants.CENTER);
+		comMaxHP.setBounds(22, 5, 58, 15);
+		comMaxHP.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JPanel jp3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel jp4 = new JPanel();
+		jp4.setLayout(null);
+
+		jp3.add(comDefense); jp4.add(comHP); jp4.add(comMaxHP);
+
+		JPanel comStatus = new JPanel(new BorderLayout());
+		comStatus.add(jp3, BorderLayout.NORTH);
+		comStatus.add(jp4, BorderLayout.CENTER);
+
+		getContentPane().add(comStatus);
+		comStatus.setBounds(245, 20, 100, 50);
+
 		// 컴퓨터 남은 주사위 - comDiceTitle / comDiceX / comDice
 		// 컴퓨터 남은 주사위 값 출력 컴포넌트 : comDice
 		JLabel comDiceTitle = new JLabel("남은 주사위");
@@ -95,34 +134,7 @@ public class Game_Screen1 extends JFrame {
 		comDices.add(jp2, BorderLayout.CENTER);
 
 		getContentPane().add(comDices);
-		comDices.setBounds(10, 20, 100, 50);
-
-		// comStatus - comDefense, comHP
-		// 컴퓨터 방어 값 출력 컴포넌트 : comDefense
-		// 컴퓨터 체력 값 출력 컴포넌트 : comHP
-		comDefense = new JLabel(comDefenseG);
-		comHP = new JLabel("10");
-		JLabel comMaxHP = new JLabel("HP      /10");
-
-		comHP.setBounds(35, 5, 35, 15);
-		comHP.setHorizontalAlignment(SwingConstants.CENTER);
-		comMaxHP.setBounds(22, 5, 58, 15);
-		comMaxHP.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JPanel jp3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel jp4 = new JPanel();
-		jp4.setLayout(null);
-
-		jp3.add(comDefense);
-		jp4.add(comHP);
-		jp4.add(comMaxHP);
-
-		JPanel comStatus = new JPanel(new BorderLayout());
-		comStatus.add(jp3, BorderLayout.NORTH);
-		comStatus.add(jp4, BorderLayout.CENTER);
-
-		getContentPane().add(comStatus);
-		comStatus.setBounds(245, 20, 100, 50);
+		comDices.setBounds(10, 21, 100, 50);
 
 		// 유저 남은 주사위 - userDiceTitle / userDiceX / userDice
 		// 유저 남은 주사위 값 출력 컴포넌트 : userDice
@@ -147,7 +159,7 @@ public class Game_Screen1 extends JFrame {
 		userDices.add(jp6, BorderLayout.CENTER);
 
 		getContentPane().add(userDices);
-		userDices.setBounds(480, 280, 100, 50);
+		userDices.setBounds(480, 279, 100, 50);
 
 		// userStatus - userDefense, userHP
 		// 유저 방어 값 출력 컴포넌트 : userDefense
@@ -171,7 +183,6 @@ public class Game_Screen1 extends JFrame {
 		JPanel userStatus = new JPanel(new BorderLayout());
 		userStatus.add(jp7, BorderLayout.NORTH);
 		userStatus.add(jp8, BorderLayout.CENTER);
-		
 
 		getContentPane().add(userStatus);
 		userStatus.setBounds(245, 280, 100, 50);
@@ -179,13 +190,11 @@ public class Game_Screen1 extends JFrame {
 		// 던지기 버튼 : throwDice / 그만 버튼 : stopGame
 		throwDice = new JButton("던지기");
 		JButton stopGame = new JButton("그만");
-		
 
 		getContentPane().add(throwDice);
 		getContentPane().add(stopGame);
 		throwDice.setBounds(146, 280, 100, 50);
 		stopGame.setBounds(344, 280, 100, 50);
-		
 
 		// 주사위 결과 출력 comResult1~5
 		comResult1 = new JLabel("주사위1");
@@ -194,13 +203,12 @@ public class Game_Screen1 extends JFrame {
 		comResult4 = new JLabel("주사위4");
 		comResult5 = new JLabel("주사위5");
 
-
 		// 주사위 결과 출력 userResult1~5
-		userResult1 = new JLabel("주사위1");				
+		userResult1 = new JLabel("주사위1");
 		userResult2 = new JLabel("주사위2");
-		userResult3 = new JLabel("주사위3");		
-		userResult4 = new JLabel("주사위4");		
-		userResult5 = new JLabel("주사위5");	
+		userResult3 = new JLabel("주사위3");
+		userResult4 = new JLabel("주사위4");
+		userResult5 = new JLabel("주사위5");
 
 		comResult1.setBounds(30, 10, 140, 15);
 		comResult2.setBounds(30, 35, 140, 15);
@@ -229,15 +237,13 @@ public class Game_Screen1 extends JFrame {
 		JPanel comResult = new JPanel();
 		comResult.setLayout(null);
 
-
 		// 컴퓨터 주사위 이미지
-		ImageIcon ii2 = new ImageIcon("C:\\NCS\\workspace(java)\\JavaGame2\\src\\image\\sample04.gif");		
+		ImageIcon ii2 = new ImageIcon(com_path);
 		comDiceGif = new JLabel(ii2);
 		comDiceGif.setBounds(0, 0, 193, 147);
 		comResult.add(comDiceGif);
 		comDiceGif.setVisible(false);
-		
-		
+
 		comResult.add(comResult1);
 		comResult.add(comResult2);
 		comResult.add(comResult3);
@@ -247,15 +253,13 @@ public class Game_Screen1 extends JFrame {
 		JPanel userResult = new JPanel();
 		userResult.setLayout(null);
 
-		
-		// 유저 주사위 이미지 
-		ImageIcon ii = new ImageIcon("C:\\NCS\\workspace(java)\\JavaGame2\\src\\image\\sample03.gif");
+		// 유저 주사위 이미지
+		ImageIcon ii = new ImageIcon(user_path);
 		userDiceGif = new JLabel(ii);
 		userDiceGif.setBounds(0, 0, 193, 147);
 		userResult.add(userDiceGif);
 		userDiceGif.setVisible(false);
-		
-		
+
 		userResult.add(userResult1);
 		userResult.add(userResult2);
 		userResult.add(userResult3);
@@ -267,47 +271,60 @@ public class Game_Screen1 extends JFrame {
 		comResult.setBounds(50, 102, 193, 147);
 		userResult.setBounds(344, 102, 193, 147);
 		
-		jp9.setBounds(0, 0, 594, 20);
-		getContentPane().add(jp9);
 		
-		JPanel jp10 = new JPanel();
-		jp10.setBounds(0, 330, 594, 41);
-		getContentPane().add(jp10);
-		
-	
-		// 색상 지정 04.05. 14:18 
-		
+		// 색상 지정 04.05. 16:32
 		Color backColor = new Color(210, 180, 145);
 		Color lineColor = new Color(252, 247, 222);
 		Color buttonColor = new Color(121, 117, 117);
 		
+		JPanel jp9 = new JPanel();
+		jp9.setBounds(0, 0, 594, 21);
+		getContentPane().add(jp9);
+		
+		JPanel jp10 = new JPanel();
+		jp10.setBounds(0, 330, 594, 43);
+		getContentPane().add(jp10);
+		
 		getContentPane().setBackground(backColor);
-		jp1.setBackground(backColor); jp2.setBackground(backColor);
-		jp5.setBackground(backColor); jp6.setBackground(backColor);
+		jp1.setBackground(backColor);
+		jp2.setBackground(backColor);
+		jp5.setBackground(backColor);
+		jp6.setBackground(backColor);
 		
-		jp3.setBackground(lineColor); jp4.setBackground(lineColor);
-		jp7.setBackground(lineColor); jp8.setBackground(lineColor);
-		jp9.setBackground(lineColor); jp10.setBackground(lineColor);
-		
+		jp3.setBackground(lineColor);
+		jp4.setBackground(lineColor);		
+		jp7.setBackground(lineColor);
+		jp8.setBackground(lineColor);
+		jp9.setBackground(lineColor);
+		jp10.setBackground(lineColor);
+
+		comDices.setBackground(backColor);
+		userDices.setBackground(backColor);
+
+		comStatus.setBackground(lineColor);
+		userStatus.setBackground(lineColor);
+
 		throwDice.setBackground(buttonColor);
 		stopGame.setBackground(buttonColor);
-		
-		comResult.setBackground(new Color(79, 79, 79));		
-		userResult.setBackground(new Color(140, 117, 90));	
-		
-		comResult1.setForeground(Color.LIGHT_GRAY);		
-		comResult2.setForeground(Color.LIGHT_GRAY);		
-		comResult3.setForeground(Color.LIGHT_GRAY);		
-		comResult4.setForeground(Color.LIGHT_GRAY);		
+
+		comResult.setBackground(new Color(79, 79, 79));
+		userResult.setBackground(new Color(140, 117, 90));
+
+		comResult1.setForeground(Color.LIGHT_GRAY);
+		comResult2.setForeground(Color.LIGHT_GRAY);
+		comResult3.setForeground(Color.LIGHT_GRAY);
+		comResult4.setForeground(Color.LIGHT_GRAY);
 		comResult5.setForeground(Color.LIGHT_GRAY);
-		
+
 		userResult1.setForeground(Color.WHITE);
 		userResult2.setForeground(Color.WHITE);
 		userResult3.setForeground(Color.WHITE);
 		userResult4.setForeground(Color.WHITE);
 		userResult5.setForeground(Color.WHITE);
-
 		
+		
+		setVisible(true);	// 반드시 gui 최하단에 둘 것
+
 		int turn;
 		turn = (int) (Math.random() * 2);
 
@@ -338,16 +355,15 @@ public class Game_Screen1 extends JFrame {
 
 				throwDice.setEnabled(false);
 
+				userDiceImage();
 				userRoll(); // 주사위 굴려서 값 저장
-				
-				
-				
+
 				Timer timer_delay = new Timer();
 				TimerTask task_delay = new TimerTask() {
 
 					@Override
 					public void run() {
-						
+
 						comDiceImage();
 						comRoll();
 
@@ -365,7 +381,7 @@ public class Game_Screen1 extends JFrame {
 
 							@Override
 							public void run() {
-								
+
 								comRoll();
 
 							}
@@ -388,7 +404,6 @@ public class Game_Screen1 extends JFrame {
 				// 컴퓨터의 남은 주사위가 0이 될 때까지 컴퓨터만 롤
 				while (comDiceData > 0) {
 
-					
 					comRoll();
 					changeText();
 
@@ -408,7 +423,7 @@ public class Game_Screen1 extends JFrame {
 	void userDiceImage() {
 
 		userDiceGif.setVisible(true);
-		
+
 		Timer timer_delay1 = new Timer();
 		TimerTask task_delay1 = new TimerTask() {
 
@@ -420,14 +435,13 @@ public class Game_Screen1 extends JFrame {
 			}
 		};
 		(timer_delay1).schedule(task_delay1, 1000);
-		
-		
+
 	}
-	
+
 	void comDiceImage() {
 
 		comDiceGif.setVisible(true);
-		
+
 		Timer timer_delay1 = new Timer();
 		TimerTask task_delay1 = new TimerTask() {
 
@@ -439,8 +453,7 @@ public class Game_Screen1 extends JFrame {
 			}
 		};
 		(timer_delay1).schedule(task_delay1, 1000);
-		
-		
+
 	}
 
 	// Text값을 바꾸는 메서드.
@@ -556,9 +569,9 @@ public class Game_Screen1 extends JFrame {
 			} // 스위치문 end
 			userDiceData--;
 			continueGame();
-			
+
 			userDiceImage();
-			
+
 			changeText();
 
 		} // for문 end
@@ -651,12 +664,12 @@ public class Game_Screen1 extends JFrame {
 				break;
 
 			}// 스위치문 end
-			
+
 			continueGame();
 			comDiceData--;
-			
+
 			comDiceImage();
-			
+
 			changeText();
 		} // for문 end
 

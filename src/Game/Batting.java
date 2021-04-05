@@ -2,9 +2,14 @@ package Game;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.Color;
 import java.awt.Font;
 
 public class Batting extends JFrame{
+	
+	public static void main(String[] args) {
+		new Batting();
+	}
 	
 	
 	
@@ -12,36 +17,53 @@ public class Batting extends JFrame{
 				
 		getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("배팅을 하세요");
+		JLabel lblNewLabel = new JLabel("베팅을 하세요");
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 20));
 		lblNewLabel.setBounds(235, 75, 130, 50);
 		getContentPane().add(lblNewLabel);
 		
 		JButton batting_one = new JButton("350");
 		batting_one.setFont(new Font("굴림", Font.PLAIN, 15));
-		batting_one.setBounds(100, 200, 100, 50);
+		batting_one.setBounds(101, 176, 100, 50);
 		getContentPane().add(batting_one);
 		
 		JButton batting_two = new JButton("700");
 		batting_two.setFont(new Font("굴림", Font.PLAIN, 15));
-		batting_two.setBounds(250, 200, 100, 50);
+		batting_two.setBounds(251, 176, 100, 50);
 		getContentPane().add(batting_two);
 		
 		JButton batting_three = new JButton("1500");
 		batting_three.setFont(new Font("굴림", Font.PLAIN, 15));
-		batting_three.setBounds(400, 200, 100, 50);
+		batting_three.setBounds(401, 176, 100, 50);
 		getContentPane().add(batting_three);
 		
-		setBounds(200, 200, 600, 400);
+		setBounds(100, 100, 600, 400);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setVisible(true);
-		
 		JButton button = new JButton("돌아가기");
 		button.setFont(new Font("굴림", Font.PLAIN, 20));
-		button.setBounds(235, 320, 130, 25);
+		button.setBounds(235, 305, 130, 25);
 		getContentPane().add(button);
+		
+		// 색상 지정
+		Color backColor = new Color(210, 180, 145);
+		Color lineColor = new Color(252, 247, 222);
+		Color buttonColor = new Color(121, 117, 117);
+		
+		JPanel jp9 = new JPanel();
+		jp9.setBounds(0, 0, 594, 21);
+		getContentPane().add(jp9);
+		
+		JPanel jp10 = new JPanel();
+		jp10.setBounds(0, 330, 594, 43);
+		getContentPane().add(jp10);
+	
+		jp9.setBackground(lineColor);
+		jp10.setBackground(lineColor);
+		getContentPane().setBackground(backColor);
+		
+		setVisible(true);
 	
 	
 	batting_one.addActionListener(new ActionListener() {
@@ -70,6 +92,16 @@ public class Batting extends JFrame{
 			
 		}
 	});
+	
+	button.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			new Main();		
+			dispose();
+		}
+	});
+	
 }
 	
 	
