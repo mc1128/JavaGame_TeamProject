@@ -275,7 +275,7 @@ public class Game_Screen1 extends JFrame {
 		getContentPane().add(jp10);
 		
 	
-		// 색상 지정
+		// 색상 지정 04.05. 14:18 
 		
 		Color backColor = new Color(210, 180, 145);
 		Color lineColor = new Color(252, 247, 222);
