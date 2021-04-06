@@ -100,6 +100,7 @@ public class Result extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Game_Screen1();
+				dispose();
 			}
 		});
 		
@@ -109,6 +110,7 @@ public class Result extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Main();
+				dispose();
 			}
 		});
 				
