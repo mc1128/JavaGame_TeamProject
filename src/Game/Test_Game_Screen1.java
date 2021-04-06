@@ -30,6 +30,8 @@ public class Test_Game_Screen1 extends JFrame {
 	int comDiceData = 15;
 	int userDiceData = 15;
 
+	int onestart = 0;
+
 	int[] diceValue;
 
 	String[] comDiceName = new String[5];
@@ -55,16 +57,21 @@ public class Test_Game_Screen1 extends JFrame {
 	static JLabel userResult4; // 유저 결과 4
 	static JLabel userResult5; // 유저 결과 5
 	static JButton throwDice;
+	static JButton stopGame;
 
 	static JLabel userDiceGif; // 유저 주사위 이미지
 	static JLabel comDiceGif; // 컴퓨터 주사위 이미지
 
 	String path;
-	
-	TimerTask task_delay1;
-	Timer timer_delay1;
-	
+
+	TimerTask throwDice_task;
+	Timer throwDice_delay;
+
+	TimerTask stopGame_task;
+	Timer stopGame_delay;
+
 	public Test_Game_Screen1() {
+
 		System.out.println(Game_Screen1.class.getResource("").getPath());
 
 		try {
@@ -73,6 +80,7 @@ public class Test_Game_Screen1 extends JFrame {
 			System.out.println("경로설정 오류");
 		}
 		;
+
 		String com_path = path + "image/sample04.gif";
 		String user_path = path + "image/sample03.gif";
 
@@ -188,7 +196,7 @@ public class Test_Game_Screen1 extends JFrame {
 
 		// 던지기 버튼 : throwDice / 그만 버튼 : stopGame
 		throwDice = new JButton("던지기");
-		JButton stopGame = new JButton("그만");
+		stopGame = new JButton("그만");
 
 		getContentPane().add(throwDice);
 		getContentPane().add(stopGame);
@@ -275,39 +283,44 @@ public class Test_Game_Screen1 extends JFrame {
 		getContentPane().add(userResult);
 		comResult.setBounds(50, 102, 193, 147);
 		userResult.setBounds(344, 102, 193, 147);
-		
+
 		Color backColor = new Color(210, 180, 145);
 		Color lineColor = new Color(252, 247, 222);
 		Color buttonColor = new Color(121, 117, 117);
-		
+
 		JPanel jp9 = new JPanel();
 		jp9.setBounds(0, 0, 594, 20);
 		getContentPane().add(jp9);
-		
+
 		JPanel jp10 = new JPanel();
 		jp10.setBounds(0, 330, 594, 41);
 		getContentPane().add(jp10);
-		
+
 		getContentPane().setBackground(backColor);
-		jp1.setBackground(backColor); jp2.setBackground(backColor);
-		jp5.setBackground(backColor); jp6.setBackground(backColor);
-		
-		jp3.setBackground(lineColor); jp4.setBackground(lineColor);
-		jp7.setBackground(lineColor); jp8.setBackground(lineColor);
-		jp9.setBackground(lineColor); jp10.setBackground(lineColor);
-		
+		jp1.setBackground(backColor);
+		jp2.setBackground(backColor);
+		jp5.setBackground(backColor);
+		jp6.setBackground(backColor);
+
+		jp3.setBackground(lineColor);
+		jp4.setBackground(lineColor);
+		jp7.setBackground(lineColor);
+		jp8.setBackground(lineColor);
+		jp9.setBackground(lineColor);
+		jp10.setBackground(lineColor);
+
 		throwDice.setBackground(buttonColor);
 		stopGame.setBackground(buttonColor);
-		
-		comResult.setBackground(new Color(79, 79, 79));		
-		userResult.setBackground(new Color(140, 117, 90));	
-		
-		comResult1.setForeground(Color.LIGHT_GRAY);		
-		comResult2.setForeground(Color.LIGHT_GRAY);		
-		comResult3.setForeground(Color.LIGHT_GRAY);		
-		comResult4.setForeground(Color.LIGHT_GRAY);		
+
+		comResult.setBackground(new Color(79, 79, 79));
+		userResult.setBackground(new Color(140, 117, 90));
+
+		comResult1.setForeground(Color.LIGHT_GRAY);
+		comResult2.setForeground(Color.LIGHT_GRAY);
+		comResult3.setForeground(Color.LIGHT_GRAY);
+		comResult4.setForeground(Color.LIGHT_GRAY);
 		comResult5.setForeground(Color.LIGHT_GRAY);
-		
+
 		userResult1.setForeground(Color.WHITE);
 		userResult2.setForeground(Color.WHITE);
 		userResult3.setForeground(Color.WHITE);
@@ -315,26 +328,36 @@ public class Test_Game_Screen1 extends JFrame {
 		userResult5.setForeground(Color.WHITE);
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
-		clearResult();
+
+		if (userHPData < 0) {
+			userHPData = 0;
+		}
+		if (comHPData < 0) {
+			comHPData = 0;
+		}
+
 		int turn;
 		turn = (int) (Math.random() * 2);
 
-		if (turn == 0) {
+		if (turn == 0) { // 유저 후공
 			JOptionPane.showMessageDialog(null, "후공입니다.");
-			DiceImage(comDiceGif);
-			
+
+			DiceImage(comDiceGif); // 주사위 이미지
+
+			throwDice.setEnabled(false); // 던지기 버튼 비활성화
+			stopGame.setEnabled(false); // 그만 버튼 비활성화
+
 			Timer timer_delay = new Timer();
 			TimerTask task_delay = new TimerTask() {
 
 				@Override
 				public void run() {
-					throwDice.setEnabled(false);
 					comRoll();
-					throwDice.setEnabled(true);
+					timer_delay.cancel();
 				}
 			};
 			(timer_delay).schedule(task_delay, 2000);
-		} else if (turn == 1) {
+		} else if (turn == 1) { // 유저 선공
 			JOptionPane.showMessageDialog(null, "선공입니다.");
 		}
 
@@ -343,50 +366,36 @@ public class Test_Game_Screen1 extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				throwDice.setEnabled(false);
-
-				DiceImage(userDiceGif);
-				
-				Timer timer_delay1 = new Timer();
-				TimerTask task_delay1 = new TimerTask() {
-
-					@Override
-					public void run() {
-						userRoll();
-						DiceImage(comDiceGif);
-
-					}
-				};
-				(timer_delay1).schedule(task_delay1, 2000);
-
-				// 주사위 굴려서 값 저장
+				throwDice.setEnabled(false); // 던지기 버튼 비활성화
+				stopGame.setEnabled(false); // 그만 버튼 비활성화
+				DiceImage(userDiceGif); // 유저 던지기 시 유저의 주사위 이미지 출력
 
 				Timer timer_delay = new Timer();
 				TimerTask task_delay = new TimerTask() {
 
 					@Override
 					public void run() {
-		
+						userRoll();
+						DiceImage(comDiceGif); // 유저의 던지기가 끝난 후 컴퓨터의 주사위 이미지 출력
+						timer_delay.cancel();
+
+					}
+				};
+				(timer_delay).schedule(task_delay, 2000);
+
+				// 주사위 굴려서 값 저장
+
+				throwDice_delay = new Timer();
+				throwDice_task = new TimerTask() {
+
+					@Override
+					public void run() {
+
 						comRoll();
 
 					}
 				};
-				(timer_delay).schedule(task_delay, 11000);
-
-				/*
-				 * if(userDiceData<=0) { throwDice.setEnabled(false);
-				 * 
-				 * while (comDiceData<=0) {
-				 * 
-				 * Timer timer_delay2 = new Timer(); TimerTask task_delay2 = new TimerTask() {
-				 * 
-				 * @Override public void run() { comRoll();
-				 * 
-				 * } }; (timer_delay1).schedule(task_delay1, 2500);
-				 * 
-				 * 
-				 * } }
-				 */
+				(throwDice_delay).schedule(throwDice_task, 11000);
 
 			}
 		});
@@ -398,27 +407,23 @@ public class Test_Game_Screen1 extends JFrame {
 
 				userDiceData = 0;
 				changeText();
-				// 컴퓨터의 남은 주사위가 0이 될 때까지 컴퓨터만 롤
-//				new Result(userHPData, comHPData);
-
-				// new Result();
-				if (userDiceData <= 0) {
-					throwDice.setEnabled(false);		
-						timer_delay1 = new Timer();
-						task_delay1 = new TimerTask() {
-							@Override
-							public void run() {
-								comRoll();
-							}
-						};
-						(timer_delay1).schedule(task_delay1, 2500, 500);
-
-					
-				}
-
+				autoCom();
 			}
 		});
 
+	}
+
+	// 유저가 그만하거나 주사위가 0개일 때 컴퓨터 혼자 돌아가는 메서드
+	void autoCom() {
+		stopGame_delay = new Timer();
+		stopGame_task = new TimerTask() {
+			@Override
+			public void run() {
+				comRoll();
+				System.out.println("굴러가는지 테스트");
+			}
+		};
+		(stopGame_delay).schedule(stopGame_task, 2500, 2000); // 2.5초 후 run()의 내용을 1초마다 반복하기.
 	}
 
 	// Text값을 바꾸는 메서드.
@@ -475,12 +480,20 @@ public class Test_Game_Screen1 extends JFrame {
 	// 유저,컴퓨터의 HP=0 이면 게임 종료
 	void continueGame() {
 		if (userHPData <= 0 || comHPData <= 0 || (userDiceData <= 0 && comDiceData <= 0)) {
-			JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
-			dispose();
-			timer_delay1.cancel();
-			new Result();
+			// JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 
-//			new Result();
+			dispose();
+			System.out.println(throwDice_delay);
+			if (throwDice_delay != null) {
+				throwDice_delay.cancel(); // throwDice timer 종료 (유저턴에서 유저가 죽었을 때 컴퓨터가 다음 다이스를 돌리지 않도록 하기 위함.
+			}
+			if (stopGame_delay != null) {
+				stopGame_delay.cancel(); // stopGame timer 종료
+			}
+			Values.comHPData = comHPData;
+			Values.userHPData = userHPData;
+			onestart = 0;
+			new Result();
 		} else {
 			return;
 		}
@@ -506,56 +519,59 @@ public class Test_Game_Screen1 extends JFrame {
 	void changeColorR(JLabel label) { // -되는 값을 빨간색으로 변경
 
 		// 1초 후 -되는 값을 빨간색으로 변경
-		Timer timer_delay1 = new Timer();
-		TimerTask task_delay1 = new TimerTask() {
+		Timer timer_delay = new Timer();
+		TimerTask task_delay = new TimerTask() {
 
 			@Override
 			public void run() {
 				label.setForeground(Color.red);
 			}
 		};
-		(timer_delay1).schedule(task_delay1, 1000);
+		(timer_delay).schedule(task_delay, 1000);
 
 		// 1.3초 후 검정색으로 변경
-		Timer timer_delay2 = new Timer();
+		Timer timer_delay0 = new Timer();
 
-		TimerTask task_delay2 = new TimerTask() {
+		TimerTask task_delay0 = new TimerTask() {
 
 			@Override
 			public void run() {
 				label.setForeground(Color.black);
 			}
 		};
-		(timer_delay2).schedule(task_delay2, 1300);
+		(timer_delay0).schedule(task_delay0, 1300);
 	}
 
 	void changeColorB(JLabel label) { // +되는 값을 파란색으로 변경
 
 		// 1초 후 +되는 값을 파란색으로 변경
-		Timer timer_delay1 = new Timer();
-		TimerTask task_delay1 = new TimerTask() {
+		Timer timer_delay = new Timer();
+		TimerTask task_delay = new TimerTask() {
 
 			@Override
 			public void run() {
 				label.setForeground(Color.blue);
 			}
 		};
-		(timer_delay1).schedule(task_delay1, 1000);
+		(timer_delay).schedule(task_delay, 1000);
 
 		// 1.3초 후 -되는 값을 검정색으로 변경
-		Timer timer_delay2 = new Timer();
-		TimerTask task_delay2 = new TimerTask() {
+		Timer timer_delay0 = new Timer();
+		TimerTask task_delay0 = new TimerTask() {
 
 			@Override
 			public void run() {
 				label.setForeground(Color.black);
 			}
 		};
-		(timer_delay2).schedule(task_delay2, 1300);
+		(timer_delay0).schedule(task_delay0, 1300);
 	}
 
 	void userRoll() { // 유저 주사위 굴리기
-		
+
+		throwDice.setEnabled(false); // 던지기 버튼 비활성화
+		stopGame.setEnabled(false); // 그만 버튼 비활성화
+
 		int DiceData = 0;
 		if (userDiceData >= 5) {
 			DiceData = 5;
@@ -594,7 +610,7 @@ public class Test_Game_Screen1 extends JFrame {
 			changeText();
 
 		} // for문 end
-		
+
 		for (int i = 0; i < diceValue.length; i++) {
 
 			userDiceName[i] = "";
@@ -612,7 +628,7 @@ public class Test_Game_Screen1 extends JFrame {
 					userDefenseData++;
 				}
 				break;
-				
+
 			case 3: // 데스
 				if (userDefenseData > 0) {
 					changeColorR(userDefense);
@@ -621,8 +637,12 @@ public class Test_Game_Screen1 extends JFrame {
 					changeColorR(userHP);
 					userHPData--;
 				}
+				if (userHPData < 0) {
+					userHPData = 0;
+				}
+
 				break;
-				
+
 			case 4:// 어택
 			case 5:// 어택
 				if (comDefenseData > 0) {
@@ -633,7 +653,7 @@ public class Test_Game_Screen1 extends JFrame {
 					comHPData--;
 				}
 				break;
-				
+
 			} // 스위치 end
 
 			try {
@@ -643,75 +663,27 @@ public class Test_Game_Screen1 extends JFrame {
 				e.printStackTrace();
 			}
 			changeText();
-			continueGame();
 		} // for문 end
+
+		continueGame();
 
 		if (comDiceData == 0) {
 			throwDice.setEnabled(true);
+			stopGame.setEnabled(true);
 		}
-
-		changeColor1();
 
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
 				userDiceName[i] = "";
 			}
 		}
-	}
-
-	// Text 색상을 변경하는 메서드
-	void changeColor1() {
-
-		userResult1.setForeground(Color.red);
-		userResult2.setForeground(Color.red);
-		userResult3.setForeground(Color.red);
-		userResult4.setForeground(Color.red);
-		userResult5.setForeground(Color.red);
-
-		Timer timer_delay = new Timer();
-		TimerTask task_delay = new TimerTask() {
-
-			@Override
-			public void run() {
-				userResult1.setForeground(Color.black);
-				userResult2.setForeground(Color.black);
-				userResult3.setForeground(Color.black);
-				userResult4.setForeground(Color.black);
-				userResult5.setForeground(Color.black);
-			}
-		};
-		timer_delay.schedule(task_delay, 500);
-
-	}
-
-	// Text 색상을 변경하는 메서드
-	void changeColor2() {
-
-		comResult1.setForeground(Color.red);
-		comResult2.setForeground(Color.red);
-		comResult3.setForeground(Color.red);
-		comResult4.setForeground(Color.red);
-		comResult5.setForeground(Color.red);
-
-		Timer timer_delay = new Timer();
-		TimerTask task_delay = new TimerTask() {
-
-			@Override
-			public void run() {
-				comResult1.setForeground(Color.black);
-				comResult2.setForeground(Color.black);
-				comResult3.setForeground(Color.black);
-				comResult4.setForeground(Color.black);
-				comResult5.setForeground(Color.black);
-
-				System.out.println("유저결과1 색상변경");
-			}
-		};
-		timer_delay.schedule(task_delay, 500);
 
 	}
 
 	void comRoll() { // 컴퓨터 주사위 굴리기
+
+		throwDice.setEnabled(false); // 던지기 버튼 비활성화
+		stopGame.setEnabled(false); // 그만 버튼 비활성화
 
 		int DiceData = 0;
 		if (comDiceData >= 5) {
@@ -796,34 +768,39 @@ public class Test_Game_Screen1 extends JFrame {
 			}
 
 			changeText();
-			continueGame();
 
 		} // for문 end
 
+		continueGame();
 		if (diceValue.length < 5) {
 			for (int i = 4; i >= diceValue.length; i--) {
 				comDiceName[i] = "";
 			}
 		}
 
+		if (userDiceData == 0 && comDiceData > 0) {
+			comRoll();
+		}
+
 		throwDice.setEnabled(true);
+		stopGame.setEnabled(true);
 	}
 
 	void DiceImage(JLabel image) {
 
 		image.setVisible(true);
 
-		Timer timer_delay1 = new Timer();
-		TimerTask task_delay1 = new TimerTask() {
+		Timer timer_delay = new Timer();
+		TimerTask task_delay = new TimerTask() {
 
 			@Override
 			public void run() {
 				image.setVisible(false);
 				System.out.println("다이스이미지");
-				timer_delay1.cancel();
+				timer_delay.cancel();
 			}
 		};
-		(timer_delay1).schedule(task_delay1, 1000);
+		(timer_delay).schedule(task_delay, 1000);
 
 	}
 

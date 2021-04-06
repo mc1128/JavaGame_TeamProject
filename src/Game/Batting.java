@@ -12,7 +12,10 @@ import javax.swing.UIManager;
 
 public class Batting extends JFrame{
 	
-	
+	public static void main(String[] args) {
+
+		new Batting();
+	}
 	
 	public Batting() {
 				
@@ -48,9 +51,10 @@ public class Batting extends JFrame{
 		button.setFont(new Font("굴림", Font.PLAIN, 20));
 		button.setBounds(235, 320, 130, 25);
 		getContentPane().add(button);
-	
-	
-	batting_one.addActionListener(new ActionListener() {
+		
+		
+		
+		batting_one.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -60,11 +64,14 @@ public class Batting extends JFrame{
 			
 		}
 	});
+	
+	
+		
 	batting_two.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Values.gold = 500;
+			Values.gold = 700;
 			batting_two();
 			
 		}
@@ -74,7 +81,7 @@ public class Batting extends JFrame{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Values.gold = 1000;
+			Values.gold = 1500;
 			batting_three();
 			
 		}
@@ -88,23 +95,27 @@ public class Batting extends JFrame{
 	    public void mouseExited(java.awt.event.MouseEvent evt) {
 	    	batting_one.setBackground(UIManager.getColor("control"));
 	    }
+
 	});
 }
+	
+	
 	
 	
 	public void batting_one() {
 		Values.gold=350;
 		setVisible(false);
-		new Game_Screen1(); //게임화면으로 넘어감
+		new Test_Game_Screen1(); //게임화면으로 넘어감
 	}
 	public void batting_two() {
 		Values.gold=700;
 		setVisible(false);
-		new Game_Screen1(); //게임화면으로 넘어감
+		new Test_Game_Screen1(); //게임화면으로 넘어감
 	}
 	public void batting_three() {
 		Values.gold=1500;
 		setVisible(false);
-		new Game_Screen1(); //게임화면으로 넘어감
+		new Test_Game_Screen1(); //게임화면으로 넘어감
 	}
 }
+

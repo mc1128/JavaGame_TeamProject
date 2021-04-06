@@ -71,24 +71,19 @@ public class Result extends JFrame {
 		BackMain_Button.setBounds(335, 300, 150, 35);
 		contentPane.add(BackMain_Button);
 		
-		Replay_Button.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Batting();
-				
-			}
-		});
 		
+		System.out.println(Values.comHPData);
+		System.out.println(Values.userHPData);
+		System.out.println(Values.gold);
 		// 결과 처리
 		result_Process();
 		
 		// 결과값 출력
-		printResult();
+		//printResult();
 		
 		
 		// 얻은 골드 값 출력
-		printGold();
+		//printGold();
 		
 		
 		// 이벤트 처리
@@ -98,8 +93,8 @@ public class Result extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-						
-				new Game_Screen1();
+				setVisible(false);	
+				new Batting();
 			}
 		});
 		
@@ -108,56 +103,21 @@ public class Result extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				setVisible(false);
 				new Main();
 			}
 		});
 				
 	}// 생성자 end
 	
-	void result() {
-		
-		if(Values.userHPData > Values.comHPData) {
-			result = 0;
-			resultText = "이겼습니다!";
-		}else if(Values.userHPData > Values.comHPData) {
-			result = 1;
-			resultText = "졌습니다!";
-		}else {
-			result = 2;
-			resultText = "비겼습니다!";
-		}
-
-	}
-	
 
 	public void Batting() {
-		setVisible(false);
 		new Batting(); 
 	}
 	public void Main() {
-		setVisible(false);
 		new Main(); 
 	}
 	
-	
-
-	void printResult() {	// 결과값 출력 메서드
-		if(Values.userHPData > Values.comHPData) {
-			resultText = "이겼습니다!";
-		}else if(Values.userHPData > Values.comHPData) {
-			resultText = "졌습니다!";
-		}else {
-			resultText = "비겼습니다!";
-		}
-		
-		Result_Label.setText(resultText);
-		
-		// 결과 처리
-		result();
-
-				
-	}// 생성자 end
 	
 	void result_Process() {
 		
@@ -180,21 +140,6 @@ public class Result extends JFrame {
 		
 	}
 	
-	void printGold() {	// 골드값 출력 메서드
-		
-		goldMath();
-		Gold_Label.setText(String.valueOf(Values.gold));
-	}
-	
-	void goldMath() {
-		switch(result) {
-			case 0 :
-				break;
-			case 1 :
-				break;
-			case 2 :
-				break;
-		}
-	}
+
 	
 }// 클래스 end
