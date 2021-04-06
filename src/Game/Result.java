@@ -1,22 +1,15 @@
 package Game;
 
-import java.awt.BorderLayout;
-
-import java.awt.EventQueue;
-
-import javax.swing.*;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JProgressBar;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class Result extends JFrame {
 
@@ -88,7 +81,7 @@ public class Result extends JFrame {
 		});
 		
 		// 결과 처리
-		result();
+		result_Process();
 		
 		// 결과값 출력
 		printResult();
@@ -166,7 +159,7 @@ public class Result extends JFrame {
 				
 	}// 생성자 end
 	
-	void Result() {
+	void result_Process() {
 		
 		if((Values.userHPData > Values.comHPData) && Values.comHPData == 0) {	// 대승리
 			resultText = "이겼습니다!";

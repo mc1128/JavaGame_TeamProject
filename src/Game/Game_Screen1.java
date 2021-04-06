@@ -58,7 +58,9 @@ public class Game_Screen1 extends JFrame {
 
 	static JLabel userDiceGif; // 유저 주사위 이미지
 	static JLabel comDiceGif; // 컴퓨터 주사위 이미지
-
+	
+	
+	
 	String path;
 	
 	TimerTask task_delay1;
@@ -478,9 +480,12 @@ public class Game_Screen1 extends JFrame {
 			JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 			dispose();
 			timer_delay1.cancel();
+			
+			Values.comHPData = comHPData;
+			Values.userHPData = userHPData;
+			
 			new Result();
 
-//			new Result();
 		} else {
 			return;
 		}

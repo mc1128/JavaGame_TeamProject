@@ -1,8 +1,14 @@
 package Game;
 
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
 
 public class Batting extends JFrame{
 	
@@ -49,6 +55,7 @@ public class Batting extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
+			Values.gold = 350;
 			batting_one();
 			
 		}
@@ -57,6 +64,7 @@ public class Batting extends JFrame{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			Values.gold = 500;
 			batting_two();
 			
 		}
@@ -66,9 +74,20 @@ public class Batting extends JFrame{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			Values.gold = 1000;
 			batting_three();
 			
 		}
+	});
+	
+	batting_one.addMouseListener(new java.awt.event.MouseAdapter() {
+	    public void mouseEntered(java.awt.event.MouseEvent evt) {
+	    	batting_one.setBackground(Color.GREEN);
+	    }
+
+	    public void mouseExited(java.awt.event.MouseEvent evt) {
+	    	batting_one.setBackground(UIManager.getColor("control"));
+	    }
 	});
 }
 	
