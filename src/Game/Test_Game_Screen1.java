@@ -2,8 +2,6 @@ package Game;
 
 // 수정 15:36
 
-import java.awt.BorderLayout;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.UnsupportedEncodingException;
@@ -357,6 +355,9 @@ public class Test_Game_Screen1 extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				throwDice.setEnabled(false); // 던지기 버튼 비활성화
+				stopGame.setEnabled(false); // 그만 버튼 비활성화
+				
 				DiceImage(userDiceGif); // 유저 던지기 시 유저의 주사위 이미지 출력
 
 				Timer timer_delay = new Timer();
@@ -546,9 +547,6 @@ public class Test_Game_Screen1 extends JFrame {
 	}
 
 	void userRoll() { // 유저 주사위 굴리기
-		
-		throwDice.setEnabled(false); // 던지기 버튼 비활성화
-		stopGame.setEnabled(false); // 그만 버튼 비활성화
 
 		int DiceData = 0;
 		if (userDiceData >= 5) {
