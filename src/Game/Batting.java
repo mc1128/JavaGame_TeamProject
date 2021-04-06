@@ -2,12 +2,15 @@ package Game;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.Color;
 import java.awt.Font;
 
 public class Batting extends JFrame{
-	int gold = 0;
+	
+	
 	
 	public Batting() {
+				
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("배팅을 하세요");
@@ -42,7 +45,12 @@ public class Batting extends JFrame{
 		getContentPane().add(button);
 	
 	
-	batting_one.addActionListener(new ActionListener() {
+		
+		
+		
+		
+		
+		batting_one.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -51,6 +59,9 @@ public class Batting extends JFrame{
 			
 		}
 	});
+	
+	
+		
 	batting_two.addActionListener(new ActionListener() {
 		
 		@Override
@@ -68,22 +79,34 @@ public class Batting extends JFrame{
 			
 		}
 	});
+	
+	batting_one.addMouseListener(new java.awt.event.MouseAdapter() {
+		public void mouseEntered(java.awt.event.MouseEvent evt) {
+			batting_one.setBackground(Color.GREEN);
+		}
+		
+		public void mouseExited(java.awt.event.MouseEvent evt) {
+			batting_one.setBackground(UIManager.getColor(""));
+		}
+	});
 }
 	
 	
+	
+	
 	public void batting_one() {
-		gold=350;
+		Values.gold=350;
 		setVisible(false);
-//		new Start(); //게임화면으로 넘어감
+		new Game_Screen1(); //게임화면으로 넘어감
 	}
 	public void batting_two() {
-		gold=700;
+		Values.gold=700;
 		setVisible(false);
-//		new Start();
+		new Game_Screen1(); //게임화면으로 넘어감
 	}
 	public void batting_three() {
-		gold=1500;
+		Values.gold=1500;
 		setVisible(false);
-//		new Start();
+		new Game_Screen1(); //게임화면으로 넘어감
 	}
 }

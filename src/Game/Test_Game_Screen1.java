@@ -3,23 +3,16 @@ package Game;
 // 수정 15:36
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import java.awt.*;
+import java.awt.event.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class Test_Game_Screen1 extends JFrame {
 
@@ -69,14 +62,15 @@ public class Test_Game_Screen1 extends JFrame {
 	Timer stopGame_delay;
 
 	public Test_Game_Screen1() {
+		
 		System.out.println(Game_Screen1.class.getResource("").getPath());
 
 		try {
 			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			System.out.println("경로설정 오류");
-		}
-		;
+		};
+		
 		String com_path = path + "image/sample04.gif";
 		String user_path = path + "image/sample03.gif";
 
@@ -414,7 +408,6 @@ public class Test_Game_Screen1 extends JFrame {
 			@Override
 			public void run() {
 				comRoll();
-
 			}
 		};
 		(stopGame_delay).schedule(stopGame_task, 2500, 1000);	// 2.5초 후 run()의 내용을 1초마다 반복하기.
