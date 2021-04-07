@@ -6,6 +6,7 @@ public class Values {
 	static int userHPData;
 
 	static int comHPData;
+	static String id_save;
 
 
 	public static void main(String[] args) {
