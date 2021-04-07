@@ -131,11 +131,13 @@ public class Main extends JFrame {
 					break;
 				} else {
 					System.out.println("재입력");
+					pw = "";
 					ID_Field.setText(null);
 					PW_Field.setText(null);
 					ID_Field.requestFocus();
 				}
 			}
+			rs.close(); pstm.close(); conn.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
