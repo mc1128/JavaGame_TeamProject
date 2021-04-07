@@ -91,7 +91,7 @@ public class Main extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Batting(); // 수정
+				new Loading(); // 수정
 				dispose();
 
 			}
