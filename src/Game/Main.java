@@ -30,19 +30,17 @@ public class Main extends JFrame {
 	}
 
 	Connection conn = null;
-	PreparedStatement pstm = null; 
-	ResultSet rs = null; 
+	PreparedStatement pstm = null;
+	ResultSet rs = null;
 
 	String path;
-	
-	//password 암호 해석해서 받기위해 설정
+
+	// password 암호 해석해서 받기위해 설정
 	String pw = "";
 	char[] secret_pw;
 
-
 	public Main() {
-		
-		
+
 		setTitle("메인화면 테스트용 수정2");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +57,7 @@ public class Main extends JFrame {
 
 		PW_Field = new JPasswordField();
 		PW_Field.setEchoChar('*');
-		
+
 		PW_Field.setColumns(10);
 		PW_Field.setBounds(200, 199, 203, 30);
 		contentPane.add(PW_Field);
@@ -106,35 +104,34 @@ public class Main extends JFrame {
 	}
 
 	private void login() {
-		
+
 		secret_pw = PW_Field.getPassword();
-		
-		for(char cha : secret_pw){
-			  Character.toString(cha); 
-			  pw += (pw.equals("")) ? ""+cha+"" : ""+cha+"";
+
+		for (char cha : secret_pw) {
+			Character.toString(cha);
+			pw += (pw.equals("")) ? "" + cha + "" : "" + cha + "";
 		}
-		
+
 		try {
 			String test = "SELECT user_id, user_pw FROM PROFILE";
 			conn = DBConnection.getConnection();
 			pstm = conn.prepareStatement(test);
 			rs = pstm.executeQuery();
-			
+
 			while (rs.next()) {
 				String user_id = rs.getString(1);
 				String user_pw = rs.getString(2);
-				
+
 				String id_input = ID_Field.getText();
-				
-				
-				if(user_id.equals(id_input) && user_pw.equals(pw)) {
-					Values.id_save = user_id;	
+
+				if (user_id.equals(id_input) && user_pw.equals(pw)) {
+					Values.id_save = user_id;
 					new Loading(); // 수정
 					dispose();
 					break;
-				}else {
+				} else {
 					System.out.println("재입력");
-					ID_Field.setText(null); 
+					ID_Field.setText(null);
 					PW_Field.setText(null);
 					ID_Field.requestFocus();
 				}
@@ -143,7 +140,7 @@ public class Main extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
