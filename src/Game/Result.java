@@ -113,22 +113,25 @@ public class Result extends JFrame {
 		
 		
 		try {
-			String sql = "update profile set user_gold = ? where user_id = ?";
+			String sql = "update profile set user_gold = ?,user_win = ?, user_defeat = ? , user_draw = ? where user_id = ?";
 			
 			pstmt = con.prepareStatement(sql);
 			
-			 rs = pstmt.executeQuery();
-			
-			 pstmt.setInt(1, Values.gold);
-			 pstmt.setString(2, Values.id_save);
+			 pstmt.setDouble(1, Values.gold_save);
+			 pstmt.setDouble(2, Values.user_win);
+			 pstmt.setDouble(3, Values.user_defeat);
+			 pstmt.setDouble(4, Values.user_draw);
+			 pstmt.setString(5, Values.id_save);
 			 
-			 rs.close();
+			 pstmt.executeUpdate();
+			 
+			pstmt.close();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		
+		System.out.println(Values.gold_save);
 		
 		
 		
@@ -148,24 +151,32 @@ public class Result extends JFrame {
 		
 		if((Values.userHPData > Values.comHPData) && Values.comHPData == 0) {	// 대승리
 			resultText = "이겼습니다!";
-			Values.gold *= 2.5;
+			Values.reward = Values.gold * 2.5;
+			Values.gold_save += Values.reward;
+			Values.user_win++;
 			gold_path = path+"image/logoresize.png";
 		}else if(Values.userHPData > Values.comHPData) {	// 승리
 			resultText = "이겼습니다!";
-			Values.gold *= 2;
+			Values.reward = Values.gold * 2;
+			Values.gold_save += Values.reward;
+			Values.user_win++;
 			gold_path = path+"image/logo.png";
 		}else if(Values.userHPData == Values.comHPData) {	// 무승부
 			resultText = "비겼습니다!";
-			Values.gold *= 1;
+			Values.reward = Values.gold * 1;
+			Values.gold_save += Values.reward;
+			Values.user_draw++;
 			gold_path = path+"image/sample03.gif";
 		}else if(Values.userHPData < Values.comHPData) {	// 패배
 			resultText = "졌습니다!";
-			Values.gold *= 0;
+			Values.reward = Values.gold * 0;
+			Values.gold_save += Values.reward;
+			Values.user_defeat++;
 			gold_path = path+"image/sample04.gif";
 		}
 		
 		Result_Label.setText(resultText);
-		Gold_Label.setText(String.valueOf("+ "+Values.gold+" gold"));
+		Gold_Label.setText(String.valueOf("+ "+Values.reward+" gold"));
 		return gold_path;
 		
 		
