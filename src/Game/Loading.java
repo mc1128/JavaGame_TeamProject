@@ -22,7 +22,8 @@ public class Loading extends JFrame {
 	}
 
 	public Loading() {
-		System.out.println(Values.id_save);
+		System.out.println("아이디값 :  "+ Values.user_id);
+		System.out.println("골드값 : "+ Values.gold_save);
 		setVisible(true);
 		loading_panel = new JPanel();
 		setBounds(100, 100, 600, 400);

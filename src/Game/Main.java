@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,16 +30,15 @@ public class Main extends JFrame {
 		new Main();
 	}
 
-	//Connection conn = null;
+	// Connection conn = null;
 	PreparedStatement pstm = null;
 	ResultSet rs = null;
 
 	String path;
 
-
 	String user_id;
 	String user_pw;
-	
+
 	public Main() {
 
 		setTitle("메인화면 테스트용 수정2");
@@ -100,7 +100,7 @@ public class Main extends JFrame {
 				login();
 			}
 		});
-		
+
 		JoinButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -114,34 +114,51 @@ public class Main extends JFrame {
 	private void login() {
 
 		try {
-			String test = "SELECT user_id, user_pw FROM PROFILE";
+			String test = "SELECT * FROM PROFILE where user_id = ?";
 			DBConnection.dbConn = DBConnection.getConnection();
 			pstm = DBConnection.dbConn.prepareStatement(test);
-			rs = pstm.executeQuery();
-			
-			String password = new String(PW_Field.getPassword());
-					
-			while (rs.next()) {
-				user_id = rs.getString(1);
-				user_pw = rs.getString(2);
 
-				String id_input = ID_Field.getText();
-				if (user_id.equals(id_input) && user_pw.equals(password)) {
-					Values.id_save = user_id;
+			user_id = ID_Field.getText();
+
+			pstm.setString(1, user_id);
+
+			pstm.executeUpdate();
+
+			String password = new String(PW_Field.getPassword());
+
+			// user_gold = rs.getInt(3);
+
+			String id_input = ID_Field.getText();
+
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				
+				System.out.println(rs.getInt(3));
+				Values.user_id = rs.getString(1);
+				user_pw = rs.getString(2);
+				Values.gold_save = rs.getInt(3);
+				Values.user_win = rs.getInt(4);
+				Values.user_defeat = rs.getInt(5);
+				Values.user_draw = rs.getInt(6);
+				String user_reg = rs.getString(7);
+
+				if (Values.user_id.equals(id_input) && user_pw.equals(password)) {
 					new Loading(); // 수정
 					dispose();
 					break;
 				} else {
-					System.out.println("재입력");	
-					System.out.println(user_id + " "+user_pw);
+					System.out.println("재입력");
+					System.out.println(user_id + " " + user_pw);
 				}
 			}
-			
+
 			ID_Field.setText(null);
 			PW_Field.setText(null);
 			ID_Field.requestFocus();
-			
-			rs.close(); pstm.close();
+
+			rs.close();
+			pstm.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
