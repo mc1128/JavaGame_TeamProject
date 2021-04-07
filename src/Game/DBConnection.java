@@ -2,21 +2,25 @@ package Game;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBConnection {
 	 public static Connection dbConn;
+	 public static PreparedStatement pstm;
+	 public static ResultSet rs;
 	    
      public static Connection getConnection()
      {
-         Connection conn = null;
+         Connection dbConn = null;
          try {
              String user = "web"; 
              String pw = "1234";
              String url = "jdbc:oracle:thin:@localhost:1521:xe";
              
              Class.forName("oracle.jdbc.driver.OracleDriver");        
-             conn = DriverManager.getConnection(url, user, pw);
+             dbConn = DriverManager.getConnection(url, user, pw);
              
              System.out.println("Database에 연결되었습니다.\n");
              
@@ -28,7 +32,7 @@ public class DBConnection {
              System.out.println("Unkonwn error");
              e.printStackTrace();
          }
-         return conn;     
+         return dbConn;     
      }
 
 }

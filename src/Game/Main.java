@@ -29,16 +29,16 @@ public class Main extends JFrame {
 		new Main();
 	}
 
-	Connection conn = null;
+	//Connection conn = null;
 	PreparedStatement pstm = null;
 	ResultSet rs = null;
 
 	String path;
 
-	// password 암호 해석해서 받기위해 설정
-	String pw = "";
-	char[] secret_pw;
 
+	String user_id;
+	String user_pw;
+	
 	public Main() {
 
 		setTitle("메인화면 테스트용 수정2");
@@ -100,44 +100,48 @@ public class Main extends JFrame {
 				login();
 			}
 		});
+		
+		JoinButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Join();
+			}
+		});
 
 	}
 
 	private void login() {
 
-		secret_pw = PW_Field.getPassword();
-
-		for (char cha : secret_pw) {
-			Character.toString(cha);
-			pw += (pw.equals("")) ? "" + cha + "" : "" + cha + "";
-		}
-
 		try {
 			String test = "SELECT user_id, user_pw FROM PROFILE";
-			conn = DBConnection.getConnection();
-			pstm = conn.prepareStatement(test);
+			DBConnection.dbConn = DBConnection.getConnection();
+			pstm = DBConnection.dbConn.prepareStatement(test);
 			rs = pstm.executeQuery();
-
+			
+			String password = new String(PW_Field.getPassword());
+					
 			while (rs.next()) {
-				String user_id = rs.getString(1);
-				String user_pw = rs.getString(2);
+				user_id = rs.getString(1);
+				user_pw = rs.getString(2);
 
 				String id_input = ID_Field.getText();
-
-				if (user_id.equals(id_input) && user_pw.equals(pw)) {
+				if (user_id.equals(id_input) && user_pw.equals(password)) {
 					Values.id_save = user_id;
 					new Loading(); // 수정
 					dispose();
 					break;
 				} else {
-					System.out.println("재입력");
-					pw = "";
-					ID_Field.setText(null);
-					PW_Field.setText(null);
-					ID_Field.requestFocus();
+					System.out.println("재입력");	
+					System.out.println(user_id + " "+user_pw);
 				}
 			}
-			rs.close(); pstm.close(); conn.close();
+			
+			ID_Field.setText(null);
+			PW_Field.setText(null);
+			ID_Field.requestFocus();
+			
+			rs.close(); pstm.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
