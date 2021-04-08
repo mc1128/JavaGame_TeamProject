@@ -1,19 +1,28 @@
 package Game;
 
-import javax.swing.*;
-import java.awt.event.*;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 public class Batting extends JFrame {
 
+	String path;
+
 	public static void main(String[] args) {
+
 		new Batting();
 	}
-
-	String path;
 
 	public Batting() {
 
@@ -36,8 +45,8 @@ public class Batting extends JFrame {
 
 		ImageIcon bat5 = new ImageIcon(path + "image/1500.png"); // 1500 기본 이미지
 		ImageIcon bat6 = new ImageIcon(path + "image/1500b.png"); // 1500 흑백 이미지
-		
-		ImageIcon panelimage = new ImageIcon(path + "image/panel.png");	// panel 이미지
+
+		ImageIcon panelimage = new ImageIcon(path + "image/panel.png"); // panel 이미지
 
 		JLabel lblNewLabel = new JLabel("베팅을 하세요");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -45,7 +54,7 @@ public class Batting extends JFrame {
 		lblNewLabel.setForeground(Color.white);
 		lblNewLabel.setBounds(235, 67, 130, 50);
 		getContentPane().add(lblNewLabel);
-		
+
 		JButton batting_one = new JButton(bat2); // 350 골드 배팅
 		batting_one.setFont(new Font("굴림", Font.PLAIN, 15));
 		batting_one.setBounds(107, 140, 100, 100);
@@ -59,47 +68,43 @@ public class Batting extends JFrame {
 		JButton batting_three = new JButton(bat6); // 1500 골드 배팅
 		batting_three.setFont(new Font("굴림", Font.PLAIN, 15));
 		batting_three.setBounds(387, 140, 100, 100);
-		getContentPane().add(batting_three);	
-		
+		getContentPane().add(batting_three);
+
 		JButton button = new JButton("돌아가기");
 		button.setFont(new Font("굴림", Font.PLAIN, 20));
 		button.setBounds(230, 283, 130, 25);
 		getContentPane().add(button);
-
-		// 오로지 gui만을 위한 판넬
-		JPanel jp9 = new JPanel();
-		jp9.setBounds(0, 0, 594, 21);
-		getContentPane().add(jp9);
-
-		JPanel jp10 = new JPanel();
-		jp10.setBounds(0, 330, 594, 43);
-		getContentPane().add(jp10);
 
 		// 색상 지정
 		Color backColor = new Color(210, 180, 145);
 		Color lineColor = new Color(252, 247, 222);
 		Color buttonColor = new Color(121, 117, 117);
 		Color panelColor = new Color(233, 180, 95);
-
-		jp9.setBackground(lineColor);
-		jp10.setBackground(lineColor);
 		getContentPane().setBackground(backColor);
 
 		batting_one.setBackground(panelColor);
 		batting_two.setBackground(panelColor);
 		batting_three.setBackground(panelColor);
-		
+
 		JLabel lblNewLabel_1 = new JLabel(panelimage);
 		lblNewLabel_1.setBounds(80, 67, 430, 200);
 		getContentPane().add(lblNewLabel_1);
-		
+
+		String back_path = path + "image/battingback.png";
+
+		JLabel back = new JLabel(new ImageIcon(back_path));
+		back.setLocation(0, 0);
+		back.setSize(594, 371);
+		getContentPane().add(back);
+
 		setVisible(true);
 
 		batting_one.addActionListener(new ActionListener() {
 
-			@Override // 350 버튼 이벤트
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				Values.gold = 350;
 				batting_one();
 
 			}
@@ -107,8 +112,9 @@ public class Batting extends JFrame {
 
 		batting_two.addActionListener(new ActionListener() {
 
-			@Override // 700 버튼 이벤트
+			@Override
 			public void actionPerformed(ActionEvent e) {
+				Values.gold = 700;
 				batting_two();
 
 			}
@@ -116,19 +122,11 @@ public class Batting extends JFrame {
 
 		batting_three.addActionListener(new ActionListener() {
 
-			@Override // 1500 버튼 이벤트
+			@Override
 			public void actionPerformed(ActionEvent e) {
+				Values.gold = 1500;
 				batting_three();
 
-			}
-		});
-
-		button.addActionListener(new ActionListener() {
-
-			@Override // 나가기 버튼 이벤트
-			public void actionPerformed(ActionEvent e) {
-				new Main();
-				dispose();
 			}
 		});
 
