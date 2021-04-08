@@ -14,7 +14,7 @@ public class Loading extends JFrame {
 	private JPanel loading_panel;
 	static JProgressBar progressBar;
 	static JLabel Game_Tip;
-	//int num = 0;
+	// int num = 0;
 	int p = 0;
 
 	public static void main(String[] args) {
@@ -22,7 +22,8 @@ public class Loading extends JFrame {
 	}
 
 	public Loading() {
-
+		System.out.println("아이디값 :  "+ Values.user_id);
+		System.out.println("골드값 : "+ Values.gold_save);
 		setVisible(true);
 		loading_panel = new JPanel();
 		setBounds(100, 100, 600, 400);
@@ -38,6 +39,7 @@ public class Loading extends JFrame {
 		Game_Tip.setBounds(45, 27, 500, 227);
 		getContentPane().add(Game_Tip);
 
+		test();
 		progress_start();
 	}
 
@@ -48,8 +50,28 @@ public class Loading extends JFrame {
 	 * ie.printStackTrace(); } }
 	 */
 
-	public void progress_start() {
+	private void test() {
+		
 
+		try {
+			String test = "SELECT user_id FROM PROFILE";
+			
+			DBConnection.pstm = DBConnection.dbConn.prepareStatement(test);
+			DBConnection.rs = DBConnection.pstm.executeQuery();
+
+			while (DBConnection.rs.next()) {
+				String user_id = DBConnection.rs.getString(1);
+				System.out.println(user_id);
+			}
+			DBConnection.rs.close(); 
+			DBConnection.pstm.close();
+		}
+		catch(Exception e) {
+				e.printStackTrace();
+			}
+	}
+
+	public void progress_start() {
 
 		Timer timer_progress = new Timer();
 		TimerTask task_progress = new TimerTask() {
@@ -64,10 +86,11 @@ public class Loading extends JFrame {
 				} else if (p == 66) {
 					Game_Tip.setText("모든 값은 랜덤으로 진행됩니다.");
 					p++;
-				}else{
+				} else {
 					p++;
 				}
 			}
+
 			@Override
 			public void run() {
 				progress_value();

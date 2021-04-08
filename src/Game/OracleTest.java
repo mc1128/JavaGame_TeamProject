@@ -1,6 +1,7 @@
 package Game;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class OracleTest {
         try {
             // SQL 문장을 만들고 만약 문장이 질의어(SELECT문)라면
             // 그 결과를 담을 ResulSet 객체를 준비한 후 실행시킨다.
-            String test = "SELECT output_price FROM PRODUCTS";
+            String test = "SELECT user_pw FROM PROFILE";
             
             conn = DBConnection.getConnection();
             pstm = conn.prepareStatement(test);
@@ -39,7 +40,7 @@ public class OracleTest {
             while(rs.next()){
             	
             	
-            	int output_price = rs.getInt(1);
+            	String pw = rs.getString(1);
                 /*int PNUM = rs.getInt(1);
                 //int empno = rs.getInt("empno"); 숫자 대신 컬럼 이름을 적어도 된다.
                 String CATECPRU_FK = rs.getString(2);
@@ -53,7 +54,7 @@ public class OracleTest {
                 String status = rs.getString(10);*/
                 
                 //String result = PNUM+" "+CATECPRU_FK+" "+PRODUCTS_NAME+" "+ep_code_fk+" "+input_price+" "+output_price+" "+trans_cost+" "+mileage;
-            	String result = output_price+ "";
+            	String result = pw+ "";
                 System.out.println(result);
             }
             

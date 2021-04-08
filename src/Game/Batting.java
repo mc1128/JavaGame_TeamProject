@@ -11,9 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
 public class Batting extends JFrame{
 	
@@ -107,37 +107,44 @@ public class Batting extends JFrame{
 		
 		
 		batting_one.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			Values.gold = 350;
-			batting_one();
-			
-		}
-	});
-	
-	
-		
-	batting_two.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Values.gold = 700;
-			batting_two();
-			
-		}
-	});
-	
-	batting_three.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Values.gold = 1500;
-			batting_three();
-			
-		}
-	});
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if (Values.gold_save >= 350) {
+					batting_gold(350);
+				} else {
+					JOptionPane.showMessageDialog(null, "gold가 부족합니다.");
+				}
+
+			}
+		});
+
+		batting_two.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (Values.gold_save >= 700) {
+					batting_gold(700);
+				} else {
+					JOptionPane.showMessageDialog(null, "gold가 부족합니다.");
+				}
+
+			}
+		});
+
+		batting_three.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (Values.gold_save >= 1500) {
+					batting_gold(1500);
+				} else {
+					JOptionPane.showMessageDialog(null, "gold가 부족합니다.");
+				}
+
+			}
+		});
 	
 
 	
@@ -178,20 +185,12 @@ public class Batting extends JFrame{
 	
 	
 	
-	public void batting_one() {
-		Values.gold=350;
+	void batting_gold(int a) {
+		Values.gold = a;
+		Values.gold_save -= a;
 		setVisible(false);
-		new Test_Game_Screen1(); //게임화면으로 넘어감
-	}
-	public void batting_two() {
-		Values.gold=700;
-		setVisible(false);
-		new Test_Game_Screen1(); //게임화면으로 넘어감
-	}
-	public void batting_three() {
-		Values.gold=1500;
-		setVisible(false);
-		new Test_Game_Screen1(); //게임화면으로 넘어감
+		new Game_Screen1(); // 게임화면으로 넘어감
 	}
 }
+
 
