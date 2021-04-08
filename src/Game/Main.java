@@ -2,6 +2,8 @@ package Game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.PreparedStatement;
@@ -101,12 +103,55 @@ public class Main extends JFrame {
 			}
 		});
 
-
 		JoinButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Join();
+			}
+		});
+
+		ID_Field.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					login();
+				}
+			}
+		});
+
+		PW_Field.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					login();
+				}
 			}
 		});
 
@@ -134,7 +179,7 @@ public class Main extends JFrame {
 			rs = pstm.executeQuery();
 
 			while (rs.next()) {
-				
+
 				System.out.println(rs.getInt(3));
 				Values.user_id = rs.getString(1);
 				user_pw = rs.getString(2);

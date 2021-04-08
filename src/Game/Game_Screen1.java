@@ -55,6 +55,7 @@ public class Game_Screen1 extends JFrame {
 	static JLabel userResult4; // 유저 결과 4
 	static JLabel userResult5; // 유저 결과 5
 	static JButton throwDice;
+	static JButton stopGame;
 
 	static JLabel userDiceGif; // 유저 주사위 이미지
 	static JLabel comDiceGif; // 컴퓨터 주사위 이미지
@@ -810,8 +811,13 @@ public class Game_Screen1 extends JFrame {
 				comDiceName[i] = "";
 			}
 		}
+		
+		if (userDiceData == 0 && comDiceData > 0) {
+			comRoll();
+		}
 
 		throwDice.setEnabled(true);
+		
 	}
 
 	void DiceImage(JLabel image) {

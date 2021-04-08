@@ -7,6 +7,9 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Arrays;
@@ -21,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Test_Game_Screen1 extends JFrame {
+public class Test_Game_Screen1 {
 
 	int comHPData = 10;
 	int userHPData = 10;
@@ -59,6 +62,8 @@ public class Test_Game_Screen1 extends JFrame {
 	static JButton throwDice;
 	static JButton stopGame;
 
+	static JFrame f;
+
 	static JLabel userDiceGif; // 유저 주사위 이미지
 	static JLabel comDiceGif; // 컴퓨터 주사위 이미지
 
@@ -72,6 +77,8 @@ public class Test_Game_Screen1 extends JFrame {
 
 	public Test_Game_Screen1() {
 
+		f = new JFrame();
+
 		System.out.println(Game_Screen1.class.getResource("").getPath());
 
 		try {
@@ -84,14 +91,14 @@ public class Test_Game_Screen1 extends JFrame {
 		String com_path = path + "image/sample04.gif";
 		String user_path = path + "image/sample03.gif";
 
-		setTitle("게임 화면");
+		f.setTitle("게임 화면");
 
 		// 기본 화면 틀
-		getContentPane().setLayout(null);
-		setBounds(100, 100, 600, 400);
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
+		f.getContentPane().setLayout(null);
+		f.setBounds(100, 100, 600, 400);
+		f.setResizable(false);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setVisible(true);
 
 		// 컴퓨터 남은 주사위 - comDiceTitle / comDiceX / comDice
 		// 컴퓨터 남은 주사위 값 출력 컴포넌트 : comDice
@@ -113,7 +120,7 @@ public class Test_Game_Screen1 extends JFrame {
 		comDices.add(jp1, BorderLayout.NORTH);
 		comDices.add(jp2, BorderLayout.CENTER);
 
-		getContentPane().add(comDices);
+		f.getContentPane().add(comDices);
 		comDices.setBounds(10, 20, 100, 50);
 
 		// comStatus - comDefense, comHP
@@ -140,7 +147,7 @@ public class Test_Game_Screen1 extends JFrame {
 		comStatus.add(jp3, BorderLayout.NORTH);
 		comStatus.add(jp4, BorderLayout.CENTER);
 
-		getContentPane().add(comStatus);
+		f.getContentPane().add(comStatus);
 		comStatus.setBounds(245, 20, 100, 50);
 
 		// 유저 남은 주사위 - userDiceTitle / userDiceX / userDice
@@ -165,7 +172,7 @@ public class Test_Game_Screen1 extends JFrame {
 		userDices.add(jp5, BorderLayout.NORTH);
 		userDices.add(jp6, BorderLayout.CENTER);
 
-		getContentPane().add(userDices);
+		f.getContentPane().add(userDices);
 		userDices.setBounds(480, 280, 100, 50);
 
 		// userStatus - userDefense, userHP
@@ -191,15 +198,15 @@ public class Test_Game_Screen1 extends JFrame {
 		userStatus.add(jp7, BorderLayout.NORTH);
 		userStatus.add(jp8, BorderLayout.CENTER);
 
-		getContentPane().add(userStatus);
+		f.getContentPane().add(userStatus);
 		userStatus.setBounds(245, 280, 100, 50);
 
 		// 던지기 버튼 : throwDice / 그만 버튼 : stopGame
 		throwDice = new JButton("던지기");
 		stopGame = new JButton("그만");
 
-		getContentPane().add(throwDice);
-		getContentPane().add(stopGame);
+		f.getContentPane().add(throwDice);
+		f.getContentPane().add(stopGame);
 		throwDice.setBounds(146, 280, 100, 50);
 		stopGame.setBounds(344, 280, 100, 50);
 
@@ -279,8 +286,8 @@ public class Test_Game_Screen1 extends JFrame {
 		userResult.add(userResult4);
 		userResult.add(userResult5);
 
-		getContentPane().add(comResult);
-		getContentPane().add(userResult);
+		f.getContentPane().add(comResult);
+		f.getContentPane().add(userResult);
 		comResult.setBounds(50, 102, 193, 147);
 		userResult.setBounds(344, 102, 193, 147);
 
@@ -290,13 +297,13 @@ public class Test_Game_Screen1 extends JFrame {
 
 		JPanel jp9 = new JPanel();
 		jp9.setBounds(0, 0, 594, 20);
-		getContentPane().add(jp9);
+		f.getContentPane().add(jp9);
 
 		JPanel jp10 = new JPanel();
 		jp10.setBounds(0, 330, 594, 41);
-		getContentPane().add(jp10);
+		f.getContentPane().add(jp10);
 
-		getContentPane().setBackground(backColor);
+		f.getContentPane().setBackground(backColor);
 		jp1.setBackground(backColor);
 		jp2.setBackground(backColor);
 		jp5.setBackground(backColor);
@@ -337,7 +344,9 @@ public class Test_Game_Screen1 extends JFrame {
 		}
 
 		int turn;
-		turn = (int) (Math.random() * 2);
+		// turn = (int) (Math.random() * 2);
+
+		turn = 1;
 
 		if (turn == 0) { // 유저 후공
 			JOptionPane.showMessageDialog(null, "후공입니다.");
@@ -376,7 +385,11 @@ public class Test_Game_Screen1 extends JFrame {
 					@Override
 					public void run() {
 						userRoll();
-						DiceImage(comDiceGif); // 유저의 던지기가 끝난 후 컴퓨터의 주사위 이미지 출력
+						if (comDiceData == 0) {
+							System.out.println("이미지 실행 X");
+						} else {
+							DiceImage(comDiceGif); // 유저의 던지기가 끝난 후 컴퓨터의 주사위 이미지 출력
+						}
 						timer_delay.cancel();
 
 					}
@@ -395,7 +408,11 @@ public class Test_Game_Screen1 extends JFrame {
 
 					}
 				};
-				(throwDice_delay).schedule(throwDice_task, 11000);
+				if (userDiceData < 5) {
+					(throwDice_delay).schedule(throwDice_task, 2500 + (1700 * userDiceData));
+				} else {
+					(throwDice_delay).schedule(throwDice_task, 11000);
+				}
 
 			}
 		});
@@ -408,6 +425,25 @@ public class Test_Game_Screen1 extends JFrame {
 				userDiceData = 0;
 				changeText();
 				autoCom();
+			}
+		});
+
+		throwDice.requestFocus();
+
+		throwDice.setMnemonic(KeyEvent.VK_SPACE);
+
+		throwDice.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				System.out.println("포커스 잃음");
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				System.out.println("포커스 획득");
+
 			}
 		});
 
@@ -482,13 +518,18 @@ public class Test_Game_Screen1 extends JFrame {
 		if (userHPData <= 0 || comHPData <= 0 || (userDiceData <= 0 && comDiceData <= 0)) {
 			// JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 
-			dispose();
+			f.dispose();
 			System.out.println(throwDice_delay);
+			System.out.println(stopGame_delay);
 			if (throwDice_delay != null) {
 				throwDice_delay.cancel(); // throwDice timer 종료 (유저턴에서 유저가 죽었을 때 컴퓨터가 다음 다이스를 돌리지 않도록 하기 위함.
+				System.out.println("throwDice_delay 종료확인");
+				System.out.println(throwDice_delay);
 			}
 			if (stopGame_delay != null) {
 				stopGame_delay.cancel(); // stopGame timer 종료
+				System.out.println("stopGame_delay 종료확인");
+				System.out.println(stopGame_delay);
 			}
 			Values.comHPData = comHPData;
 			Values.userHPData = userHPData;
@@ -568,7 +609,7 @@ public class Test_Game_Screen1 extends JFrame {
 	}
 
 	void userRoll() { // 유저 주사위 굴리기
-
+		System.out.println();
 		throwDice.setEnabled(false); // 던지기 버튼 비활성화
 		stopGame.setEnabled(false); // 그만 버튼 비활성화
 
@@ -678,6 +719,9 @@ public class Test_Game_Screen1 extends JFrame {
 			}
 		}
 
+		throwDice.setFocusable(true);
+		throwDice.requestFocus();
+
 	}
 
 	void comRoll() { // 컴퓨터 주사위 굴리기
@@ -784,6 +828,10 @@ public class Test_Game_Screen1 extends JFrame {
 
 		throwDice.setEnabled(true);
 		stopGame.setEnabled(true);
+
+		throwDice.setFocusable(true);
+		throwDice.requestFocus();
+
 	}
 
 	void DiceImage(JLabel image) {

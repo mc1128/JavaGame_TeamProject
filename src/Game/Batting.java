@@ -189,7 +189,7 @@ public class Batting extends JFrame{
 		Values.gold = a;
 		Values.gold_save -= a;
 		setVisible(false);
-		new Game_Screen1(); // 게임화면으로 넘어감
+		new Test_Game_Screen1(); // 게임화면으로 넘어감
 	}
 }
 
