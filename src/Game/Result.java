@@ -18,10 +18,7 @@ import javax.swing.border.EmptyBorder;
 public class Result extends JFrame {
 
 	private JPanel contentPane;
-	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		new Result();
 	}
