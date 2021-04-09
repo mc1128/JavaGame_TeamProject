@@ -5,7 +5,6 @@ public class Values {
 	static int gold;
 	static int userHPData;
 	static int comHPData;
-	static String id_save;
 	static int reward;
 	static int gold_save;
 	static int user_win;
