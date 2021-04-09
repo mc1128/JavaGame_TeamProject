@@ -92,6 +92,12 @@ public class Batting extends JFrame{
 
 		jp9.setBackground(lineColor);
 		jp10.setBackground(lineColor);
+		
+		JLabel Gold = new JLabel("보유 골드 : " + Values.gold_save);
+		jp10.add(Gold);
+		Gold.setForeground(Color.BLACK);
+		Gold.setFont(new Font("굴림", Font.PLAIN, 15));
+		Gold.setBackground(Color.WHITE);
 		getContentPane().setBackground(backColor);
 
 		batting_one.setBackground(panelColor);
@@ -101,6 +107,7 @@ public class Batting extends JFrame{
 		String back_path = path + "image/battingback.png";
 
 		JLabel back = new JLabel(new ImageIcon(back_path));
+		back.setBackground(Color.LIGHT_GRAY);
 		back.setLocation(0, 0);
 		back.setSize(594, 371);
 		getContentPane().add(back);
@@ -108,6 +115,8 @@ public class Batting extends JFrame{
 		JLabel lblNewLabel_1 = new JLabel(panelimage);
 		lblNewLabel_1.setBounds(80, 67, 430, 200);
 		getContentPane().add(lblNewLabel_1);
+		
+		
 		
 		setVisible(true);
 		
