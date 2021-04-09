@@ -75,8 +75,8 @@ public class Game_Screen1 extends JFrame {
 			System.out.println("경로설정 오류");
 		}
 		;
-		String com_path = path + "image/sample04.gif";	// 컴퓨터 주사위 이미지
-		String user_path = path + "image/sample03.gif";	// 유저 주사위 이미지
+		String com_path = path + "image/dice.gif";	// 컴퓨터 주사위 이미지
+		String user_path = path + "image/dice.gif";	// 유저 주사위 이미지
 		String back_path = path + "image/gamescreen.png";	// 배경화면 이미지
 		
 		Color backColor = new Color(210, 180, 145);
