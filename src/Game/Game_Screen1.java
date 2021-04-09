@@ -608,11 +608,11 @@ public class Game_Screen1 extends JFrame {
 
 			@Override
 			public void run() {
-				userResult1.setForeground(Color.black);
-				userResult2.setForeground(Color.black);
-				userResult3.setForeground(Color.black);
-				userResult4.setForeground(Color.black);
-				userResult5.setForeground(Color.black);
+				userResult1.setForeground(Color.white);
+				userResult2.setForeground(Color.white);
+				userResult3.setForeground(Color.white);
+				userResult4.setForeground(Color.white);
+				userResult5.setForeground(Color.white);
 			}
 		};
 		timer_delay.schedule(task_delay, 500);
@@ -633,11 +633,11 @@ public class Game_Screen1 extends JFrame {
 
 			@Override
 			public void run() {
-				comResult1.setForeground(Color.black);
-				comResult2.setForeground(Color.black);
-				comResult3.setForeground(Color.black);
-				comResult4.setForeground(Color.black);
-				comResult5.setForeground(Color.black);
+				comResult1.setForeground(Color.white);
+				comResult2.setForeground(Color.white);
+				comResult3.setForeground(Color.white);
+				comResult4.setForeground(Color.white);
+				comResult5.setForeground(Color.white);
 
 				System.out.println("유저결과1 색상변경");
 			}

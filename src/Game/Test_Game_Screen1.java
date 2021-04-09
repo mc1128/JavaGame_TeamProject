@@ -1,10 +1,7 @@
 package Game;
 
-// 수정 15:36
-
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -21,10 +18,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Test_Game_Screen1 {
+public class Test_Game_Screen1 extends JFrame{
 
 	int comHPData = 10;
 	int userHPData = 10;
@@ -77,8 +73,6 @@ public class Test_Game_Screen1 {
 
 	public Test_Game_Screen1() {
 
-		f = new JFrame();
-
 		System.out.println(Game_Screen1.class.getResource("").getPath());
 
 		try {
@@ -87,93 +81,82 @@ public class Test_Game_Screen1 {
 			System.out.println("경로설정 오류");
 		}
 		;
-
 		String com_path = path + "image/sample04.gif";
 		String user_path = path + "image/sample03.gif";
+		String back_path = path + "image/gamescreen.png";	// 배경화면 이미지
 
-		f.setTitle("게임 화면");
+		
+		Color backColor = new Color(210, 180, 145);
+		Color lineColor = new Color(252, 247, 222);
+		Color buttonColor = new Color(121, 117, 117);
+		
+		setTitle("게임 화면");
 
 		// 기본 화면 틀
-		f.getContentPane().setLayout(null);
-		f.setBounds(100, 100, 600, 400);
-		f.setResizable(false);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setVisible(true);
+		getContentPane().setLayout(null);
+		setBounds(100, 100, 600, 400);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// 컴퓨터 남은 주사위 - comDiceTitle / comDiceX / comDice
 		// 컴퓨터 남은 주사위 값 출력 컴포넌트 : comDice
 		JLabel comDiceTitle = new JLabel("남은 주사위");
 		JLabel comDiceX = new JLabel("x");
 		comDice = new JLabel("15");
-
-		comDiceX.setBounds(5, 5, 19, 15);
-		comDice.setBounds(12, 5, 57, 15);
-		JPanel jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JPanel jp2 = new JPanel();
-		jp2.setLayout(null);
-
-		jp1.add(comDiceTitle);
-		jp2.add(comDiceX);
-		jp2.add(comDice);
-
-		JPanel comDices = new JPanel(new BorderLayout());
-		comDices.add(jp1, BorderLayout.NORTH);
-		comDices.add(jp2, BorderLayout.CENTER);
-
-		f.getContentPane().add(comDices);
-		comDices.setBounds(10, 20, 100, 50);
+		comDiceTitle.setForeground(Color.WHITE);
+		comDiceX.setForeground(Color.WHITE);
+		comDice.setForeground(Color.WHITE);
+		comDiceTitle.setBounds(12, 27, 85, 15);
+		comDiceX.setBounds(12, 40, 19, 15);
+		comDice.setBounds(22, 41, 57, 15);
+		getContentPane().add(comDiceTitle);
+		getContentPane().add(comDiceX);
+		getContentPane().add(comDice);
 
 		// comStatus - comDefense, comHP
 		// 컴퓨터 방어 값 출력 컴포넌트 : comDefense
 		// 컴퓨터 체력 값 출력 컴포넌트 : comHP
 		comDefense = new JLabel(comDefenseG);
-		comHP = new JLabel("10");
 		JLabel comMaxHP = new JLabel("HP      /10");
-
-		comHP.setBounds(35, 5, 35, 15);
+		comHP = new JLabel("10");
+		comHP.setFont(new Font("굴림", Font.BOLD, 14));
+		comMaxHP.setFont(new Font("굴림", Font.BOLD, 14));
+		comDefense.setBounds(262, 28, 72, 15);
+		comHP.setBounds(282, 50, 35, 15);
+		comMaxHP.setBounds(247, 50, 100, 15);
 		comHP.setHorizontalAlignment(SwingConstants.CENTER);
-		comMaxHP.setBounds(22, 5, 58, 15);
 		comMaxHP.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JPanel jp3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel jp4 = new JPanel();
-		jp4.setLayout(null);
-
-		jp3.add(comDefense);
-		jp4.add(comHP);
-		jp4.add(comMaxHP);
-
-		JPanel comStatus = new JPanel(new BorderLayout());
-		comStatus.add(jp3, BorderLayout.NORTH);
-		comStatus.add(jp4, BorderLayout.CENTER);
-
-		f.getContentPane().add(comStatus);
-		comStatus.setBounds(245, 20, 100, 50);
+		getContentPane().add(comDefense);
+		getContentPane().add(comHP);
+		getContentPane().add(comMaxHP);
 
 		// 유저 남은 주사위 - userDiceTitle / userDiceX / userDice
 		// 유저 남은 주사위 값 출력 컴포넌트 : userDice
 		JLabel userDiceTitle = new JLabel("남은 주사위");
 		JLabel userDiceX = new JLabel("x");
-		userDice = new JLabel("15");
-
-		userDice.setBounds(75, 5, 19, 15);
-		userDiceX.setBounds(68, 5, 19, 15);
+		userDice = new JLabel("15");		
+		userDiceTitle.setForeground(Color.WHITE);
+		userDice.setForeground(Color.WHITE);
+		userDiceX.setForeground(Color.WHITE);
+		userDiceTitle.setBounds(500, 310, 79, 15);
+		userDice.setBounds(558, 326, 19, 15);
+		userDiceX.setBounds(545, 326, 19, 15);
+		userDiceTitle.setHorizontalAlignment(SwingConstants.RIGHT);
 		userDice.setHorizontalAlignment(SwingConstants.RIGHT);
 		userDiceX.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JPanel jp5 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JPanel jp6 = new JPanel();
-		jp6.setLayout(null);
-		jp5.add(userDiceTitle);
-		jp6.add(userDice);
-		jp6.add(userDiceX);
-
-		JPanel userDices = new JPanel(new BorderLayout());
-		userDices.add(jp5, BorderLayout.NORTH);
-		userDices.add(jp6, BorderLayout.CENTER);
-
-		f.getContentPane().add(userDices);
-		userDices.setBounds(480, 280, 100, 50);
+		getContentPane().add(userDiceTitle);
+		getContentPane().add(userDice);
+		getContentPane().add(userDiceX);
+		
+		// 던지기 버튼 : throwDice / 그만 버튼 : stopGame
+		throwDice = new JButton("던지기");
+		stopGame = new JButton("그만");
+		throwDice.setBounds(114, 292, 100, 50);
+		stopGame.setBounds(380, 292, 100, 50);
+		getContentPane().add(throwDice);
+		getContentPane().add(stopGame);
+		throwDice.setBackground(lineColor);
+		stopGame.setBackground(lineColor);
 
 		// userStatus - userDefense, userHP
 		// 유저 방어 값 출력 컴포넌트 : userDefense
@@ -181,158 +164,92 @@ public class Test_Game_Screen1 {
 		userDefense = new JLabel(userDefenseG);
 		userHP = new JLabel("10");
 		JLabel userMaxHP = new JLabel("HP      /10");
-
-		userHP.setBounds(34, 5, 35, 15);
-		userMaxHP.setBounds(22, 5, 58, 15);
+		userHP.setFont(new Font("굴림", Font.BOLD, 14));
+		userMaxHP.setFont(new Font("굴림", Font.BOLD, 14));
+		userDefense.setBounds(262, 288, 72, 15);
+		userHP.setBounds(282, 308, 35, 15);
+		userMaxHP.setBounds(247, 308, 100, 15);
 		userHP.setHorizontalAlignment(SwingConstants.CENTER);
 		userMaxHP.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JPanel jp8 = new JPanel();
-		jp8.setLayout(null);
-		JPanel jp7 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		jp7.add(userDefense);
-		jp8.add(userMaxHP);
-		jp8.add(userHP);
-
-		JPanel userStatus = new JPanel(new BorderLayout());
-		userStatus.add(jp7, BorderLayout.NORTH);
-		userStatus.add(jp8, BorderLayout.CENTER);
-
-		f.getContentPane().add(userStatus);
-		userStatus.setBounds(245, 280, 100, 50);
-
-		// 던지기 버튼 : throwDice / 그만 버튼 : stopGame
-		throwDice = new JButton("던지기");
-		stopGame = new JButton("그만");
-
-		f.getContentPane().add(throwDice);
-		f.getContentPane().add(stopGame);
-		throwDice.setBounds(146, 280, 100, 50);
-		stopGame.setBounds(344, 280, 100, 50);
-
+		getContentPane().add(userDefense);		
+		getContentPane().add(userHP);	
+		getContentPane().add(userMaxHP);
+		
 		// 주사위 결과 출력 comResult1~5
 		comResult1 = new JLabel("");
 		comResult2 = new JLabel("");
 		comResult3 = new JLabel("");
 		comResult4 = new JLabel("");
 		comResult5 = new JLabel("");
-
+		comResult1.setForeground(Color.LIGHT_GRAY);
+		comResult2.setForeground(Color.LIGHT_GRAY);
+		comResult3.setForeground(Color.LIGHT_GRAY);
+		comResult4.setForeground(Color.LIGHT_GRAY);
+		comResult1.setBounds(84, 127, 140, 15);
+		comResult2.setBounds(84, 152, 140, 15);
+		comResult3.setBounds(84, 177, 140, 15);
+		comResult4.setBounds(84, 202, 140, 15);
+		comResult5.setBounds(84, 227, 140, 15);
+		comResult5.setForeground(Color.LIGHT_GRAY);
+		comResult1.setHorizontalAlignment(SwingConstants.CENTER);
+		comResult2.setHorizontalAlignment(SwingConstants.CENTER);
+		comResult3.setHorizontalAlignment(SwingConstants.CENTER);
+		comResult4.setHorizontalAlignment(SwingConstants.CENTER);
+		comResult5.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(comResult1);
+		getContentPane().add(comResult2);
+		getContentPane().add(comResult3);
+		getContentPane().add(comResult4);
+		getContentPane().add(comResult5);
+				
 		// 주사위 결과 출력 userResult1~5
 		userResult1 = new JLabel("");
 		userResult2 = new JLabel("");
 		userResult3 = new JLabel("");
 		userResult4 = new JLabel("");
 		userResult5 = new JLabel("");
-
-		comResult1.setBounds(30, 10, 140, 15);
-		comResult2.setBounds(30, 35, 140, 15);
-		comResult3.setBounds(30, 60, 140, 15);
-		comResult4.setBounds(30, 85, 140, 15);
-		comResult5.setBounds(30, 110, 140, 15);
-
-		comResult1.setHorizontalAlignment(SwingConstants.CENTER);
-		comResult2.setHorizontalAlignment(SwingConstants.CENTER);
-		comResult3.setHorizontalAlignment(SwingConstants.CENTER);
-		comResult4.setHorizontalAlignment(SwingConstants.CENTER);
-		comResult5.setHorizontalAlignment(SwingConstants.CENTER);
-
-		userResult1.setBounds(29, 11, 135, 15);
-		userResult2.setBounds(29, 36, 135, 15);
-		userResult3.setBounds(29, 61, 135, 15);
-		userResult4.setBounds(29, 86, 135, 15);
-		userResult5.setBounds(29, 111, 135, 15);
-
-		userResult1.setHorizontalAlignment(SwingConstants.CENTER);
-		userResult2.setHorizontalAlignment(SwingConstants.CENTER);
-		userResult3.setHorizontalAlignment(SwingConstants.CENTER);
-		userResult4.setHorizontalAlignment(SwingConstants.CENTER);
-		userResult5.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JPanel comResult = new JPanel();
-		comResult.setLayout(null);
-		comResult.setBackground(Color.LIGHT_GRAY);
-		comResult.add(comResult1);
-		comResult.add(comResult2);
-		comResult.add(comResult3);
-		comResult.add(comResult4);
-		comResult.add(comResult5);
-
-		ImageIcon ii2 = new ImageIcon(com_path);
-		System.out.println(ii2);
-		comDiceGif = new JLabel(ii2);
-		comDiceGif.setBounds(0, 0, 193, 147);
-		comResult.add(comDiceGif);
-		comDiceGif.setVisible(false);
-
-		// 유저 주사위 이미지
-		JPanel userResult = new JPanel();
-		userResult.setLayout(null);
-		userResult.setBackground(new Color(140, 117, 90));
-
-		// 유저 주사위 이미지
-		System.out.println(path);
-		ImageIcon ii = new ImageIcon(user_path);
-
-		userDiceGif = new JLabel(ii);
-		userDiceGif.setBounds(0, 0, 193, 147);
-		userResult.add(userDiceGif);
-		userDiceGif.setVisible(false);
-
-		userResult.setLayout(null);
-		userResult.setBackground(Color.WHITE);
-		userResult.add(userResult1);
-		userResult.add(userResult2);
-		userResult.add(userResult3);
-		userResult.add(userResult4);
-		userResult.add(userResult5);
-
-		f.getContentPane().add(comResult);
-		f.getContentPane().add(userResult);
-		comResult.setBounds(50, 102, 193, 147);
-		userResult.setBounds(344, 102, 193, 147);
-
-		Color backColor = new Color(210, 180, 145);
-		Color lineColor = new Color(252, 247, 222);
-		Color buttonColor = new Color(121, 117, 117);
-
-		JPanel jp9 = new JPanel();
-		jp9.setBounds(0, 0, 594, 20);
-		f.getContentPane().add(jp9);
-
-		JPanel jp10 = new JPanel();
-		jp10.setBounds(0, 330, 594, 41);
-		f.getContentPane().add(jp10);
-
-		f.getContentPane().setBackground(backColor);
-		jp1.setBackground(backColor);
-		jp2.setBackground(backColor);
-		jp5.setBackground(backColor);
-		jp6.setBackground(backColor);
-
-		jp3.setBackground(lineColor);
-		jp4.setBackground(lineColor);
-		jp7.setBackground(lineColor);
-		jp8.setBackground(lineColor);
-		jp9.setBackground(lineColor);
-		jp10.setBackground(lineColor);
-
-		throwDice.setBackground(buttonColor);
-		stopGame.setBackground(buttonColor);
-
-		comResult.setBackground(new Color(79, 79, 79));
-		userResult.setBackground(new Color(140, 117, 90));
-
-		comResult1.setForeground(Color.LIGHT_GRAY);
-		comResult2.setForeground(Color.LIGHT_GRAY);
-		comResult3.setForeground(Color.LIGHT_GRAY);
-		comResult4.setForeground(Color.LIGHT_GRAY);
-		comResult5.setForeground(Color.LIGHT_GRAY);
-
 		userResult1.setForeground(Color.WHITE);
 		userResult2.setForeground(Color.WHITE);
 		userResult3.setForeground(Color.WHITE);
 		userResult4.setForeground(Color.WHITE);
 		userResult5.setForeground(Color.WHITE);
+		userResult1.setBounds(380, 127, 135, 15);
+		userResult2.setBounds(380, 152, 135, 15);
+		userResult3.setBounds(380, 177, 135, 15);
+		userResult4.setBounds(380, 202, 135, 15);
+		userResult5.setBounds(380, 227, 135, 15);
+		userResult1.setHorizontalAlignment(SwingConstants.CENTER);
+		userResult2.setHorizontalAlignment(SwingConstants.CENTER);
+		userResult3.setHorizontalAlignment(SwingConstants.CENTER);
+		userResult4.setHorizontalAlignment(SwingConstants.CENTER);
+		userResult5.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(userResult1);
+		getContentPane().add(userResult2);
+		getContentPane().add(userResult3);
+		getContentPane().add(userResult4);
+		getContentPane().add(userResult5);
+		
+		// 주사위 이미지
+		ImageIcon ii2 = new ImageIcon(com_path);
+		ImageIcon ii = new ImageIcon(user_path);
+		System.out.println(ii2);	
+		System.out.println(path);
+		comDiceGif = new JLabel(ii2);
+		userDiceGif = new JLabel(ii);
+		comDiceGif.setBounds(57, 112, 190, 145);
+		userDiceGif.setBounds(348, 112, 190, 145);
+		getContentPane().add(comDiceGif);
+		getContentPane().add(userDiceGif);
+		comDiceGif.setVisible(false);
+		userDiceGif.setVisible(false);
+		
+		// 배경화면 이미지
+		JLabel back = new JLabel(new ImageIcon(back_path));
+		back.setLocation(0, 0);
+		back.setSize(594, 371);
+		getContentPane().add(back);
+
+		setVisible(true);	// GUI 최하단에 두기
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
 
@@ -577,7 +494,7 @@ public class Test_Game_Screen1 {
 
 			@Override
 			public void run() {
-				label.setForeground(Color.black);
+				label.setForeground(Color.white);
 			}
 		};
 		(timer_delay0).schedule(task_delay0, 1300);
@@ -602,7 +519,7 @@ public class Test_Game_Screen1 {
 
 			@Override
 			public void run() {
-				label.setForeground(Color.black);
+				label.setForeground(Color.white);
 			}
 		};
 		(timer_delay0).schedule(task_delay0, 1300);
