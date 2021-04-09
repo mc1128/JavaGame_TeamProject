@@ -128,6 +128,6 @@ public class Loading extends JFrame {
 
 	public void Batting() {
 		setVisible(false);
-		new Batting();
+		new Profile();
 	}
 }
