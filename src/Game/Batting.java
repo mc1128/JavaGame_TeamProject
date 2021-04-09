@@ -98,6 +98,13 @@ public class Batting extends JFrame{
 		batting_two.setBackground(panelColor);
 		batting_three.setBackground(panelColor);
 		
+		String back_path = path + "image/battingback.png";
+
+		JLabel back = new JLabel(new ImageIcon(back_path));
+		back.setLocation(0, 0);
+		back.setSize(594, 371);
+		getContentPane().add(back);
+		
 		JLabel lblNewLabel_1 = new JLabel(panelimage);
 		lblNewLabel_1.setBounds(80, 67, 430, 200);
 		getContentPane().add(lblNewLabel_1);

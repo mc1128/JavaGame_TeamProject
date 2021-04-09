@@ -1,15 +1,19 @@
 package Game;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +40,8 @@ public class Join extends JFrame {
 	}
 
 	public Join() {
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Join.class.getResource("/Game/image/joinback.png")));
 		setTitle("회원가입 화면 텟");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,6 +84,23 @@ public class Join extends JFrame {
 
 		setVisible(true); // GUI 최하단에 두기
 
+		// 이하 배경화면
+		String path = "";
+
+		try { // path 설정
+			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			System.out.println("경로설정 오류");
+		}
+		;
+
+		String join_path = path + "image/joinback.png";
+
+		JLabel join_back = new JLabel(new ImageIcon(join_path));
+		join_back.setLocation(0, 0);
+		join_back.setSize(384, 361);
+		contentPane.add(join_back);
+
 		btnNewButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -88,7 +111,7 @@ public class Join extends JFrame {
 
 			}
 		});
-		
+
 		ID_Join.addKeyListener(new KeyListener() {
 
 			@Override
@@ -111,7 +134,7 @@ public class Join extends JFrame {
 				}
 			}
 		});
-		
+
 		PW_Join.addKeyListener(new KeyListener() {
 
 			@Override
@@ -161,9 +184,9 @@ public class Join extends JFrame {
 
 		try { // gold 기본값(1000), 나머지는 모두 0
 			String sql = "insert into profile values(?,?,1000,0,0,0,sysdate)";
-			
+
 			String password = new String(PW_Join.getPassword());
-	         
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, ID_Join.getText());
 			pstmt.setString(2, password);

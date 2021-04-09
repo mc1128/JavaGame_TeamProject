@@ -1,8 +1,11 @@
 package Game;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,14 +20,25 @@ public class Loading extends JFrame {
 	// int num = 0;
 	int p = 0;
 
+	String path;
+	
 	public static void main(String[] args) {
 		new Loading();
 	}
 
 	public Loading() {
+
+		try { // path 기본 설정
+			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			System.out.println("경로설정 오류");
+		};
+		
+		String back_path = path + "image/loadingback.png";
+		String tip_path = path + "image/white.png";	
+		
 		System.out.println("아이디값 :  "+ Values.user_id);
 		System.out.println("골드값 : "+ Values.gold_save);
-		setVisible(true);
 		loading_panel = new JPanel();
 		setBounds(100, 100, 600, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,14 +47,25 @@ public class Loading extends JFrame {
 		progressBar = new JProgressBar();
 		progressBar.setBounds(45, 280, 500, 50);
 		getContentPane().add(progressBar);
-
+		
+		JLabel tip_back = new JLabel(new ImageIcon(tip_path));
+		tip_back.setBounds(45, 27, 500, 227);
+		getContentPane().add(tip_back);
+		
 		Game_Tip = new JLabel("게입 팁 1");
 		Game_Tip.setHorizontalAlignment(SwingConstants.CENTER);
 		Game_Tip.setBounds(45, 27, 500, 227);
 		getContentPane().add(Game_Tip);
+		
+		JLabel back = new JLabel(new ImageIcon(back_path));
+		back.setLocation(0, 0);
+		back.setSize(594, 371);
+		getContentPane().add(back);		
 
 		test();
 		progress_start();
+		
+		setVisible(true);
 	}
 
 	/*
