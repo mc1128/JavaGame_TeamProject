@@ -446,8 +446,18 @@ public class Test_Game_Screen1 extends JFrame{
 				System.out.println("stopGame_delay 종료확인");
 				System.out.println(stopGame_delay);
 			}
-			Values.comHPData = comHPData;
-			Values.userHPData = userHPData;
+			if (comHPData < 0) {
+				Values.comHPData = 0;
+			}else {
+				Values.comHPData = comHPData;
+			}
+			
+			if(userHPData < 0) {
+				Values.userHPData = 0;
+			}else {
+				Values.userHPData = userHPData;
+			}
+			
 			onestart = 0;
 			new Result();
 		} else {

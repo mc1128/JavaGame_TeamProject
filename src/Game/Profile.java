@@ -82,13 +82,17 @@ public class Profile extends JFrame {
 		getContentPane().add(lbName);
 
 
-		JButton startGame = new JButton("게임 시작");
-		startGame.setBounds(310, 291, 120, 35);
+		JButton startGame = new JButton("게임시작");
+		startGame.setBounds(240, 291, 100, 30);
 		getContentPane().add(startGame);
 		
-		JButton Rank_show = new JButton("랭킹 확인");
-		Rank_show.setBounds(160, 291, 120, 35);
+		JButton Rank_show = new JButton("랭킹확인");
+		Rank_show.setBounds(120, 291, 100, 30);
 		getContentPane().add(Rank_show);
+		
+		JButton Logout = new JButton("로그아웃");
+		Logout.setBounds(360, 291, 100, 30);
+		getContentPane().add(Logout);
 		
 		JLabel frame = new JLabel(new ImageIcon(frame_path));
 		frame.setBounds(324, 67, 150, 214);
@@ -117,6 +121,15 @@ public class Profile extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new Ranking();
+			}
+		});
+		
+		Logout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Main();		
 			}
 		});
 

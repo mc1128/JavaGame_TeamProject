@@ -116,7 +116,7 @@ public class Result extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Main();
+				new Profile();
 				dispose();
 			}
 		});
@@ -128,7 +128,7 @@ public class Result extends JFrame {
 		con = DBConnection.getConnection();
 
 		try {
-			String sql = "update profile set user_gold = ?,user_win = ?, user_defeat = ? , user_draw = ? where user_id = ?";
+			String sql = "update profiles set user_gold = ?,user_win = ?, user_defeat = ? , user_draw = ? where user_id = ?";
 
 			pstmt = con.prepareStatement(sql);
 

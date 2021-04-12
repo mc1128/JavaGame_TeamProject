@@ -32,6 +32,8 @@ public class Ranking extends JFrame {
 	DefaultTableModel model;
 	JTable table;
 	JTextField jtf1, jtf2, jtf3, jtf5, jtf6;
+	
+	String path;
 
 	public Ranking() {
 
@@ -41,9 +43,8 @@ public class Ranking extends JFrame {
 		JPanel jp2 = new JPanel();
 		JPanel jp3 = new JPanel();
 	
-
-		JLabel jl1 = new JLabel("아이디 : ");
-		jtf1 = new JTextField(7);
+		JLabel jl1 = new JLabel("닉네임 : ");
+		jtf1 = new JTextField(8);
 
 		String[] header = { "랭킹", "아이디", "골드량", "승리횟수", "패배횟수", "무승부횟수", "승률" };
 
@@ -53,6 +54,7 @@ public class Ranking extends JFrame {
 				return false;
 			}
 		};
+		
 
 		table = new JTable(model);
 
@@ -85,6 +87,7 @@ public class Ranking extends JFrame {
 		setBounds(200, 200, 600, 400);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 
 		setVisible(true); 
 
