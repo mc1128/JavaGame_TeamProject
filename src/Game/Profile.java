@@ -91,6 +91,10 @@ public class Profile extends JFrame {
 		JButton startGame = new JButton("게임 시작");
 		startGame.setBounds(180, 250, 120, 35);
 		panel.add(startGame);
+		
+		JButton searchRank = new JButton("랭킹 확인");
+		searchRank.setBounds(380, 256, 97, 23);
+		panel.add(searchRank);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -106,6 +110,17 @@ public class Profile extends JFrame {
 				new Batting();
 			}
 		});
+		
+		searchRank.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new Ranking();
+				
+			}
+		});
+		
 	}
 
 
