@@ -46,7 +46,12 @@ public class Ranking extends JFrame {
 
 		String[] header = { "랭킹", "아이디", "골드량", "승리횟수", "패배횟수", "무승부횟수", "승률" };
 
-		model = new DefaultTableModel(header, 0);
+		model = new DefaultTableModel(header, 0) {
+			//cell 수정불가.
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+		};
 
 		table = new JTable(model);
 
@@ -77,9 +82,9 @@ public class Ranking extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		setVisible(true);
+		setVisible(true); 
 
-
+		
 		jb1.addActionListener(new ActionListener() {
 
 			@Override
@@ -98,15 +103,11 @@ public class Ranking extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				connect();
+				model.setRowCount(0);
 				userRank();
 
 				// 입력하는 텍스트필드 영역 초기화
 				jtf1.setText(null);
-				jtf1.requestFocus();
-				jcb.setSelectedIndex(0);
-
-				model.setRowCount(0);
-				Rank();
 
 			}
 		});
@@ -115,7 +116,6 @@ public class Ranking extends JFrame {
 
 	// DB 연동하는 메서드
 	private void connect() {
-
 		String driver = "oracle.jdbc.driver.OracleDriver";
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "web";
@@ -136,23 +136,72 @@ public class Ranking extends JFrame {
 	private void userRank() {
 
 		try {
-
+			
 			String sql = "select user_id, user_gold, user_win, user_defeat, user_draw from profile order by user_gold desc, user_win desc";
 
 			pstmt = con.prepareStatement(sql);
-
-			String user_get = jtf2.getText();
 			
-			pstmt.setString(1, user_get);
-
 			rs = pstmt.executeQuery();
+			
+			int i = 1;
+			
+			//검색된 아이디의 cell값 변수
+			int cell = 0;
+			int user_cell = 0;
 
-			while (rs.next()) {
+			while (rs.next()) { // DB 레코드 수만큼 반복
+				
+				String user_id = rs.getString("user_id");
+				int user_gold = rs.getInt("user_gold");
+				int user_win = rs.getInt("user_win");
+				int user_defeat = rs.getInt("user_defeat");
+				int user_draw = rs.getInt("user_draw");
+				//String user_draw = rs.getString("hiredate").substring(0, 10);
+				
+				//승률 계산
+				int total = user_win + user_defeat + user_draw;
+				double rate = (double)((double)user_win / (double)total) * 100.0;
+				
+				System.out.println(rate);
+				
+				//승리, 패배, 무승부 값이 0이라서 double 값이 NaN이라면 승률에 0.00%로 변경
+				if(Double.isNaN(rate)) {
+					rate = (double)(0.00);
+				}
+				
+				//퍼센트를 소숫점 두자리까지만 표시되도록 패턴 설정
+				String dispPattern = "0.##";
+				DecimalFormat form = new DecimalFormat(dispPattern);
+				String winning_rate = form.format(rate) + "%";
+				
+				System.out.println(winning_rate);
+				
+				Object[] data = { i, user_id, user_gold, user_win, user_defeat, user_draw, winning_rate};
+				
+				//검색한 아이디의 셀 위치를 받아오기위해 설정
+				if(user_id.equals(jtf1.getText())) {
+					user_cell = cell;
+					System.out.println("검색성공");
+				}else {
+					cell++;
+					System.out.println("검색실패");
+				}
+				
+				// table model에 data 추가
+				model.addRow(data);
+				
+				i++;
 			}
-
-			// open 객체 닫기
+			
+			//검색된 ID의 셀 선택
+			table.setRowSelectionInterval(user_cell, user_cell);
+			
+			//객체 닫기
 			rs.close();
-			pstmt.close(); // con.close();
+			pstmt.close();
+			con.close();
+			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -208,10 +257,11 @@ public class Ranking extends JFrame {
 				i++;
 			}
 
-			// 4. open 객체 닫기
+			//객체 닫기
 			rs.close();
 			pstmt.close();
 			con.close();
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
