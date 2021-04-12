@@ -32,8 +32,19 @@ public class Result extends JFrame {
 	static ImageIcon goldIcon;
 	String resultText; // 결과값 메시지
 	int goldResult; // 골드값 메시지
+	
+	String path;
 
 	public Result() {
+		
+		try { // path 기본 설정
+			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			System.out.println("경로설정 오류");
+		};
+		
+		String back_path = path + "image/battingback.png";
+		String board_path = path + "image/r_board.png";
 
 		setTitle("게임 결과");
 
@@ -75,18 +86,19 @@ public class Result extends JFrame {
 		Color lineColor = new Color(252, 247, 222);
 		Color buttonColor = new Color(121, 117, 117);
 
-		JPanel jp9 = new JPanel();
-		jp9.setBounds(0, 0, 594, 21);
-		getContentPane().add(jp9);
 
-		JPanel jp10 = new JPanel();
-		jp10.setBounds(0, 330, 594, 43);
-		getContentPane().add(jp10);
-
-		jp9.setBackground(lineColor);
-		jp10.setBackground(lineColor);
 		contentPane.setBackground(backColor);
 
+		JLabel board = new JLabel(new ImageIcon(board_path));
+		board.setLocation(12, 39);
+		board.setSize(346, 97);
+		getContentPane().add(board);
+
+		JLabel back = new JLabel(new ImageIcon(back_path));
+		back.setLocation(0, 0);
+		back.setSize(594, 371);
+		getContentPane().add(back);
+		
 		setVisible(true);
 
 		// 이벤트 처리
@@ -159,25 +171,25 @@ public class Result extends JFrame {
 			Values.reward = (int) (Values.gold * 2.5);
 			Values.gold_save += Values.reward;
 			Values.user_win++;
-			gold_path = path + "image/logoresize.png";
+			gold_path = path + "image/r_win.png";
 		} else if (Values.userHPData > Values.comHPData) { // 승리
 			resultText = "이겼습니다!";
 			Values.reward = Values.gold * 2;
 			Values.gold_save += Values.reward;
 			Values.user_win++;
-			gold_path = path + "image/logo.png";
+			gold_path = path + "image/r_win.png";
 		} else if (Values.userHPData == Values.comHPData) { // 무승부
 			resultText = "비겼습니다!";
 			Values.reward = Values.gold * 1;
 			Values.gold_save += Values.reward;
 			Values.user_draw++;
-			gold_path = path + "image/sample03.gif";
+			gold_path = path + "image/r_draw.png";
 		} else if (Values.userHPData < Values.comHPData) { // 패배
 			resultText = "졌습니다!";
 			Values.reward = Values.gold * 0;
 			Values.gold_save += Values.reward;
 			Values.user_defeat++;
-			gold_path = path + "image/sample04.gif";
+			gold_path = path + "image/r_defeat.png";
 		}
 
 		Result_Label.setText(resultText);
