@@ -80,6 +80,8 @@ public class Profile extends JFrame {
 
 		String back_path = path + "image/p_parch.png";
 		String frame_path = path + "image/p_frame.png";
+		String gold_path = path + "image/p_gold.png";
+		String gold_b_path = path + "image/p_gold_b.png";
 
 		JLabel lbName = new JLabel("닉네임 : " + Values.name);
 		lbName.setBounds(171, 85, 111, 25);
@@ -91,10 +93,17 @@ public class Profile extends JFrame {
 		JButton startGame = new JButton("게임 시작");
 		startGame.setBounds(243, 291, 120, 35);
 		getContentPane().add(startGame);
-		
+			
 		JLabel frame = new JLabel(new ImageIcon(frame_path));
 		frame.setBounds(324, 67, 150, 214);
 		getContentPane().add(frame);
+		
+		ImageIcon gold = new ImageIcon(gold_path);
+		ImageIcon gold_b = new ImageIcon(gold_b_path);
+		
+		JLabel get_gold = new JLabel(gold);
+		get_gold.setBounds(257, 236, 55, 45);
+		getContentPane().add(get_gold);
 
 		// 배경 이미지
 
@@ -108,6 +117,16 @@ public class Profile extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				new Batting();
+			}
+		});
+		
+		get_gold.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				get_gold.setIcon(gold_b);
+			}
+
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				get_gold.setIcon(gold);
 			}
 		});
 
