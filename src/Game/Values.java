@@ -11,4 +11,9 @@ public class Values {
 	static int user_defeat;
 	static int user_draw;
 	static String user_id;
+	static String name;
+	
+	
+	
+	
 }
