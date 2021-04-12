@@ -79,6 +79,7 @@ public class Batting extends JFrame{
 		Color lineColor = new Color(252, 247, 222);
 		Color buttonColor = new Color(121, 117, 117);
 		Color panelColor = new Color(233, 180, 95);
+
 		getContentPane().setBackground(backColor);
 
 		batting_one.setBackground(panelColor);
@@ -92,6 +93,7 @@ public class Batting extends JFrame{
 		String back_path = path + "image/battingback.png";
 
 		JLabel back = new JLabel(new ImageIcon(back_path));
+		back.setBackground(Color.LIGHT_GRAY);
 		back.setLocation(0, 0);
 		back.setSize(594, 371);
 		getContentPane().add(back);
