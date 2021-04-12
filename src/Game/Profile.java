@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 import javax.swing.ImageIcon;
@@ -18,6 +22,8 @@ public class Profile extends JFrame {
 
 	String path;
 
+	static JLabel lbGold;
+	
 	public Profile() {
 
 		setTitle("유저 프로필");
@@ -32,7 +38,7 @@ public class Profile extends JFrame {
 
 		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 20));
 
-		JLabel lbGold = new JLabel("보유 골드 : " + Values.gold_save);
+		lbGold = new JLabel("보유 골드 : " + Values.gold_save);
 		lbGold.setBounds(171, 109, 111, 25);
 		getContentPane().add(lbGold);
 
@@ -76,6 +82,8 @@ public class Profile extends JFrame {
 
 		String back_path = path + "image/p_parch.png";
 		String frame_path = path + "image/p_frame.png";
+		String gold_path = path + "image/p_gold.png";
+		String gold_b_path = path + "image/p_gold_b.png";
 
 		JLabel lbName = new JLabel("닉네임 : " + Values.user_name);
 		lbName.setBounds(171, 85, 111, 25);
@@ -99,7 +107,19 @@ public class Profile extends JFrame {
 		getContentPane().add(frame);
 
 		// 배경 이미지
+		
+		ImageIcon gold = new ImageIcon(gold_path);
+		ImageIcon gold_b = new ImageIcon(gold_b_path);
+		
+		JButton get_gold = new JButton(gold);
+		get_gold.setBounds(257, 236, 55, 45);
+		getContentPane().add(get_gold);
+		
+		get_gold.setBorderPainted(false); 
+		get_gold.setFocusPainted(false); 
+		get_gold.setContentAreaFilled(false);
 
+		
 		JLabel back_1 = new JLabel(new ImageIcon(back_path));
 		back_1.setBounds(0, 0, 584, 361);
 		getContentPane().add(back_1);
@@ -110,6 +130,35 @@ public class Profile extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+
+				con = DBConnection.getConnection();
+
+				try {
+					String sql = "update profiles set user_gold = ? where user_id = ?";
+
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setInt(1, Values.gold_save);
+					pstmt.setString(2, Values.user_id);
+
+					int result = pstmt.executeUpdate();
+					if (result > 0) {
+						System.out.println("성공");
+					} else {
+						System.out.println("실패");
+					}
+
+					pstmt.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				
 				setVisible(false);
 				new Batting();
 			}
@@ -132,6 +181,28 @@ public class Profile extends JFrame {
 				new Main();		
 			}
 		});
+		
+		get_gold.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				get_gold.setIcon(gold_b);
+			}
+
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				get_gold.setIcon(gold);
+			}
+		});
+		
+		get_gold.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Values.gold_save++;
+				lbGold.setText("보유 골드 : " + Values.gold_save);
+			}
+		});
+		
+		
 
 		setBounds(100, 100, 600, 400);
 		setVisible(true);
