@@ -13,7 +13,4 @@ public class Values {
 	static String user_id;
 	static String name;
 	
-	
-	
-	
 }
