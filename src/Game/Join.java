@@ -29,6 +29,7 @@ public class Join extends JFrame {
 	private JPanel contentPane;
 	private JTextField ID_Join;
 	private JPasswordField PW_Join;
+	private JTextField Name_Join;
 	private JButton btnNewButton;
 
 	Connection conn = null;
@@ -42,7 +43,7 @@ public class Join extends JFrame {
 	public Join() {
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Join.class.getResource("/Game/image/joinback.png")));
-		setTitle("회원가입 화면 텟");
+		setTitle("회원가입 화면");
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
@@ -58,14 +59,19 @@ public class Join extends JFrame {
 		contentPane.add(Panel_Join);
 		
 		ID_Join = new JTextField();
-		ID_Join.setBounds(103, 160, 172, 25);
+		ID_Join.setBounds(140, 135, 172, 25);
 		contentPane.add(ID_Join);
-		ID_Join.setColumns(10);
+		ID_Join.setColumns(9);
 		
 		PW_Join = new JPasswordField();
-		PW_Join.setBounds(103, 214, 171, 25);
+		PW_Join.setBounds(140, 180, 171, 25);
 		contentPane.add(PW_Join);
-		PW_Join.setColumns(10);
+		PW_Join.setColumns(9);
+		
+		Name_Join = new JTextField();
+		Name_Join.setBounds(141, 225, 171, 25);
+		contentPane.add(Name_Join);
+		Name_Join.setColumns(9);
 		
 		btnNewButton = new JButton("완료");
 		btnNewButton.setBounds(129, 280, 125, 35);
@@ -73,13 +79,18 @@ public class Join extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("ID");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(165, 140, 57, 15);
+		lblNewLabel_1.setBounds(71, 140, 57, 15);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Password");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(139, 195, 115, 15);
+		lblNewLabel_2.setBounds(41, 185, 115, 15);
 		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Name");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(41, 230, 115, 15);
+		contentPane.add(lblNewLabel_3);
 		
 		// 이하 배경화면 
 		String path="";
@@ -179,16 +190,21 @@ public class Join extends JFrame {
 		} else if (PW_Join.getPassword().length == 0) { // 비밀번호를 입력하지 않았을 경우 기본창 반환
 			JOptionPane.showMessageDialog(btnNewButton, "비밀번호를 입력하세요.");
 			return;
+		} else if (Name_Join.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(btnNewButton, "닉네임를 입력하세요.");
+			return;
 		}
 
 		try { // gold 기본값(1000), 나머지는 모두 0
-			String sql = "insert into profile values(?,?,1000,0,0,0,sysdate)";
+			String sql = "insert into profiles values(?,?,?,1000,0,0,0,sysdate)";
 
 			String password = new String(PW_Join.getPassword());
 
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, ID_Join.getText());
 			pstmt.setString(2, password);
+			pstmt.setString(3, Name_Join.getText());
 
 			int res = pstmt.executeUpdate();
 

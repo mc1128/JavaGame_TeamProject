@@ -6,7 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 public class Profile extends JFrame {
@@ -35,7 +38,7 @@ public class Profile extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JLabel lbName = new JLabel("닉네임 : " + Values.name);
+		JLabel lbName = new JLabel("닉네임 : " + Values.user_name);
 		lbName.setForeground(new Color(0, 0, 0));
 		lbName.setBackground(new Color(211, 211, 211));
 		lbName.setOpaque(true);
