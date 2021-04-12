@@ -58,8 +58,6 @@ public class Test_Game_Screen1 extends JFrame{
 	static JButton throwDice;
 	static JButton stopGame;
 
-	static JFrame f;
-
 	static JLabel userDiceGif; // 유저 주사위 이미지
 	static JLabel comDiceGif; // 컴퓨터 주사위 이미지
 
@@ -435,7 +433,7 @@ public class Test_Game_Screen1 extends JFrame{
 		if (userHPData <= 0 || comHPData <= 0 || (userDiceData <= 0 && comDiceData <= 0)) {
 			// JOptionPane.showMessageDialog(null, "게임이 종료되었습니다!");
 
-			f.dispose();
+			dispose();
 			System.out.println(throwDice_delay);
 			System.out.println(stopGame_delay);
 			if (throwDice_delay != null) {
