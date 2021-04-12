@@ -46,6 +46,12 @@ public class Batting extends JFrame{
 		ImageIcon bat6 = new ImageIcon(path + "image/1500b.png"); // 1500 흑백 이미지
 
 		ImageIcon panelimage = new ImageIcon(path + "image/panel.png"); // panel 이미지
+		
+		JLabel lblNewLabel_2 = new JLabel("보유 골드" + Values.gold_save);
+		lblNewLabel_2.setBackground(Color.WHITE);
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setBounds(396, 79, 114, 31);
+		getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel = new JLabel("베팅을 하세요");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 import javax.swing.*;
 
@@ -71,12 +72,18 @@ public class Profile extends JFrame {
 
 		
 		
-		JLabel lbWinRate = new JLabel("승률 : " ); // 승률 인자 선언해야함
+		int total = Values.user_win + Values.user_defeat + Values.user_draw;
+		double rate = (double)((double)Values.user_win / (double)total) * 100.0;
+		String dispPattern = "0.##";
+		DecimalFormat form = new DecimalFormat(dispPattern);
+		String winning_rate = form.format(rate) + "%";
+		JLabel lbWinRate = new JLabel("승률 : " + winning_rate);
 		lbWinRate.setBackground(new Color(211, 211, 211));
 		lbWinRate.setForeground(new Color(0, 0, 0));
 		lbWinRate.setBounds(123, 214, 111, 25);
 		lbWinRate.setOpaque(true);
 		panel.add(lbWinRate);
+		
 		
 		JButton startGame = new JButton("게임 시작");
 		startGame.setBounds(180, 250, 120, 35);
