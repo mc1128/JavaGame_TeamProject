@@ -76,8 +76,7 @@ public class Main extends JFrame {
 			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			System.out.println("경로설정 오류");
-		}
-		;
+		};
 
 		String title_path = path + "image/logoresize.png";
 		String back_path = path + "image/background.png";

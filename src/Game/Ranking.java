@@ -1,8 +1,12 @@
 package Game;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -32,14 +37,53 @@ public class Ranking extends JFrame {
 	JTable table;
 	JTextField jtf1, jtf2, jtf3, jtf5, jtf6;
 
+	String path;
+
 	public Ranking() {
 
 		setTitle("랭킹확인");
 
-		JPanel jp1 = new JPanel();
-		JPanel jp2 = new JPanel();
-		JPanel jp3 = new JPanel();
+//		JPanel jp1 = new JPanel();
+//		JPanel jp2 = new JPanel();
+//		JPanel jp3 = new JPanel();
+
+
+		// 배경 이미지
+		try { // path 설정
+			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			System.out.println("경로설정 오류");
+		}
+		;
+
+		String back_path = path + "image/rank.jpg";
 	
+		ImageIcon img = new ImageIcon(back_path);
+
+		JPanel jp1 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(img.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		
+		JPanel jp2 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(img.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		
+		JPanel jp3 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(img.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		}; // 배경 이미지 end
+
 
 		JLabel jl1 = new JLabel("아이디 : ");
 		jtf1 = new JTextField(7);
@@ -47,7 +91,7 @@ public class Ranking extends JFrame {
 		String[] header = { "랭킹", "아이디", "골드량", "승리횟수", "패배횟수", "무승부횟수", "승률" };
 
 		model = new DefaultTableModel(header, 0) {
-			//cell 수정불가.
+			// cell 수정불가.
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
@@ -57,6 +101,7 @@ public class Ranking extends JFrame {
 
 		JScrollPane jsp = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jsp.getViewport().setBackground(Color.white);	// jsp 배경색 설정
 
 		JButton jb1 = new JButton("랭킹목록");
 		JButton jb2 = new JButton("나의 랭킹확인");
@@ -67,7 +112,9 @@ public class Ranking extends JFrame {
 		jp3.add(jb1);
 		jp3.add(jb2);
 
-		JPanel pg = new JPanel(new BorderLayout());
+		
+		JPanel pg = new JPanel();
+		pg.setLayout(new BorderLayout());
 
 		pg.add(jp2, BorderLayout.NORTH);
 		pg.add(jsp, BorderLayout.CENTER);
@@ -82,9 +129,8 @@ public class Ranking extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		setVisible(true); 
+		setVisible(true);
 
-		
 		jb1.addActionListener(new ActionListener() {
 
 			@Override
@@ -136,71 +182,70 @@ public class Ranking extends JFrame {
 	private void userRank() {
 
 		try {
-			
+
 			String sql = "select user_id, user_gold, user_win, user_defeat, user_draw from profile order by user_gold desc, user_win desc";
 
 			pstmt = con.prepareStatement(sql);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			int i = 1;
-			
-			//검색된 아이디의 cell값 변수
+
+			// 검색된 아이디의 cell값 변수
 			int cell = 0;
 			int user_cell = 0;
 
 			while (rs.next()) { // DB 레코드 수만큼 반복
-				
+
 				String user_id = rs.getString("user_id");
 				int user_gold = rs.getInt("user_gold");
 				int user_win = rs.getInt("user_win");
 				int user_defeat = rs.getInt("user_defeat");
 				int user_draw = rs.getInt("user_draw");
-				//String user_draw = rs.getString("hiredate").substring(0, 10);
-				
-				//승률 계산
+				// String user_draw = rs.getString("hiredate").substring(0, 10);
+
+				// 승률 계산
 				int total = user_win + user_defeat + user_draw;
-				double rate = (double)((double)user_win / (double)total) * 100.0;
-				
+				double rate = (double) ((double) user_win / (double) total) * 100.0;
+
 				System.out.println(rate);
-				
-				//승리, 패배, 무승부 값이 0이라서 double 값이 NaN이라면 승률에 0.00%로 변경
-				if(Double.isNaN(rate)) {
-					rate = (double)(0.00);
+
+				// 승리, 패배, 무승부 값이 0이라서 double 값이 NaN이라면 승률에 0.00%로 변경
+				if (Double.isNaN(rate)) {
+					rate = (double) (0.00);
 				}
-				
-				//퍼센트를 소숫점 두자리까지만 표시되도록 패턴 설정
+
+				// 퍼센트를 소숫점 두자리까지만 표시되도록 패턴 설정
 				String dispPattern = "0.##";
 				DecimalFormat form = new DecimalFormat(dispPattern);
 				String winning_rate = form.format(rate) + "%";
-				
+
 				System.out.println(winning_rate);
-				
-				Object[] data = { i, user_id, user_gold, user_win, user_defeat, user_draw, winning_rate};
-				
-				//검색한 아이디의 셀 위치를 받아오기위해 설정
-				if(user_id.equals(jtf1.getText())) {
+
+				Object[] data = { i, user_id, user_gold, user_win, user_defeat, user_draw, winning_rate };
+
+				// 검색한 아이디의 셀 위치를 받아오기위해 설정
+				if (user_id.equals(jtf1.getText())) {
 					user_cell = cell;
 					System.out.println("검색성공");
-				}else {
+				} else {
 					cell++;
 					System.out.println("검색실패");
 				}
-				
+
 				// table model에 data 추가
 				model.addRow(data);
-				
+
 				i++;
 			}
-			
-			//검색된 ID의 셀 선택
+
+			// 검색된 ID의 셀 선택
 			table.setRowSelectionInterval(user_cell, user_cell);
-			
-			//객체 닫기
+
+			// 객체 닫기
 			rs.close();
 			pstmt.close();
 			con.close();
-			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -208,7 +253,6 @@ public class Ranking extends JFrame {
 		}
 
 	}
-
 
 	// 랭킹조회 메서드
 	private void Rank() {
@@ -217,58 +261,56 @@ public class Ranking extends JFrame {
 			String sql = "select user_id, user_gold, user_win, user_defeat, user_draw from profile order by user_gold desc, user_win desc";
 
 			pstmt = con.prepareStatement(sql);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			int i = 1;
 
 			while (rs.next()) { // DB 레코드 수만큼 반복
-				
+
 				String user_id = rs.getString("user_id");
 				int user_gold = rs.getInt("user_gold");
 				int user_win = rs.getInt("user_win");
 				int user_defeat = rs.getInt("user_defeat");
 				int user_draw = rs.getInt("user_draw");
-				//String user_draw = rs.getString("hiredate").substring(0, 10);
-				
-				//승률 계산
+				// String user_draw = rs.getString("hiredate").substring(0, 10);
+
+				// 승률 계산
 				int total = user_win + user_defeat + user_draw;
-				double rate = (double)((double)user_win / (double)total) * 100.0;
-				
+				double rate = (double) ((double) user_win / (double) total) * 100.0;
+
 				System.out.println(rate);
-				
-				//승리, 패배, 무승부 값이 0이라서 double 값이 NaN이라면 승률에 0.00%로 변경
-				if(Double.isNaN(rate)) {
-					rate = (double)(0.00);
+
+				// 승리, 패배, 무승부 값이 0이라서 double 값이 NaN이라면 승률에 0.00%로 변경
+				if (Double.isNaN(rate)) {
+					rate = (double) (0.00);
 				}
-				
-				//퍼센트를 소숫점 두자리까지만 표시되도록 패턴 설정
+
+				// 퍼센트를 소숫점 두자리까지만 표시되도록 패턴 설정
 				String dispPattern = "0.##";
 				DecimalFormat form = new DecimalFormat(dispPattern);
 				String winning_rate = form.format(rate) + "%";
-				
+
 				System.out.println(winning_rate);
-				
-				Object[] data = { i, user_id, user_gold, user_win, user_defeat, user_draw, winning_rate};
+
+				Object[] data = { i, user_id, user_gold, user_win, user_defeat, user_draw, winning_rate };
 
 				// table model에 data 추가
 				model.addRow(data);
-				
+
 				i++;
 			}
 
-			//객체 닫기
+			// 객체 닫기
 			rs.close();
 			pstmt.close();
 			con.close();
-			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 
 	public static void main(String[] args) {
 
