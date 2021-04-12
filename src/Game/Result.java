@@ -56,39 +56,37 @@ public class Result extends JFrame {
 		contentPane.setLayout(null);
 
 		Result_Label = new JLabel("결과값");
-		Result_Label.setFont(new Font("맑은 고딕", Font.PLAIN, 24));
+		Result_Label.setFont(new Font("맑은 고딕", Font.BOLD, 24));
 		Result_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		Result_Label.setBounds(230, 21, 129, 45);
+		Result_Label.setBounds(123, 50, 129, 45);
 		contentPane.add(Result_Label);
 
 		Gold_Label = new JLabel("얻은 골드 값");
 		Gold_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		Gold_Label.setBounds(237, 76, 114, 21);
+		Gold_Label.setBounds(133, 93, 114, 21);
 		contentPane.add(Gold_Label);
 
 		// 골드 이미지
 		String gold_path = result(); // 결과 처리
 		JLabel Gold_Image = new JLabel(new ImageIcon(gold_path));
 		Gold_Image.setHorizontalAlignment(SwingConstants.CENTER);
-		Gold_Image.setBounds(223, 120, 150, 150);
+		Gold_Image.setBounds(254, 65, 330, 280);
 		contentPane.add(Gold_Image);
 
 		JButton Replay_Button = new JButton("다시 플레이");
-		Replay_Button.setBounds(100, 300, 150, 30);
+		Replay_Button.setBounds(97, 214, 150, 30);
 		contentPane.add(Replay_Button);
 
 		JButton BackMain_Button = new JButton("나가기");
-		BackMain_Button.setBounds(335, 300, 150, 30);
+		BackMain_Button.setBounds(97, 254, 150, 30);
 		contentPane.add(BackMain_Button);
 
 		// 색상 지정
 		Color backColor = new Color(210, 180, 145);
 		Color lineColor = new Color(252, 247, 222);
 		Color buttonColor = new Color(121, 117, 117);
-
-
 		contentPane.setBackground(backColor);
-
+	
 		JLabel board = new JLabel(new ImageIcon(board_path));
 		board.setLocation(12, 39);
 		board.setSize(346, 97);
@@ -97,9 +95,10 @@ public class Result extends JFrame {
 		JLabel back = new JLabel(new ImageIcon(back_path));
 		back.setLocation(0, 0);
 		back.setSize(594, 371);
-		getContentPane().add(back);
-		
+		getContentPane().add(back);		
+
 		setVisible(true);
+		
 
 		// 이벤트 처리
 		// 다시 플레이 버튼
@@ -183,7 +182,7 @@ public class Result extends JFrame {
 			Values.reward = Values.gold * 1;
 			Values.gold_save += Values.reward;
 			Values.user_draw++;
-			gold_path = path + "image/r_draw.png";
+			gold_path = path + "image/g_draw.png";
 		} else if (Values.userHPData < Values.comHPData) { // 패배
 			resultText = "졌습니다!";
 			Values.reward = Values.gold * 0;
