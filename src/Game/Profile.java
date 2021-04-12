@@ -74,6 +74,9 @@ public class Profile extends JFrame {
 		
 		int total = Values.user_win + Values.user_defeat + Values.user_draw;
 		double rate = (double)((double)Values.user_win / (double)total) * 100.0;
+		if(Double.isNaN(rate)) {
+			rate = (double)(0.00);
+		}
 		String dispPattern = "0.##";
 		DecimalFormat form = new DecimalFormat(dispPattern);
 		String winning_rate = form.format(rate) + "%";
