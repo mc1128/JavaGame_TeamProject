@@ -2,6 +2,7 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
@@ -32,20 +33,33 @@ public class Result extends JFrame {
 	static ImageIcon goldIcon;
 	String resultText; // 결과값 메시지
 	int goldResult; // 골드값 메시지
-	
+
 	String path;
 
 	public Result() {
-		
+
 		try { // path 기본 설정
 			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			System.out.println("경로설정 오류");
-		};
-		
+		}
+		;
+
 		String back_path = path + "image/battingback.png";
 		String board_path = path + "image/r_board.png";
 
+		// button 이미지
+		String button_path = path + "image/button.png";
+		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
+		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg = originImg.getScaledInstance(150, 30, Image.SCALE_SMOOTH);
+
+		String button_path_b = path + "image/button_b.png";
+		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
+		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg_b = originImg_b.getScaledInstance(150, 30, Image.SCALE_SMOOTH);
+		ImageIcon b = new ImageIcon(changedImg_b);
+		
 		setTitle("게임 결과");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,11 +87,21 @@ public class Result extends JFrame {
 		Gold_Image.setBounds(254, 65, 330, 280);
 		contentPane.add(Gold_Image);
 
-		JButton Replay_Button = new JButton("다시 플레이");
+		JButton Replay_Button = new JButton("다시 플레이", new ImageIcon(changedImg));
+		Replay_Button.setForeground(Color.WHITE); // 글씨색 흰색
+		Replay_Button.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		Replay_Button.setContentAreaFilled(false); // 버튼 배경 투명화
+		Replay_Button.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		Replay_Button.setRolloverIcon(b); // 호버효과
 		Replay_Button.setBounds(97, 214, 150, 30);
 		contentPane.add(Replay_Button);
 
-		JButton BackMain_Button = new JButton("나가기");
+		JButton BackMain_Button = new JButton("나가기", new ImageIcon(changedImg));
+		BackMain_Button.setForeground(Color.WHITE); // 글씨색 흰색
+		BackMain_Button.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		BackMain_Button.setContentAreaFilled(false); // 버튼 배경 투명화
+		BackMain_Button.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		BackMain_Button.setRolloverIcon(b); // 호버효과
 		BackMain_Button.setBounds(97, 254, 150, 30);
 		contentPane.add(BackMain_Button);
 
@@ -86,7 +110,7 @@ public class Result extends JFrame {
 		Color lineColor = new Color(252, 247, 222);
 		Color buttonColor = new Color(121, 117, 117);
 		contentPane.setBackground(backColor);
-	
+
 		JLabel board = new JLabel(new ImageIcon(board_path));
 		board.setLocation(12, 39);
 		board.setSize(346, 97);
@@ -95,10 +119,9 @@ public class Result extends JFrame {
 		JLabel back = new JLabel(new ImageIcon(back_path));
 		back.setLocation(0, 0);
 		back.setSize(594, 371);
-		getContentPane().add(back);		
+		getContentPane().add(back);
 
 		setVisible(true);
-		
 
 		// 이벤트 처리
 		// 다시 플레이 버튼

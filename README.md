@@ -35,4 +35,8 @@ Notion 작업 목록 : https://www.notion.so/8c6d4d6de7114911a2fc616e3868dfde?v=
 
 ---
 
+<<<<<<< HEAD
 ### 마무리
+=======
+### 마무리
+>>>>>>> branch 'master' of https://github.com/mc1128/JavaGame_TeamProject.git

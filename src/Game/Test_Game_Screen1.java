@@ -609,6 +609,9 @@ public class Test_Game_Screen1 extends JFrame{
 					changeColorR(comHP);
 					comHPData--;
 				}
+				if(comHPData < 0) {
+					comHPData = 0;
+				}
 				break;
 
 			} // 스위치 end
@@ -715,6 +718,9 @@ public class Test_Game_Screen1 extends JFrame{
 				} else {
 					changeColorR(userHP);
 					userHPData--;
+				}
+				if(userHPData < 0) {
+					userHPData = 0;
 				}
 				break;
 

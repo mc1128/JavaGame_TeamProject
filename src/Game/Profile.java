@@ -1,6 +1,8 @@
 package Game;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
@@ -23,7 +25,7 @@ public class Profile extends JFrame {
 	String path;
 
 	static JLabel lbGold;
-	
+
 	public Profile() {
 
 		setTitle("유저 프로필");
@@ -42,22 +44,18 @@ public class Profile extends JFrame {
 		lbGold.setBounds(171, 109, 111, 25);
 		getContentPane().add(lbGold);
 
-
 		JLabel lbWin = new JLabel("승 : " + Values.user_win);
 		lbWin.setBounds(171, 131, 111, 25);
 		getContentPane().add(lbWin);
-
 
 		JLabel lbDraw = new JLabel("무 : " + Values.user_draw);
 		lbDraw.setBounds(171, 154, 111, 25);
 		getContentPane().add(lbDraw);
 
-
 		JLabel defeat = new JLabel("패 : " + Values.user_defeat);
 		defeat.setBounds(171, 177, 111, 25);
 		getContentPane().add(defeat);
 
-		
 		int total = Values.user_win + Values.user_defeat + Values.user_draw;
 		double rate = (double) ((double) Values.user_win / (double) total) * 100.0;
 		if (Double.isNaN(rate)) {
@@ -66,7 +64,7 @@ public class Profile extends JFrame {
 		String dispPattern = "0.##";
 		DecimalFormat form = new DecimalFormat(dispPattern);
 		String winning_rate = form.format(rate) + "%";
-		
+
 		JLabel lbWinRate = new JLabel("승률 : " + winning_rate);
 		lbWinRate.setBounds(171, 212, 111, 25);
 		getContentPane().add(lbWinRate);
@@ -85,32 +83,58 @@ public class Profile extends JFrame {
 		String gold_path = path + "image/p_gold.png";
 		String gold_b_path = path + "image/p_gold_b.png";
 
+		// button 이미지
+		String button_path = path + "image/button.png";
+		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
+		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg = originImg.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
+		
+		String button_path_b = path + "image/button_b.png";
+		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
+		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg_b = originImg_b.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
+		ImageIcon b = new ImageIcon(changedImg_b);
+		
 		JLabel lbName = new JLabel("닉네임 : " + Values.user_name);
 		lbName.setBounds(171, 85, 111, 25);
 		getContentPane().add(lbName);
 
-
-		JButton startGame = new JButton("게임시작");
+		JButton startGame = new JButton("게임시작", new ImageIcon(changedImg));
+		startGame.setForeground(Color.WHITE);	// 글씨색 흰색
+		startGame.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
+		startGame.setContentAreaFilled(false);	// 버튼 배경 투명화
+		startGame.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		startGame.setRolloverIcon(b); // 호버효과
 		startGame.setBounds(240, 291, 100, 30);
 		getContentPane().add(startGame);
-		
-		JButton Rank_show = new JButton("랭킹확인");
+
+		JButton Rank_show = new JButton("랭킹확인", new ImageIcon(changedImg));
+		Rank_show.setForeground(Color.WHITE);	// 글씨색 흰색
+		Rank_show.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
+		Rank_show.setContentAreaFilled(false);	// 버튼 배경 투명화
+		Rank_show.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		Rank_show.setRolloverIcon(b); // 호버효과
 		Rank_show.setBounds(120, 291, 100, 30);
 		getContentPane().add(Rank_show);
-		
-		JButton Logout = new JButton("로그아웃");
+
+		JButton Logout = new JButton("로그아웃", new ImageIcon(changedImg));
+		Logout.setForeground(Color.WHITE);	// 글씨색 흰색
+		Logout.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
+		Logout.setContentAreaFilled(false);	// 버튼 배경 투명화
+		Logout.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		Logout.setRolloverIcon(b); // 호버효과
 		Logout.setBounds(360, 291, 100, 30);
 		getContentPane().add(Logout);
-		
+
 		JLabel frame = new JLabel(new ImageIcon(frame_path));
 		frame.setBounds(324, 67, 150, 214);
 		getContentPane().add(frame);
 
 		// 배경 이미지
-		
+
 		ImageIcon gold = new ImageIcon(gold_path);
 		ImageIcon gold_b = new ImageIcon(gold_b_path);
-		
+
 		JButton get_gold = new JButton(gold);
 		get_gold.setBounds(257, 236, 55, 45);
 		getContentPane().add(get_gold);
@@ -120,20 +144,18 @@ public class Profile extends JFrame {
 		
 		get_gold.setBorderPainted(false); 
 		get_gold.setFocusPainted(false); 
+
 		get_gold.setContentAreaFilled(false);
 
-		
 		JLabel back_1 = new JLabel(new ImageIcon(back_path));
 		back_1.setBounds(0, 0, 584, 361);
 		getContentPane().add(back_1);
 
-		
-		
 		startGame.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Connection con = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
@@ -160,30 +182,29 @@ public class Profile extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
 				setVisible(false);
 				new Batting();
 			}
 		});
-		
+
 		Rank_show.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new Ranking();
 			}
 		});
-		
+
 		Logout.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new Main();		
+				new Main();
 			}
 		});
-		
+
 		get_gold.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
 				get_gold.setIcon(gold_b);
@@ -193,18 +214,16 @@ public class Profile extends JFrame {
 				get_gold.setIcon(gold);
 			}
 		});
-		
+
 		get_gold.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Values.gold_save++;
 				lbGold.setText("보유 골드 : " + Values.gold_save);
 			}
 		});
-		
-		
 
 		setBounds(100, 100, 600, 400);
 		setVisible(true);

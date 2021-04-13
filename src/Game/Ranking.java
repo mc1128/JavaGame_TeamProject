@@ -3,6 +3,7 @@ package Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
@@ -37,9 +38,8 @@ public class Ranking extends JFrame {
 	DefaultTableModel model;
 	JTable table;
 	JTextField jtf1, jtf2, jtf3, jtf5, jtf6;
-	
-	String path;
 
+	String path;
 
 	public Ranking() {
 
@@ -48,7 +48,6 @@ public class Ranking extends JFrame {
 //		JPanel jp1 = new JPanel();
 //		JPanel jp2 = new JPanel();
 //		JPanel jp3 = new JPanel();
-
 
 		// 배경 이미지
 		try { // path 설정
@@ -59,7 +58,6 @@ public class Ranking extends JFrame {
 		;
 
 		String back_path = path + "image/rank.jpg";
-	
 
 		JLabel jl1 = new JLabel("닉네임 : ");
 		jtf1 = new JTextField(8);
@@ -73,7 +71,7 @@ public class Ranking extends JFrame {
 				super.paintComponent(g);
 			}
 		};
-		
+
 		JPanel jp2 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(img.getImage(), 0, 0, null);
@@ -81,7 +79,7 @@ public class Ranking extends JFrame {
 				super.paintComponent(g);
 			}
 		};
-		
+
 		JPanel jp3 = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(img.getImage(), 0, 0, null);
@@ -90,9 +88,22 @@ public class Ranking extends JFrame {
 			}
 		}; // 배경 이미지 end
 
+		// button 이미지
+		String button_path = path + "image/button.png";
+		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
+		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg1 = originImg.getScaledInstance(100, 45, Image.SCALE_SMOOTH);
+		Image changedImg2 = originImg.getScaledInstance(130, 45, Image.SCALE_SMOOTH);
 
+		String button_path_b = path + "image/button_b.png";
+		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
+		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg_b1 = originImg_b.getScaledInstance(100, 45, Image.SCALE_SMOOTH);
+		Image changedImg_b2 = originImg_b.getScaledInstance(130, 45, Image.SCALE_SMOOTH);
+		ImageIcon b1 = new ImageIcon(changedImg_b1);
+		ImageIcon b2 = new ImageIcon(changedImg_b2);
 
-		String[] header = { "랭킹", "아이디", "골드량", "승리횟수", "패배횟수", "무승부횟수", "승률" };
+		String[] header = { "랭킹", "닉네임", "골드량", "승리횟수", "패배횟수", "무승부횟수", "승률" };
 
 		model = new DefaultTableModel(header, 0) {
 			// cell 수정불가.
@@ -100,17 +111,33 @@ public class Ranking extends JFrame {
 				return false;
 			}
 		};
-		
 
 		table = new JTable(model);
 
 		JScrollPane jsp = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jsp.getViewport().setBackground(Color.white);	// jsp 배경색 설정
+		jsp.getViewport().setBackground(Color.white); // jsp 배경색 설정
 
-		JButton jb1 = new JButton("랭킹목록");
-		JButton jb2 = new JButton("나의 랭킹확인");
-		JButton jb3 = new JButton("돌아가기");
+		JButton jb1 = new JButton("랭킹목록", new ImageIcon(changedImg1));
+		jb1.setForeground(Color.WHITE); // 글씨색 흰색
+		jb1.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		jb1.setContentAreaFilled(false); // 버튼 배경 투명화
+		jb1.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		jb1.setRolloverIcon(b1); // 호버효과
+
+		JButton jb2 = new JButton("나의 랭킹확인", new ImageIcon(changedImg2));
+		jb2.setForeground(Color.WHITE); // 글씨색 흰색
+		jb2.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		jb2.setContentAreaFilled(false); // 버튼 배경 투명화
+		jb2.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		jb2.setRolloverIcon(b2); // 호버효과
+
+		JButton jb3 = new JButton("돌아가기", new ImageIcon(changedImg1));
+		jb3.setForeground(Color.WHITE); // 글씨색 흰색
+		jb3.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		jb3.setContentAreaFilled(false); // 버튼 배경 투명화
+		jb3.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		jb3.setRolloverIcon(b1); // 호버효과
 
 		jp1.add(jl1);
 		jp1.add(jtf1);
@@ -119,14 +146,12 @@ public class Ranking extends JFrame {
 		jp3.add(jb2);
 		jp3.add(jb3);
 
-		
 		JPanel pg = new JPanel();
 		pg.setLayout(new BorderLayout());
 
 		pg.add(jp2, BorderLayout.NORTH);
 		pg.add(jsp, BorderLayout.CENTER);
 		pg.add(jp3, BorderLayout.SOUTH);
-		
 
 		getContentPane().add(jp1, BorderLayout.NORTH);
 		getContentPane().add(pg, BorderLayout.CENTER);
@@ -136,7 +161,6 @@ public class Ranking extends JFrame {
 		setBounds(200, 200, 600, 400);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 
 		setVisible(true);
 
@@ -166,13 +190,13 @@ public class Ranking extends JFrame {
 
 			}
 		});
-		
+
 		jb3.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new Profile();		
+				new Profile();
 			}
 		});
 
@@ -200,14 +224,13 @@ public class Ranking extends JFrame {
 	private void userRank() {
 
 		try {
-			if (jtf1.getText().isEmpty()) { // id를 입력하지 않았을 경우 기본창 반환
+			if (jtf1.getText().isEmpty()) { // 닉네임 입력하지 않았을 경우 기본창 반환
+
 				JOptionPane.showMessageDialog(jtf1, "검색할 닉네임을 입력해주세요");
 				return;
 			}
-			
-			
-			String sql = "select user_name, user_gold, user_win, user_defeat, user_draw from profiles order by user_gold desc, user_win desc";
 
+			String sql = "select user_name, user_gold, user_win, user_defeat, user_draw from profiles order by user_gold desc, user_win desc";
 
 			pstmt = con.prepareStatement(sql);
 
@@ -220,7 +243,7 @@ public class Ranking extends JFrame {
 			int user_cell = 0;
 
 			while (rs.next()) { // DB 레코드 수만큼 반복
-				
+
 				String user_name = rs.getString("user_name");
 				int user_gold = rs.getInt("user_gold");
 				int user_win = rs.getInt("user_win");
@@ -272,7 +295,6 @@ public class Ranking extends JFrame {
 			con.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -291,7 +313,6 @@ public class Ranking extends JFrame {
 			int i = 1;
 
 			while (rs.next()) { // DB 레코드 수만큼 반복
-				
 				String user_name = rs.getString("user_name");
 				int user_gold = rs.getInt("user_gold");
 				int user_win = rs.getInt("user_win");
@@ -316,9 +337,8 @@ public class Ranking extends JFrame {
 				String winning_rate = form.format(rate) + "%";
 
 				System.out.println(winning_rate);
-				
-				Object[] data = { i, user_name, user_gold, user_win, user_defeat, user_draw, winning_rate};
 
+				Object[] data = { i, user_name, user_gold, user_win, user_defeat, user_draw, winning_rate };
 
 				// table model에 data 추가
 				model.addRow(data);
