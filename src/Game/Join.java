@@ -58,9 +58,13 @@ public class Join extends JFrame {
 		// button 이미지
 		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
 		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
-
-		// 추출된 Image의 크기를 조절하여 새로운 Image객체 생성
 		Image changedImg = originImg.getScaledInstance(125, 35, Image.SCALE_SMOOTH);
+		
+		String button_path_b = path + "image/button_b.png";
+		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
+		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg_b = originImg_b.getScaledInstance(125, 35, Image.SCALE_SMOOTH);
+		ImageIcon b = new ImageIcon(changedImg_b);
 
 //		setIconImage(Toolkit.getDefaultToolkit().getImage(Join.class.getResource("/Game/image/joinback.png")));
 		setTitle("회원가입 화면");
@@ -97,6 +101,8 @@ public class Join extends JFrame {
 		btnNewButton.setHorizontalTextPosition(JButton.CENTER);
 		btnNewButton.setContentAreaFilled(false);	// 버튼 배경 투명화
 		btnNewButton.setForeground(Color.white);	// 버튼 글씨색 = 흰색
+		btnNewButton.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		btnNewButton.setRolloverIcon(b); // 호버효과
 		btnNewButton.setBounds(129, 280, 125, 35);
 		contentPane.add(btnNewButton);
 
