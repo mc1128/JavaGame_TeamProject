@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.SwingConstants;
 
 public class Loading extends JFrame {
 
@@ -66,7 +65,7 @@ public class Loading extends JFrame {
 		back.setSize(594, 371);
 		getContentPane().add(back);		
 
-		test();
+		
 		progress_start();
 		
 		setVisible(true);
@@ -79,26 +78,6 @@ public class Loading extends JFrame {
 	 * ie.printStackTrace(); } }
 	 */
 
-	private void test() {
-		
-
-		try {
-			String test = "SELECT user_id FROM PROFILE";
-			
-			DBConnection.pstm = DBConnection.dbConn.prepareStatement(test);
-			DBConnection.rs = DBConnection.pstm.executeQuery();
-
-			while (DBConnection.rs.next()) {
-				String user_id = DBConnection.rs.getString(1);
-				System.out.println(user_id);
-			}
-			DBConnection.rs.close(); 
-			DBConnection.pstm.close();
-		}
-		catch(Exception e) {
-				e.printStackTrace();
-			}
-	}
 
 	public void progress_start() {
 		
@@ -119,7 +98,7 @@ public class Loading extends JFrame {
 				if (p == 100) {
 					timer_progress.cancel();
 					Batting();
-				} else if (p == 20) {
+				} else if (p == 30) {
 //					Game_Tip.setText("그만하기도 하나의 전략입니다.");
 					tip_back.setIcon(tip2);
 					p++;
@@ -139,7 +118,7 @@ public class Loading extends JFrame {
 
 			}
 		};
-		(timer_progress).scheduleAtFixedRate(task_progress, 0, 100);
+		(timer_progress).scheduleAtFixedRate(task_progress, 0, 55);
 	}
 
 	public void Batting() {
