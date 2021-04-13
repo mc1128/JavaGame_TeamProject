@@ -14,19 +14,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-public class Batting extends JFrame{
-	
+public class Batting extends JFrame {
+
 	String path;
-	
+
 	public static void main(String[] args) {
 
 		new Batting();
 	}
-	
+
 	public Batting() {
-		
+
 		setTitle("배팅 화면");
-		
+
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 600, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,7 +48,7 @@ public class Batting extends JFrame{
 		ImageIcon bat6 = new ImageIcon(path + "image/1500b.png"); // 1500 흑백 이미지
 
 		ImageIcon panelimage = new ImageIcon(path + "image/panel.png"); // panel 이미지
-		
+
 		JLabel lblNewLabel_2 = new JLabel("보유 골드" + Values.gold_save);
 		lblNewLabel_2.setBackground(Color.WHITE);
 		lblNewLabel_2.setForeground(Color.WHITE);
@@ -107,9 +107,7 @@ public class Batting extends JFrame{
 		getContentPane().add(back);
 
 		setVisible(true);
-		
-		
-		
+
 		batting_one.addActionListener(new ActionListener() {
 
 			@Override
@@ -149,55 +147,49 @@ public class Batting extends JFrame{
 
 			}
 		});
-		
+
 		back_button.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new Profile();	
+				new Profile();
 			}
 		});
-	
 
-	
-	// hover 효과 350
-			batting_one.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseEntered(java.awt.event.MouseEvent evt) {
-					batting_one.setIcon(bat1);
-				}
+		// hover 효과 350
+		batting_one.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				batting_one.setIcon(bat1);
+			}
 
-				public void mouseExited(java.awt.event.MouseEvent evt) {
-					batting_one.setIcon(bat2);
-				}
-			});
-			// hover 효과 700
-			batting_two.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseEntered(java.awt.event.MouseEvent evt) {
-					batting_two.setIcon(bat3);
-				}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				batting_one.setIcon(bat2);
+			}
+		});
+		// hover 효과 700
+		batting_two.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				batting_two.setIcon(bat3);
+			}
 
-				public void mouseExited(java.awt.event.MouseEvent evt) {
-					batting_two.setIcon(bat4);
-				}
-			});
-			// hover 효과 1500
-			batting_three.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseEntered(java.awt.event.MouseEvent evt) {
-					batting_three.setIcon(bat5);
-				}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				batting_two.setIcon(bat4);
+			}
+		});
+		// hover 효과 1500
+		batting_three.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				batting_three.setIcon(bat5);
+			}
 
-				public void mouseExited(java.awt.event.MouseEvent evt) {
-					batting_three.setIcon(bat6);
-				}
-			});
-	
-	
-}
-	
-	
-	
-	
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				batting_three.setIcon(bat6);
+			}
+		});
+
+	}
+
 	void batting_gold(int a) {
 		Values.gold = a;
 		Values.gold_save -= a;
@@ -205,5 +197,3 @@ public class Batting extends JFrame{
 		new Test_Game_Screen1(); // 게임화면으로 넘어감
 	}
 }
-
-

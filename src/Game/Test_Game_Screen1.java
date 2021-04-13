@@ -251,17 +251,8 @@ public class Test_Game_Screen1 extends JFrame{
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
 
-		if (userHPData < 0) {
-			userHPData = 0;
-		}
-		if (comHPData < 0) {
-			comHPData = 0;
-		}
-
 		int turn;
-		// turn = (int) (Math.random() * 2);
-
-		turn = 1;
+		turn = (int) (Math.random() * 2);
 
 		if (turn == 0) { // 유저 후공
 			JOptionPane.showMessageDialog(null, "후공입니다.");

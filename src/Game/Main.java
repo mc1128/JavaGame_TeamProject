@@ -68,6 +68,10 @@ public class Main extends JFrame {
 		LoginButton.setBounds(251, 259, 100, 45);
 		contentPane.add(LoginButton);
 
+		// LoginButton.setBorderPainted(false);
+		// LoginButton.setFocusPainted(false);
+		// LoginButton.setContentAreaFilled(false);
+
 		JButton JoinButton = new JButton("회원가입");
 		JoinButton.setBounds(257, 314, 89, 31);
 		contentPane.add(JoinButton);
@@ -136,10 +140,12 @@ public class Main extends JFrame {
 		PW_Field.addKeyListener(new KeyListener() {
 
 			@Override
-			public void keyTyped(KeyEvent e) {}
+			public void keyTyped(KeyEvent e) {
+			}
 
 			@Override
-			public void keyReleased(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {

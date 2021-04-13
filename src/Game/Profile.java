@@ -115,6 +115,9 @@ public class Profile extends JFrame {
 		get_gold.setBounds(257, 236, 55, 45);
 		getContentPane().add(get_gold);
 		
+		//get_gold.setHorizontalTextPosition(JButton.CENTER);
+		
+		
 		get_gold.setBorderPainted(false); 
 		get_gold.setFocusPainted(false); 
 		get_gold.setContentAreaFilled(false);
@@ -157,7 +160,6 @@ public class Profile extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
 				
 				setVisible(false);
 				new Batting();
