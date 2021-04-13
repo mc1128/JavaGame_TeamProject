@@ -153,7 +153,7 @@ public class Main extends JFrame {
 	private void login() {
 
 		try {
-			String test = "SELECT * FROM PROFILE where user_id = ?";
+			String test = "SELECT * FROM PROFILES where user_id = ?";
 			DBConnection.dbConn = DBConnection.getConnection();
 			pstm = DBConnection.dbConn.prepareStatement(test);
 
@@ -173,14 +173,14 @@ public class Main extends JFrame {
 
 			while (rs.next()) {
 
-				System.out.println(rs.getInt(3));
 				Values.user_id = rs.getString(1);
 				user_pw = rs.getString(2);
-				Values.gold_save = rs.getInt(3);
-				Values.user_win = rs.getInt(4);
-				Values.user_defeat = rs.getInt(5);
-				Values.user_draw = rs.getInt(6);
-				String user_reg = rs.getString(7);
+				Values.user_name = rs.getString(3);
+				Values.gold_save = rs.getInt(4);
+				Values.user_win = rs.getInt(5);
+				Values.user_defeat = rs.getInt(6);
+				Values.user_draw = rs.getInt(7);
+				String user_reg = rs.getString(8);
 
 				if (Values.user_id.equals(id_input) && user_pw.equals(password)) {
 					new Loading(); // 수정

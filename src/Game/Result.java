@@ -116,7 +116,7 @@ public class Result extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Main();
+				new Profile();
 				dispose();
 			}
 		});
@@ -128,7 +128,7 @@ public class Result extends JFrame {
 		con = DBConnection.getConnection();
 
 		try {
-			String sql = "update profile set user_gold = ?,user_win = ?, user_defeat = ? , user_draw = ? where user_id = ?";
+			String sql = "update profiles set user_gold = ?,user_win = ?, user_defeat = ? , user_draw = ? where user_id = ?";
 
 			pstmt = con.prepareStatement(sql);
 
@@ -182,7 +182,7 @@ public class Result extends JFrame {
 			Values.reward = Values.gold * 1;
 			Values.gold_save += Values.reward;
 			Values.user_draw++;
-			gold_path = path + "image/g_draw.png";
+			gold_path = path + "image/r_defeat.png";
 		} else if (Values.userHPData < Values.comHPData) { // 패배
 			resultText = "졌습니다!";
 			Values.reward = Values.gold * 0;

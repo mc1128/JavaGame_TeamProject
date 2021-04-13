@@ -24,7 +24,9 @@ public class Batting extends JFrame{
 	}
 	
 	public Batting() {
-				
+		
+		setTitle("배팅 화면");
+		
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 600, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,10 +77,10 @@ public class Batting extends JFrame{
 		batting_three.setBounds(387, 140, 100, 100);
 		getContentPane().add(batting_three);
 
-		JButton button = new JButton("돌아가기");
-		button.setFont(new Font("굴림", Font.PLAIN, 20));
-		button.setBounds(230, 283, 130, 25);
-		getContentPane().add(button);
+		JButton back_button = new JButton("돌아가기");
+		back_button.setFont(new Font("굴림", Font.PLAIN, 20));
+		back_button.setBounds(230, 283, 130, 25);
+		getContentPane().add(back_button);
 
 		// 색상 지정
 		Color backColor = new Color(210, 180, 145);
@@ -145,6 +147,15 @@ public class Batting extends JFrame{
 					JOptionPane.showMessageDialog(null, "gold가 부족합니다.");
 				}
 
+			}
+		});
+		
+		back_button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Profile();	
 			}
 		});
 	
