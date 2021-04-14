@@ -31,7 +31,7 @@ public class Profile extends JFrame {
 
 	public Profile() {
 
-		setTitle("유저 프로필");
+		setTitle("유저 프로필"); 
 		
 		setIconImage(Main.img);
 		
