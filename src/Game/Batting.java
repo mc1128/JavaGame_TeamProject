@@ -33,7 +33,7 @@ public class Batting extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		try { // path 기본 설정
-			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
+			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			System.out.println("경로설정 오류");
 		}
@@ -218,6 +218,6 @@ public class Batting extends JFrame {
 		Values.gold = a;
 		Values.gold_save -= a;
 		setVisible(false);
-		new Test_Game_Screen1(); // 게임화면으로 넘어감
+		new Game_Screen(); // 게임화면으로 넘어감
 	}
 }

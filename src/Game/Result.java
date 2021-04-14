@@ -39,7 +39,7 @@ public class Result extends JFrame {
 	public Result() {
 
 		try { // path 기본 설정
-			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
+			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			System.out.println("경로설정 오류");
 		}
@@ -182,7 +182,7 @@ public class Result extends JFrame {
 		String path = ""; // 기본 경로
 
 		try { // path 설정
-			path = URLDecoder.decode(Game_Screen1.class.getResource("").getPath(), "UTF-8");
+			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			System.out.println("경로설정 오류");
 		}
