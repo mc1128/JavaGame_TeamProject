@@ -29,7 +29,9 @@ public class Profile extends JFrame {
 	public Profile() {
 
 		setTitle("유저 프로필");
-
+		
+		setIconImage(Main.img);
+		
 		getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("유저 프로필");

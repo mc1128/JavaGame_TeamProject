@@ -71,8 +71,8 @@ public class Game_Screen extends JFrame {
 	Timer stopGame_delay;
 
 	public Game_Screen() {
-
-		System.out.println(Game_Screen.class.getResource("").getPath());
+		
+		setIconImage(Main.img);
 
 		try {
 			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");

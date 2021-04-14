@@ -44,6 +44,8 @@ public class Result extends JFrame {
 			System.out.println("경로설정 오류");
 		}
 		;
+		
+		setIconImage(Main.img);
 
 		String back_path = path + "image/battingback.png";
 		String board_path = path + "image/r_board.png";

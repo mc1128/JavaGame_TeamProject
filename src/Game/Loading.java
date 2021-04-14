@@ -36,6 +36,8 @@ public class Loading extends JFrame {
 			System.out.println("경로설정 오류");
 		};
 		
+		setIconImage(Main.img);
+		
 		String back_path = path + "image/loadingback.png";
 		String tip_path = path + "image/white.png";	
 		String tip1_path = path + "image/tip1.png";	

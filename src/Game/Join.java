@@ -52,6 +52,8 @@ public class Join extends JFrame {
 			System.out.println("경로설정 오류");
 		};
 
+		setIconImage(Main.img);
+		
 		String join_path = path + "image/joinback.png";
 		String button_path = path + "image/button.png";
 

@@ -44,6 +44,8 @@ public class Main extends JFrame {
 
 	String user_id;
 	String user_pw;
+	
+	static Image img;
 
 	public Main() {
 
@@ -52,7 +54,7 @@ public class Main extends JFrame {
 		try { // path 설정
 			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
-			System.out.println("경로설정 오류");
+			System.out.println("경로설정 오류");	
 		}
 		;
 
@@ -61,7 +63,7 @@ public class Main extends JFrame {
 
 		// 화면 아이콘 설정
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image img = toolkit.getImage(title_path);
+		img = toolkit.getImage(title_path);
 		setIconImage(img);
 
 		// button 이미지

@@ -45,6 +45,8 @@ public class Ranking extends JFrame {
 
 		setTitle("유저 랭킹");
 
+		setIconImage(Main.img);
+		
 //		JPanel jp1 = new JPanel();
 //		JPanel jp2 = new JPanel();
 //		JPanel jp3 = new JPanel();
