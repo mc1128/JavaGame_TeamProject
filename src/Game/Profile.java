@@ -22,8 +22,10 @@ import javax.swing.SwingConstants;
 public class Profile extends JFrame {
 	private final JLabel back = new JLabel("New label");
 
+	String title;
+	
 	String path;
-
+	
 	static JLabel lbGold;
 
 	public Profile() {
@@ -41,19 +43,19 @@ public class Profile extends JFrame {
 		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 20));
 
 		lbGold = new JLabel("보유 골드 : " + Values.gold_save);
-		lbGold.setBounds(171, 109, 111, 25);
+		lbGold.setBounds(171, 135, 111, 25);
 		getContentPane().add(lbGold);
 
 		JLabel lbWin = new JLabel("승 : " + Values.user_win);
-		lbWin.setBounds(171, 131, 111, 25);
+		lbWin.setBounds(171, 160, 111, 25);
 		getContentPane().add(lbWin);
 
 		JLabel lbDraw = new JLabel("무 : " + Values.user_draw);
-		lbDraw.setBounds(171, 154, 111, 25);
+		lbDraw.setBounds(171, 185, 111, 25);
 		getContentPane().add(lbDraw);
 
 		JLabel defeat = new JLabel("패 : " + Values.user_defeat);
-		defeat.setBounds(171, 177, 111, 25);
+		defeat.setBounds(171, 210, 111, 25);
 		getContentPane().add(defeat);
 
 		int total = Values.user_win + Values.user_defeat + Values.user_draw;
@@ -66,7 +68,7 @@ public class Profile extends JFrame {
 		String winning_rate = form.format(rate) + "%";
 
 		JLabel lbWinRate = new JLabel("승률 : " + winning_rate);
-		lbWinRate.setBounds(171, 212, 111, 25);
+		lbWinRate.setBounds(171, 235, 111, 25);
 		getContentPane().add(lbWinRate);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,7 +98,7 @@ public class Profile extends JFrame {
 		ImageIcon b = new ImageIcon(changedImg_b);
 		
 		JLabel lbName = new JLabel("닉네임 : " + Values.user_name);
-		lbName.setBounds(171, 85, 111, 25);
+		lbName.setBounds(171, 110, 111, 25);
 		getContentPane().add(lbName);
 
 		JButton startGame = new JButton("게임시작", new ImageIcon(changedImg));
@@ -144,8 +146,19 @@ public class Profile extends JFrame {
 		
 		get_gold.setBorderPainted(false); 
 		get_gold.setFocusPainted(false); 
-
 		get_gold.setContentAreaFilled(false);
+		
+		if(Values.gold_save >= 20000 && rate >= 50) {
+			title = "도박의 신";
+		}else if(Values.gold_save >= 10000) {
+			title = "도박왕";
+		}else if(Values.gold_save < 10000) {
+			title = "뉴비";
+		}
+		
+		JLabel LbTitle = new JLabel("칭호 : " + title);
+		LbTitle.setBounds(171, 85, 82, 15);
+		getContentPane().add(LbTitle);
 
 		JLabel back_1 = new JLabel(new ImageIcon(back_path));
 		back_1.setBounds(0, 0, 584, 361);
