@@ -1,23 +1,12 @@
 package Game;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.DecimalFormat;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class Profile extends JFrame {
 	private final JLabel back = new JLabel("New label");
@@ -27,11 +16,14 @@ public class Profile extends JFrame {
 	String path;
 	
 	static JLabel lbGold;
+	private JLabel chingho;
 
 	public Profile() {
 
-		setTitle("유저 프로필");
-
+		setTitle("유저 프로필"); 
+		
+		setIconImage(Main.img);
+		
 		getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("유저 프로필");
@@ -87,21 +79,27 @@ public class Profile extends JFrame {
 
 		// button 이미지
 		String button_path = path + "image/button.png";
-		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
-		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg = originImg.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
+		ImageIcon changedImg = imageResize(button_path, 100, 30);		
 		
 		String button_path_b = path + "image/button_b.png";
-		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
-		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg_b = originImg_b.getScaledInstance(100, 30, Image.SCALE_SMOOTH);
-		ImageIcon b = new ImageIcon(changedImg_b);
+		ImageIcon b = imageResize(button_path_b, 100, 30);
+		
+		// 칭호 이미지
+		String pla_path = path + "image/p_pla.png";		
+		ImageIcon pla = imageResize(pla_path, 35, 35);
+		
+		String silver_path = path + "image/p_silver.png";		
+		ImageIcon silver = imageResize(silver_path, 35, 35);
+		
+		String bronze_path = path + "image/p_bronze.png";		
+		ImageIcon bronze = imageResize(bronze_path, 35, 35);
+
 		
 		JLabel lbName = new JLabel("닉네임 : " + Values.user_name);
 		lbName.setBounds(171, 110, 111, 25);
 		getContentPane().add(lbName);
 
-		JButton startGame = new JButton("게임시작", new ImageIcon(changedImg));
+		JButton startGame = new JButton("게임시작", changedImg);
 		startGame.setForeground(Color.WHITE);	// 글씨색 흰색
 		startGame.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
 		startGame.setContentAreaFilled(false);	// 버튼 배경 투명화
@@ -110,7 +108,7 @@ public class Profile extends JFrame {
 		startGame.setBounds(240, 291, 100, 30);
 		getContentPane().add(startGame);
 
-		JButton Rank_show = new JButton("랭킹확인", new ImageIcon(changedImg));
+		JButton Rank_show = new JButton("랭킹확인", changedImg);
 		Rank_show.setForeground(Color.WHITE);	// 글씨색 흰색
 		Rank_show.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
 		Rank_show.setContentAreaFilled(false);	// 버튼 배경 투명화
@@ -119,7 +117,7 @@ public class Profile extends JFrame {
 		Rank_show.setBounds(120, 291, 100, 30);
 		getContentPane().add(Rank_show);
 
-		JButton Logout = new JButton("로그아웃", new ImageIcon(changedImg));
+		JButton Logout = new JButton("로그아웃", changedImg);
 		Logout.setForeground(Color.WHITE);	// 글씨색 흰색
 		Logout.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
 		Logout.setContentAreaFilled(false);	// 버튼 배경 투명화
@@ -143,6 +141,10 @@ public class Profile extends JFrame {
 		
 		//get_gold.setHorizontalTextPosition(JButton.CENTER);
 		
+		// 칭호
+		JLabel chingho = new JLabel();
+		chingho.setBounds(131, 75, 35, 35);
+		getContentPane().add(chingho);
 		
 		get_gold.setBorderPainted(false); 
 		get_gold.setFocusPainted(false); 
@@ -150,15 +152,19 @@ public class Profile extends JFrame {
 		
 		if(Values.gold_save >= 20000 && rate >= 50) {
 			title = "도박의 신";
+			chingho.setIcon(pla);
 		}else if(Values.gold_save >= 10000) {
 			title = "도박왕";
+			chingho.setIcon(silver);
 		}else if(Values.gold_save < 10000) {
 			title = "뉴비";
+			chingho.setIcon(bronze);
 		}
 		
 		JLabel LbTitle = new JLabel("칭호 : " + title);
-		LbTitle.setBounds(171, 85, 82, 15);
+		LbTitle.setBounds(171, 85, 141, 15);
 		getContentPane().add(LbTitle);
+		
 
 		JLabel back_1 = new JLabel(new ImageIcon(back_path));
 		back_1.setBounds(0, 0, 584, 361);
@@ -242,6 +248,14 @@ public class Profile extends JFrame {
 		
 		setBounds(100, 100, 600, 400);
 		setVisible(true);
+	}
+	
+	ImageIcon imageResize(String path, int width, int heigh){
+		ImageIcon originIcon = new ImageIcon(path); // ImageIcon객체를 생성
+		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg = originImg.getScaledInstance(width, heigh, Image.SCALE_SMOOTH);
+		ImageIcon changedImgIcon = new ImageIcon(changedImg);
+		return changedImgIcon;
 	}
 
 	public static void main(String[] args) {

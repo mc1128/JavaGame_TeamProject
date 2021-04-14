@@ -1,31 +1,13 @@
 package Game;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.DecimalFormat;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Ranking extends JFrame {
@@ -43,8 +25,10 @@ public class Ranking extends JFrame {
 
 	public Ranking() {
 
-		setTitle("랭킹확인");
+		setTitle("유저 랭킹");
 
+		setIconImage(Main.img);
+		
 //		JPanel jp1 = new JPanel();
 //		JPanel jp2 = new JPanel();
 //		JPanel jp3 = new JPanel();

@@ -1,23 +1,12 @@
 package Game;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class Result extends JFrame {
@@ -44,6 +33,8 @@ public class Result extends JFrame {
 			System.out.println("경로설정 오류");
 		}
 		;
+		
+		setIconImage(Main.img);
 
 		String back_path = path + "image/battingback.png";
 		String board_path = path + "image/r_board.png";
@@ -60,7 +51,7 @@ public class Result extends JFrame {
 		Image changedImg_b = originImg_b.getScaledInstance(150, 30, Image.SCALE_SMOOTH);
 		ImageIcon b = new ImageIcon(changedImg_b);
 		
-		setTitle("게임 결과");
+		setTitle("게임 결과창");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);

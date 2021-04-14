@@ -1,19 +1,11 @@
 package Game;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class Batting extends JFrame {
 
@@ -26,7 +18,9 @@ public class Batting extends JFrame {
 
 	public Batting() {
 
-		setTitle("배팅 화면");
+		setTitle("배팅창");
+
+		setIconImage(Main.img);
 
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 600, 400);
@@ -61,7 +55,6 @@ public class Batting extends JFrame {
 		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
 		Image changedImg_b = originImg_b.getScaledInstance(125, 35, Image.SCALE_SMOOTH);
 		ImageIcon b = new ImageIcon(changedImg_b);
-		
 
 		JLabel lblNewLabel_2 = new JLabel("보유 골드" + Values.gold_save);
 		lblNewLabel_2.setBackground(Color.WHITE);
@@ -179,13 +172,11 @@ public class Batting extends JFrame {
 			}
 		});
 
-
 		// hover 효과 350
 		batting_one.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
 				batting_one.setIcon(bat1);
 			}
-		
 
 			public void mouseExited(java.awt.event.MouseEvent evt) {
 				batting_one.setIcon(bat2);

@@ -1,29 +1,11 @@
 package Game;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.UnsupportedEncodingException;
+import java.sql.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.net.URLDecoder;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLIntegrityConstraintViolationException;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import java.io.UnsupportedEncodingException;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class Join extends JFrame {
@@ -52,6 +34,8 @@ public class Join extends JFrame {
 			System.out.println("경로설정 오류");
 		};
 
+		setIconImage(Main.img);
+		
 		String join_path = path + "image/joinback.png";
 		String button_path = path + "image/button.png";
 
@@ -67,7 +51,7 @@ public class Join extends JFrame {
 		ImageIcon b = new ImageIcon(changedImg_b);
 
 //		setIconImage(Toolkit.getDefaultToolkit().getImage(Join.class.getResource("/Game/image/joinback.png")));
-		setTitle("회원가입 화면");
+		setTitle("회원가입");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);

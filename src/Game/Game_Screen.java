@@ -1,26 +1,15 @@
 package Game;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
+import javax.swing.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-
-public class Game_Screen extends JFrame{
+public class Game_Screen extends JFrame {
 
 	int comHPData = 10;
 	int userHPData = 10;
@@ -70,8 +59,8 @@ public class Game_Screen extends JFrame{
 	Timer stopGame_delay;
 
 	public Game_Screen() {
-
-		System.out.println(Game_Screen.class.getResource("").getPath());
+		
+		setIconImage(Main.img);
 
 		try {
 			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");
@@ -81,14 +70,25 @@ public class Game_Screen extends JFrame{
 		;
 		String com_path = path + "image/dice.gif";
 		String user_path = path + "image/dice.gif";
-		String back_path = path + "image/gamescreen.png";	// 배경화면 이미지
+		String back_path = path + "image/gamescreen.png"; // 배경화면 이미지
 
+//		Color backColor = new Color(210, 180, 145);
+//		Color lineColor = new Color(252, 247, 222);
+//		Color buttonColor = new Color(121, 117, 117);
+
+		// button 이미지
+		String button_path = path + "image/button.png";
+		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
+		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg = originImg.getScaledInstance(100, 50, Image.SCALE_SMOOTH);
+
+		String button_path_b = path + "image/button_b.png";
+		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
+		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
+		Image changedImg_b = originImg_b.getScaledInstance(100, 50, Image.SCALE_SMOOTH);
+		ImageIcon b = new ImageIcon(changedImg_b);
 		
-		Color backColor = new Color(210, 180, 145);
-		Color lineColor = new Color(252, 247, 222);
-		Color buttonColor = new Color(121, 117, 117);
-		
-		setTitle("게임 화면");
+		setTitle("게임창"); 
 
 		// 기본 화면 틀
 		getContentPane().setLayout(null);
@@ -132,7 +132,7 @@ public class Game_Screen extends JFrame{
 		// 유저 남은 주사위 값 출력 컴포넌트 : userDice
 		JLabel userDiceTitle = new JLabel("남은 주사위");
 		JLabel userDiceX = new JLabel("x");
-		userDice = new JLabel("15");		
+		userDice = new JLabel("15");
 		userDiceTitle.setForeground(Color.WHITE);
 		userDice.setForeground(Color.WHITE);
 		userDiceX.setForeground(Color.WHITE);
@@ -145,16 +145,25 @@ public class Game_Screen extends JFrame{
 		getContentPane().add(userDiceTitle);
 		getContentPane().add(userDice);
 		getContentPane().add(userDiceX);
-		
+
 		// 던지기 버튼 : throwDice / 그만 버튼 : stopGame
-		throwDice = new JButton("던지기");
-		stopGame = new JButton("그만");
+		throwDice = new JButton("던지기", new ImageIcon(changedImg));
+		throwDice.setForeground(Color.WHITE); // 글씨색 흰색
+		throwDice.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		throwDice.setContentAreaFilled(false); // 버튼 배경 투명화
+		throwDice.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		throwDice.setRolloverIcon(b); // 호버효과
 		throwDice.setBounds(114, 292, 100, 50);
-		stopGame.setBounds(380, 292, 100, 50);
 		getContentPane().add(throwDice);
-		getContentPane().add(stopGame);
-		throwDice.setBackground(lineColor);
-		stopGame.setBackground(lineColor);
+		
+		stopGame = new JButton("그만", new ImageIcon(changedImg));	
+		stopGame.setForeground(Color.WHITE); // 글씨색 흰색
+		stopGame.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		stopGame.setContentAreaFilled(false); // 버튼 배경 투명화
+		stopGame.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
+		stopGame.setRolloverIcon(b); // 호버효과
+		stopGame.setBounds(380, 292, 100, 50);		
+		getContentPane().add(stopGame);		
 
 		// userStatus - userDefense, userHP
 		// 유저 방어 값 출력 컴포넌트 : userDefense
@@ -169,10 +178,10 @@ public class Game_Screen extends JFrame{
 		userMaxHP.setBounds(247, 308, 100, 15);
 		userHP.setHorizontalAlignment(SwingConstants.CENTER);
 		userMaxHP.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(userDefense);		
-		getContentPane().add(userHP);	
+		getContentPane().add(userDefense);
+		getContentPane().add(userHP);
 		getContentPane().add(userMaxHP);
-		
+
 		// 주사위 결과 출력 comResult1~5
 		comResult1 = new JLabel("");
 		comResult2 = new JLabel("");
@@ -199,7 +208,7 @@ public class Game_Screen extends JFrame{
 		getContentPane().add(comResult3);
 		getContentPane().add(comResult4);
 		getContentPane().add(comResult5);
-				
+
 		// 주사위 결과 출력 userResult1~5
 		userResult1 = new JLabel("");
 		userResult2 = new JLabel("");
@@ -226,11 +235,11 @@ public class Game_Screen extends JFrame{
 		getContentPane().add(userResult3);
 		getContentPane().add(userResult4);
 		getContentPane().add(userResult5);
-		
+
 		// 주사위 이미지
 		ImageIcon ii2 = new ImageIcon(com_path);
 		ImageIcon ii = new ImageIcon(user_path);
-		System.out.println(ii2);	
+		System.out.println(ii2);
 		System.out.println(path);
 		comDiceGif = new JLabel(ii2);
 		userDiceGif = new JLabel(ii);
@@ -240,14 +249,14 @@ public class Game_Screen extends JFrame{
 		getContentPane().add(userDiceGif);
 		comDiceGif.setVisible(false);
 		userDiceGif.setVisible(false);
-		
+
 		// 배경화면 이미지
 		JLabel back = new JLabel(new ImageIcon(back_path));
 		back.setLocation(0, 0);
 		back.setSize(594, 371);
 		getContentPane().add(back);
 
-		setVisible(true);	// GUI 최하단에 두기
+		setVisible(true); // GUI 최하단에 두기
 		// comDice userDice / comHP userHP / comDefense userDefense
 		// 이벤트 처리 - throwDice, stopGame
 
@@ -439,16 +448,16 @@ public class Game_Screen extends JFrame{
 			}
 			if (comHPData < 0) {
 				Values.comHPData = 0;
-			}else {
+			} else {
 				Values.comHPData = comHPData;
 			}
-			
-			if(userHPData < 0) {
+
+			if (userHPData < 0) {
 				Values.userHPData = 0;
-			}else {
+			} else {
 				Values.userHPData = userHPData;
 			}
-			
+
 			onestart = 0;
 			new Result();
 		} else {
@@ -609,7 +618,7 @@ public class Game_Screen extends JFrame{
 					changeColorR(comHP);
 					comHPData--;
 				}
-				if(comHPData < 0) {
+				if (comHPData < 0) {
 					comHPData = 0;
 				}
 				break;
@@ -719,7 +728,7 @@ public class Game_Screen extends JFrame{
 					changeColorR(userHP);
 					userHPData--;
 				}
-				if(userHPData < 0) {
+				if (userHPData < 0) {
 					userHPData = 0;
 				}
 				break;
