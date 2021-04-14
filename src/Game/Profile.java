@@ -90,20 +90,20 @@ public class Profile extends JFrame {
 
 		// button 이미지
 		String button_path = path + "image/button.png";
-		ImageIcon changedImg = imageResize(button_path, 100, 30);		
+		ImageIcon changedImg = Values.imgResize(button_path, 100, 30);		
 		
 		String button_path_b = path + "image/button_b.png";
-		ImageIcon b = imageResize(button_path_b, 100, 30);
+		ImageIcon b = Values.imgResize(button_path_b, 100, 30);
 		
 		// 칭호 이미지
 		String pla_path = path + "image/p_pla.png";		
-		ImageIcon pla = imageResize(pla_path, 35, 35);
+		ImageIcon pla = Values.imgResize(pla_path, 35, 35);
 		
 		String silver_path = path + "image/p_silver.png";		
-		ImageIcon silver = imageResize(silver_path, 35, 35);
+		ImageIcon silver = Values.imgResize(silver_path, 35, 35);
 		
 		String bronze_path = path + "image/p_bronze.png";		
-		ImageIcon bronze = imageResize(bronze_path, 35, 35);
+		ImageIcon bronze = Values.imgResize(bronze_path, 35, 35);
 
 		
 		JLabel lbName = new JLabel("닉네임 : " + Values.user_name);
@@ -111,29 +111,17 @@ public class Profile extends JFrame {
 		getContentPane().add(lbName);
 
 		JButton startGame = new JButton("게임시작", changedImg);
-		startGame.setForeground(Color.WHITE);	// 글씨색 흰색
-		startGame.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
-		startGame.setContentAreaFilled(false);	// 버튼 배경 투명화
-		startGame.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		startGame.setRolloverIcon(b); // 호버효과
+		Values.setButton(startGame, b);
 		startGame.setBounds(240, 291, 100, 30);
 		getContentPane().add(startGame);
 
 		JButton Rank_show = new JButton("랭킹확인", changedImg);
-		Rank_show.setForeground(Color.WHITE);	// 글씨색 흰색
-		Rank_show.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
-		Rank_show.setContentAreaFilled(false);	// 버튼 배경 투명화
-		Rank_show.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		Rank_show.setRolloverIcon(b); // 호버효과
+		Values.setButton(Rank_show, b);
 		Rank_show.setBounds(120, 291, 100, 30);
 		getContentPane().add(Rank_show);
 
 		JButton Logout = new JButton("로그아웃", changedImg);
-		Logout.setForeground(Color.WHITE);	// 글씨색 흰색
-		Logout.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
-		Logout.setContentAreaFilled(false);	// 버튼 배경 투명화
-		Logout.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		Logout.setRolloverIcon(b); // 호버효과
+		Values.setButton(Logout, b);
 		Logout.setBounds(360, 291, 100, 30);
 		getContentPane().add(Logout);
 
@@ -258,14 +246,6 @@ public class Profile extends JFrame {
 
 		setBounds(100, 100, 600, 400);
 		setVisible(true);
-	}
-	
-	ImageIcon imageResize(String path, int width, int heigh){
-		ImageIcon originIcon = new ImageIcon(path); // ImageIcon객체를 생성
-		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg = originImg.getScaledInstance(width, heigh, Image.SCALE_SMOOTH);
-		ImageIcon changedImgIcon = new ImageIcon(changedImg);
-		return changedImgIcon;
 	}
 
 	public static void main(String[] args) {

@@ -39,10 +39,8 @@ public class Loading extends JFrame {
 		setIconImage(Main.img);
 		
 		String back_path = path + "image/loadingback.png";
-		String tip_path = path + "image/white.png";	
 		String tip1_path = path + "image/tip1.png";	
-		String tip2_path = path + "image/white.png";	
-		String tip3_path = path + "image/white.png";	
+
 		
 		System.out.println("아이디값 :  "+ Values.user_id);
 		System.out.println("골드값 : "+ Values.gold_save);
@@ -91,9 +89,7 @@ public class Loading extends JFrame {
 			System.out.println("경로설정 오류");
 		};
 		
-		ImageIcon tip1 = new ImageIcon(Main.path + "image/tip1.png");
-		ImageIcon tip2 = new ImageIcon(Main.path + "image/tip2.png");
-		ImageIcon tip3 = new ImageIcon(Main.path + "image/tip3.png");
+		ImageIcon tip2 = new ImageIcon(path + "image/tip2.png");
 
 		Timer timer_progress = new Timer();
 		TimerTask task_progress = new TimerTask() {

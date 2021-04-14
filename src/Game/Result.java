@@ -52,15 +52,10 @@ public class Result extends JFrame {
 
 		// button 이미지
 		String button_path = path + "image/button.png";
-		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
-		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg = originImg.getScaledInstance(150, 30, Image.SCALE_SMOOTH);
+		ImageIcon changedImg = Values.imgResize(button_path, 150, 30);
 
 		String button_path_b = path + "image/button_b.png";
-		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
-		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg_b = originImg_b.getScaledInstance(150, 30, Image.SCALE_SMOOTH);
-		ImageIcon b = new ImageIcon(changedImg_b);
+		ImageIcon b = Values.imgResize(button_path_b, 150, 30);
 		
 		setTitle("게임 결과창");
 
@@ -89,21 +84,13 @@ public class Result extends JFrame {
 		Gold_Image.setBounds(254, 65, 330, 280);
 		contentPane.add(Gold_Image);
 
-		JButton Replay_Button = new JButton("다시 플레이", new ImageIcon(changedImg));
-		Replay_Button.setForeground(Color.WHITE); // 글씨색 흰색
-		Replay_Button.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
-		Replay_Button.setContentAreaFilled(false); // 버튼 배경 투명화
-		Replay_Button.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		Replay_Button.setRolloverIcon(b); // 호버효과
+		JButton Replay_Button = new JButton("다시 플레이", changedImg);
+		Values.setButton(Replay_Button, b);
 		Replay_Button.setBounds(97, 214, 150, 30);
 		contentPane.add(Replay_Button);
 
-		JButton BackMain_Button = new JButton("나가기", new ImageIcon(changedImg));
-		BackMain_Button.setForeground(Color.WHITE); // 글씨색 흰색
-		BackMain_Button.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
-		BackMain_Button.setContentAreaFilled(false); // 버튼 배경 투명화
-		BackMain_Button.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		BackMain_Button.setRolloverIcon(b); // 호버효과
+		JButton BackMain_Button = new JButton("나가기", changedImg);
+		Values.setButton(BackMain_Button, b);
 		BackMain_Button.setBounds(97, 254, 150, 30);
 		contentPane.add(BackMain_Button);
 

@@ -92,18 +92,12 @@ public class Ranking extends JFrame {
 
 		// button 이미지
 		String button_path = path + "image/button.png";
-		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
-		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg1 = originImg.getScaledInstance(100, 45, Image.SCALE_SMOOTH);
-		Image changedImg2 = originImg.getScaledInstance(130, 45, Image.SCALE_SMOOTH);
+		ImageIcon changedImg1 = Values.imgResize(button_path, 100, 45);
+		ImageIcon changedImg2 = Values.imgResize(button_path, 130, 45);
 
 		String button_path_b = path + "image/button_b.png";
-		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
-		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg_b1 = originImg_b.getScaledInstance(100, 45, Image.SCALE_SMOOTH);
-		Image changedImg_b2 = originImg_b.getScaledInstance(130, 45, Image.SCALE_SMOOTH);
-		ImageIcon b1 = new ImageIcon(changedImg_b1);
-		ImageIcon b2 = new ImageIcon(changedImg_b2);
+		ImageIcon b1 = Values.imgResize(button_path_b, 100, 45);
+		ImageIcon b2 = Values.imgResize(button_path_b, 130, 45);
 
 		String[] header = { "랭킹", "닉네임", "골드량", "승리횟수", "패배횟수", "무승부횟수", "승률" };
 
@@ -120,26 +114,14 @@ public class Ranking extends JFrame {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jsp.getViewport().setBackground(Color.white); // jsp 배경색 설정
 
-		JButton jb1 = new JButton("랭킹목록", new ImageIcon(changedImg1));
-		jb1.setForeground(Color.WHITE); // 글씨색 흰색
-		jb1.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
-		jb1.setContentAreaFilled(false); // 버튼 배경 투명화
-		jb1.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		jb1.setRolloverIcon(b1); // 호버효과
+		JButton jb1 = new JButton("랭킹목록", changedImg1);
+		Values.setButton(jb1, b1);
 
-		JButton jb2 = new JButton("나의 랭킹확인", new ImageIcon(changedImg2));
-		jb2.setForeground(Color.WHITE); // 글씨색 흰색
-		jb2.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
-		jb2.setContentAreaFilled(false); // 버튼 배경 투명화
-		jb2.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		jb2.setRolloverIcon(b2); // 호버효과
+		JButton jb2 = new JButton("나의 랭킹확인", changedImg2);
+		Values.setButton(jb2, b2);
 
-		JButton jb3 = new JButton("돌아가기", new ImageIcon(changedImg1));
-		jb3.setForeground(Color.WHITE); // 글씨색 흰색
-		jb3.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
-		jb3.setContentAreaFilled(false); // 버튼 배경 투명화
-		jb3.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		jb3.setRolloverIcon(b1); // 호버효과
+		JButton jb3 = new JButton("돌아가기", changedImg1);
+		Values.setButton(jb3, b1);
 
 		jp1.add(jl1);
 		jp1.add(jtf1);

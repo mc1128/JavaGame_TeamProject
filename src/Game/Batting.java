@@ -54,18 +54,12 @@ public class Batting extends JFrame {
 
 		// button 이미지
 		String button_path = path + "image/button.png";
-		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
-		Image originImg = originIcon.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg = originImg.getScaledInstance(125, 35, Image.SCALE_SMOOTH);
+		ImageIcon changedImg = Values.imgResize(button_path, 125, 35);
 
 		String button_path_b = path + "image/button_b.png";
-		ImageIcon originIcon_b = new ImageIcon(button_path_b); // ImageIcon객체를 생성
-		Image originImg_b = originIcon_b.getImage(); // ImageIcon에서 Image를 추출
-		Image changedImg_b = originImg_b.getScaledInstance(125, 35, Image.SCALE_SMOOTH);
-		ImageIcon b = new ImageIcon(changedImg_b);
+		ImageIcon b = Values.imgResize(button_path_b, 125, 35);
 
 		JLabel lblNewLabel_2 = new JLabel("보유 골드" + Values.gold_save);
-		lblNewLabel_2.setBackground(Color.WHITE);
 		lblNewLabel_2.setForeground(Color.WHITE);
 		lblNewLabel_2.setBounds(396, 79, 114, 31);
 		getContentPane().add(lblNewLabel_2);
@@ -93,27 +87,12 @@ public class Batting extends JFrame {
 		getContentPane().add(batting_three);
 
 		// 버튼 배경 투명화
-		batting_one.setContentAreaFilled(false);
-		batting_two.setContentAreaFilled(false);
-		batting_three.setContentAreaFilled(false);
+		Values.setButton(batting_one, bat1);
+		Values.setButton(batting_two, bat3);
+		Values.setButton(batting_three, bat5);
 
-		// 버튼 테두리 외관선 지우기
-		batting_one.setBorderPainted(false);
-		batting_two.setBorderPainted(false);
-		batting_three.setBorderPainted(false);
-
-		// hover 효과
-		batting_one.setRolloverIcon(bat1);
-		batting_two.setRolloverIcon(bat3);
-		batting_three.setRolloverIcon(bat5);
-
-		JButton back_button = new JButton("돌아가기", new ImageIcon(changedImg));
-		back_button.setForeground(Color.WHITE); // 글씨색 흰색
-		back_button.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
-		back_button.setContentAreaFilled(false); // 버튼 배경 투명화
-		back_button.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
-		back_button.setRolloverIcon(b); // 호버효과
-//		back_button.setFont(new Font("굴림", Font.PLAIN, 15));
+		JButton back_button = new JButton("돌아가기", changedImg);
+		Values.setButton(back_button, b);
 		back_button.setBounds(235, 283, 125, 35);
 		getContentPane().add(back_button);
 
@@ -125,8 +104,7 @@ public class Batting extends JFrame {
 
 		JLabel back = new JLabel(new ImageIcon(back_path));
 		back.setBackground(Color.LIGHT_GRAY);
-		back.setLocation(0, 0);
-		back.setSize(594, 371);
+		back.setBounds(0, 0, 594, 371);
 		getContentPane().add(back);
 
 		setVisible(true);
