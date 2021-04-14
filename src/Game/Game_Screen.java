@@ -100,7 +100,7 @@ public class Game_Screen extends JFrame {
 		Image changedImg_b = originImg_b.getScaledInstance(100, 50, Image.SCALE_SMOOTH);
 		ImageIcon b = new ImageIcon(changedImg_b);
 		
-		setTitle("게임창");
+		setTitle("게임창"); 
 
 		// 기본 화면 틀
 		getContentPane().setLayout(null);
