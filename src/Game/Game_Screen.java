@@ -88,7 +88,7 @@ public class Game_Screen extends JFrame{
 		Color lineColor = new Color(252, 247, 222);
 		Color buttonColor = new Color(121, 117, 117);
 		
-		setTitle("게임 화면");
+		setTitle("게임창");
 
 		// 기본 화면 틀
 		getContentPane().setLayout(null);

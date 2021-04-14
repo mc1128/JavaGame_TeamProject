@@ -26,7 +26,7 @@ public class Batting extends JFrame {
 
 	public Batting() {
 
-		setTitle("배팅 화면");
+		setTitle("배팅창");
 
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 600, 400);

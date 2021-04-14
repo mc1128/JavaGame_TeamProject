@@ -67,7 +67,7 @@ public class Join extends JFrame {
 		ImageIcon b = new ImageIcon(changedImg_b);
 
 //		setIconImage(Toolkit.getDefaultToolkit().getImage(Join.class.getResource("/Game/image/joinback.png")));
-		setTitle("회원가입 화면");
+		setTitle("회원가입");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);

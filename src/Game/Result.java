@@ -60,7 +60,7 @@ public class Result extends JFrame {
 		Image changedImg_b = originImg_b.getScaledInstance(150, 30, Image.SCALE_SMOOTH);
 		ImageIcon b = new ImageIcon(changedImg_b);
 		
-		setTitle("게임 결과");
+		setTitle("게임 결과창");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);

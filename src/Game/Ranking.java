@@ -43,7 +43,7 @@ public class Ranking extends JFrame {
 
 	public Ranking() {
 
-		setTitle("랭킹확인");
+		setTitle("유저 랭킹");
 
 //		JPanel jp1 = new JPanel();
 //		JPanel jp2 = new JPanel();

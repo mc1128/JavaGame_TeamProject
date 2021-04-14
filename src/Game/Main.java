@@ -2,6 +2,7 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -31,6 +32,7 @@ public class Main extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		new Values();
 		new Main();
 	}
 
@@ -38,24 +40,30 @@ public class Main extends JFrame {
 	PreparedStatement pstm = null;
 	ResultSet rs = null;
 
-	String path;
+	static String path;
 
 	String user_id;
 	String user_pw;
 
 	public Main() {
 
-		setTitle("메인화면 테스트용 수정2");
-		
+		setTitle("메인화면");
+
 		try { // path 설정
 			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			System.out.println("경로설정 오류");
-		};
+		}
+		;
 
 		String title_path = path + "image/logoresize.png";
 		String back_path = path + "image/background.png";
-		
+
+		// 화면 아이콘 설정
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Image img = toolkit.getImage(title_path);
+		setIconImage(img);
+
 		// button 이미지
 		String button_path = path + "image/button.png";
 		ImageIcon originIcon = new ImageIcon(button_path); // ImageIcon객체를 생성
@@ -70,7 +78,7 @@ public class Main extends JFrame {
 		Image changedImg_b2 = originImg_b.getScaledInstance(89, 31, Image.SCALE_SMOOTH);
 		ImageIcon b1 = new ImageIcon(changedImg_b1);
 		ImageIcon b2 = new ImageIcon(changedImg_b2);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
@@ -91,9 +99,9 @@ public class Main extends JFrame {
 		contentPane.add(PW_Field);
 
 		JButton LoginButton = new JButton("로그인", new ImageIcon(changedImg1));
-		LoginButton.setForeground(Color.WHITE);	// 글씨색 흰색
-		LoginButton.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
-		LoginButton.setContentAreaFilled(false);	// 버튼 배경 투명화
+		LoginButton.setForeground(Color.WHITE); // 글씨색 흰색
+		LoginButton.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		LoginButton.setContentAreaFilled(false); // 버튼 배경 투명화
 		LoginButton.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
 		LoginButton.setRolloverIcon(b1); // 호버효과
 		LoginButton.setBounds(251, 259, 100, 45);
@@ -104,9 +112,9 @@ public class Main extends JFrame {
 		// LoginButton.setContentAreaFilled(false);
 
 		JButton JoinButton = new JButton("회원가입", new ImageIcon(changedImg2));
-		JoinButton.setForeground(Color.WHITE);	// 글씨색 흰색
-		JoinButton.setHorizontalTextPosition(JButton.CENTER);	// 글자 중앙정렬
-		JoinButton.setContentAreaFilled(false);	// 버튼 배경 투명화
+		JoinButton.setForeground(Color.WHITE); // 글씨색 흰색
+		JoinButton.setHorizontalTextPosition(JButton.CENTER); // 글자 중앙정렬
+		JoinButton.setContentAreaFilled(false); // 버튼 배경 투명화
 		JoinButton.setBorderPainted(false); // 버튼 테두리 외곽선 지우기
 		JoinButton.setRolloverIcon(b2); // 호버효과
 
@@ -117,7 +125,8 @@ public class Main extends JFrame {
 			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			System.out.println("경로설정 오류");
-		};
+		}
+		;
 
 		// 타이틀 이미지
 		JLabel GameTitle = new JLabel(new ImageIcon(title_path));

@@ -28,6 +28,8 @@ public class Loading extends JFrame {
 
 	public Loading() {
 
+		setTitle("로딩창");
+		
 		try { // path 기본 설정
 			path = URLDecoder.decode(Game_Screen.class.getResource("").getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
@@ -87,9 +89,9 @@ public class Loading extends JFrame {
 			System.out.println("경로설정 오류");
 		};
 		
-		ImageIcon tip1 = new ImageIcon(path + "image/tip1.png");
-		ImageIcon tip2 = new ImageIcon(path + "image/tip2.png");
-		ImageIcon tip3 = new ImageIcon(path + "image/tip3.png");
+		ImageIcon tip1 = new ImageIcon(Main.path + "image/tip1.png");
+		ImageIcon tip2 = new ImageIcon(Main.path + "image/tip2.png");
+		ImageIcon tip3 = new ImageIcon(Main.path + "image/tip3.png");
 
 		Timer timer_progress = new Timer();
 		TimerTask task_progress = new TimerTask() {
