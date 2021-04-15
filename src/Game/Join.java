@@ -1,9 +1,6 @@
 package Game;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -180,10 +177,6 @@ public class Join extends JFrame {
 		});
 	} // 생성자 end
 
-	public void Main() {
-		setVisible(false);
-		new Main();
-	}
 
 	private void connect() {
 		try {
@@ -235,7 +228,6 @@ public class Join extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		new Main(); // 수정
 		dispose();
 
 	}
