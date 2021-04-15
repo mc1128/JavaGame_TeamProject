@@ -17,6 +17,12 @@
 
 ---
 
+### DEMO
+
+<p align="center"><img src="https://user-images.githubusercontent.com/42242694/114837729-fd387b00-9e0e-11eb-8af3-fc59e3aa8dee.gif"></p>
+
+---
+
 ### DESIGN
 
 Reference : [Warriors Rise to Glory](https://www.warriorsrtg.com/)
@@ -36,3 +42,11 @@ Notion 작업 목록 : https://www.notion.so/8c6d4d6de7114911a2fc616e3868dfde?v=
 ---
 
 ### 마무리
+
+21/03/29 ~ 21/04/16
+
+첫 기획부터 개발, 마지막 발표까지 같이 열심히 진행해서 좋았습니다.
+
+완벽하다고는 할 수는 없지만 하고자하는 기본적인 협업툴 사용법, JAVA 복습에 많은 도움이 되는 프로젝트 였습니다.
+
+
